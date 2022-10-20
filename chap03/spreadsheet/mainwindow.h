@@ -8,6 +8,11 @@ class QLabel;
 class FindDialog;
 class Spreadsheet;
 
+class QIcon;
+class QSplitter;
+class QTextEdit;
+class QTreeWidget;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -45,6 +50,7 @@ private:
     void setCurrentFile(const QString &fileName);
     void updateRecentFileActions();
     QString strippedName(const QString &fullFileName);
+    void addFolder(const QIcon &icon, const QString &name);
 
     Spreadsheet *spreadsheet;
     FindDialog *findDialog;
@@ -85,6 +91,13 @@ private:
     QAction *autoRecalcAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
+
+    //palad 新增
+    QSplitter *mainSplitter;
+    QSplitter *rightSplitter;
+    QTreeWidget *foldersTreeWidget;
+    QTreeWidget *messagesTreeWidget;
+    QTextEdit *textEdit;
 };
 
 #endif

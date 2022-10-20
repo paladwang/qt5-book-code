@@ -9,7 +9,7 @@
 MainWindow::MainWindow()
 {
     spreadsheet = new Spreadsheet;
-    setCentralWidget(spreadsheet);
+    //setCentralWidget(spreadsheet);
 
     createActions();
     createMenus();
@@ -23,6 +23,50 @@ MainWindow::MainWindow()
 
     setWindowIcon(QIcon(":/images/icon.png"));
     setCurrentFile(""); //当前文件列表为空
+
+    //paladwang 新增
+    QIcon folderIcon(style()->standardPixmap(QStyle::SP_DirClosedIcon));
+    QIcon trashIcon(style()->standardPixmap(QStyle::SP_FileIcon));
+
+    QStringList folderLabels;
+    folderLabels << tr("当前评价数据");
+
+    foldersTreeWidget = new QTreeWidget;
+    foldersTreeWidget->setHeaderLabels(folderLabels);
+    addFolder(folderIcon, tr("原始评价数据"));
+    addFolder(folderIcon, tr("评价过程"));
+    addFolder(folderIcon, tr("评价结果"));
+    addFolder(trashIcon, tr("Trash"));
+
+    rightSplitter = new QSplitter(Qt::Vertical);
+    rightSplitter->addWidget(spreadsheet);
+    //rightSplitter->addWidget(textEdit);
+    rightSplitter->setStretchFactor(1, 1);
+
+    mainSplitter = new QSplitter(Qt::Horizontal);
+    mainSplitter->addWidget(foldersTreeWidget);
+    mainSplitter->addWidget(rightSplitter);
+    mainSplitter->setStretchFactor(1, 1);
+    setCentralWidget(mainSplitter);
+}
+
+void MainWindow::addFolder(const QIcon &icon, const QString &name)
+{
+    QTreeWidgetItem *root;
+    if (foldersTreeWidget->topLevelItemCount() == 0) {
+        root = new QTreeWidgetItem(foldersTreeWidget);
+        root->setText(0, tr("Mail"));
+        foldersTreeWidget->setItemExpanded(root, true);
+    } else {
+        root = foldersTreeWidget->topLevelItem(0);
+    }
+
+    QTreeWidgetItem *newItem = new QTreeWidgetItem(root);
+    newItem->setText(0, name);
+    newItem->setIcon(0, icon);
+
+    if (!foldersTreeWidget->currentItem())
+        foldersTreeWidget->setCurrentItem(newItem);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
