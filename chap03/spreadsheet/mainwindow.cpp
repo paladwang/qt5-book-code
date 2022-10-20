@@ -10,6 +10,13 @@ MainWindow::MainWindow()
 {
     spreadsheet = new Spreadsheet;
     //setCentralWidget(spreadsheet);
+    spreadsheet->setHidden(false); //不展示
+
+    //设置表头
+    QStringList strs = {"序号", "登录名", "姓名"};
+    spreadsheet->setHorizontalHeaderLabels(strs); //设置行表头
+    spreadsheet->setVerticalHeaderLabels(strs); //设置列表头
+    spreadsheet->setSpan(1,1,1,2);
 
     createActions();
     createMenus();
@@ -43,6 +50,12 @@ MainWindow::MainWindow()
     rightSplitter->addWidget(spreadsheet);
     //rightSplitter->addWidget(textEdit);
     rightSplitter->setStretchFactor(1, 1);
+    /*
+    QWidget中有一个函数.hide();它相当于把一个widget设为不可见setVisible(false);想要恢复它也很容易，setVisible(true)即可。
+    QWidget *w = new QWidget();
+    splitter->addWidget(w);
+    QWidget *a = splitter->widget(0);
+    a.hide();*/
 
     mainSplitter = new QSplitter(Qt::Horizontal);
     mainSplitter->addWidget(foldersTreeWidget);
