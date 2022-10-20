@@ -1,6 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include "spreadsheet.h"
 #include <QWidget>
 #include <QTableWidget>
 
@@ -15,6 +16,9 @@ protected slots:
 public:
     Widget(QWidget *parent = 0);
     ~Widget();
+
+private:
+     Spreadsheet *spreadsheet;
 };
 
 #endif // WIDGET_H

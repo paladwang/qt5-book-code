@@ -26,13 +26,14 @@ MainWindow::MainWindow()
 
     //paladwang 新增
     QIcon folderIcon(style()->standardPixmap(QStyle::SP_DirClosedIcon));
-    QIcon trashIcon(style()->standardPixmap(QStyle::SP_FileIcon));
+    QIcon trashIcon(style()->standardPixmap(QStyle::SP_FileIcon)); //设置图标风格
 
     QStringList folderLabels;
     folderLabels << tr("当前评价数据");
 
     foldersTreeWidget = new QTreeWidget;
     foldersTreeWidget->setHeaderLabels(folderLabels);
+    //foldersTreeWidget->setColumnWidth(5,200); //只是初始宽度
     addFolder(folderIcon, tr("原始评价数据"));
     addFolder(folderIcon, tr("评价过程"));
     addFolder(folderIcon, tr("评价结果"));
@@ -48,6 +49,12 @@ MainWindow::MainWindow()
     mainSplitter->addWidget(rightSplitter);
     mainSplitter->setStretchFactor(1, 1);
     setCentralWidget(mainSplitter);
+    //设置宽度(似乎不管用)
+    foldersTreeWidget->resizeColumnToContents(240);
+    //设置背景色
+    QPalette p(foldersTreeWidget->palette());
+    p.setColor(QPalette::Base, Qt::green);
+    foldersTreeWidget->setPalette(p);
 }
 
 void MainWindow::addFolder(const QIcon &icon, const QString &name)
@@ -64,6 +71,7 @@ void MainWindow::addFolder(const QIcon &icon, const QString &name)
     QTreeWidgetItem *newItem = new QTreeWidgetItem(root);
     newItem->setText(0, name);
     newItem->setIcon(0, icon);
+    newItem->setDisabled(false); //设置这个item不可用(展示上是灰的,不能点击)
 
     if (!foldersTreeWidget->currentItem())
         foldersTreeWidget->setCurrentItem(newItem);
