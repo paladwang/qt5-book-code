@@ -19,10 +19,10 @@ MainWindow::MainWindow()
 
     readSettings();
 
-    findDialog = 0;
+    findDialog = 0; //空指针
 
     setWindowIcon(QIcon(":/images/icon.png"));
-    setCurrentFile("");
+    setCurrentFile(""); //当前文件列表为空
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -50,7 +50,7 @@ void MainWindow::open()
                                    tr("Open Spreadsheet"), ".",
                                    tr("Spreadsheet files (*.sp)"));
         if (!fileName.isEmpty())
-            loadFile(fileName);
+            loadFile(fileName); //最终是由spreadsheet类打开的
     }
 }
 
@@ -59,7 +59,7 @@ bool MainWindow::save()
     if (curFile.isEmpty()) {
         return saveAs();
     } else {
-        return saveFile(curFile);
+        return saveFile(curFile); //调用spreadsheet类来写入
     }
 }
 
@@ -71,7 +71,7 @@ bool MainWindow::saveAs()
     if (fileName.isEmpty())
         return false;
 
-    return saveFile(fileName);
+    return saveFile(fileName); //调用spreadsheet类来写入
 }
 
 void MainWindow::find()
@@ -144,7 +144,10 @@ void MainWindow::openRecentFile()
     if (okToContinue()) {
         QAction *action = qobject_cast<QAction *>(sender());
         if (action)
-            loadFile(action->data().toString());
+            loadFile(action->data().toString()); //action->data().toString()取到的是文件名
+
+        //debug
+        //QMessageBox::warning(this, tr("test"),action->data().toString());
     }
 }
 
@@ -302,6 +305,7 @@ void MainWindow::createActions()
 
 void MainWindow::createMenus()
 {
+    //menu被点击后触发的是活动
     fileMenu = menuBar()->addMenu(tr("&File"));
     fileMenu->addAction(newAction);
     fileMenu->addAction(openAction);
@@ -457,7 +461,7 @@ bool MainWindow::saveFile(const QString &fileName)
 void MainWindow::setCurrentFile(const QString &fileName)
 {
     curFile = fileName;
-    setWindowModified(false);
+    setWindowModified(false); //qWidget成员函数
 
     QString shownName = tr("Untitled");
     if (!curFile.isEmpty()) {
