@@ -16,7 +16,8 @@ HEADERS += cell.h \
            mainwindow.h \
            sortdialog.h \
            spreadsheet.h \
-           widget.h
+           widget.h \
+           pjarea.h
 FORMS += gotocelldialog.ui sortdialog.ui
 SOURCES += cell.cpp \
            finddialog.cpp \
@@ -25,5 +26,6 @@ SOURCES += cell.cpp \
            mainwindow.cpp \
            sortdialog.cpp \
            spreadsheet.cpp \
-           widget.cpp
+           widget.cpp \
+           pjarea.cpp
 RESOURCES += spreadsheet.qrc

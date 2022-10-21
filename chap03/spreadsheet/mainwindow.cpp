@@ -66,7 +66,7 @@ MainWindow::MainWindow()
     foldersTreeWidget->resizeColumnToContents(240);
     //设置背景色
     QPalette p(foldersTreeWidget->palette());
-    p.setColor(QPalette::Base, Qt::green);
+    //p.setColor(QPalette::Base, Qt::green); //设置背景色为green
     foldersTreeWidget->setPalette(p);
 }
 
@@ -85,6 +85,8 @@ void MainWindow::addFolder(const QIcon &icon, const QString &name)
     newItem->setText(0, name);
     newItem->setIcon(0, icon);
     newItem->setDisabled(false); //设置这个item不可用(展示上是灰的,不能点击)
+    //connect(newItem, SIGNAL((itemClicked)), this, SLOT(newFile()));
+
 
     if (!foldersTreeWidget->currentItem())
         foldersTreeWidget->setCurrentItem(newItem);
