@@ -110,8 +110,9 @@ protected:
 //一个国家的所有指标
 class country {
 public:
-    country(string name,int onelevelnum=7) {
+    country(string name,int countryId,int onelevelnum=7) {
         m_name=name;
+        m_countryId = countryId;
         m_onelevelNum=onelevelnum;
         m_mapOneLevel.clear();
     }
@@ -122,6 +123,7 @@ private:
 public:
     //get
     string getName(){return m_name;}
+    int    getCountryId() { return m_countryId;}
     int    getOneLevelNum(){return m_onelevelNum;}
     //所以的指标值是否已经就绪
     bool   isReady() {
@@ -167,6 +169,7 @@ public:
 
 protected:
     string m_name; //国家名称
+    int    m_countryId; //国家ID
     int    m_onelevelNum; //一个国家的一级指标个数(固定值7)
     map<int,onelevel> m_mapOneLevel; //对应的一级指标
 };
@@ -174,8 +177,40 @@ protected:
 class pjarea
 {
 public:
+    pjarea(string& areaName,int countryNum) {
+        m_name = areaName;
+        m_countryNum = countryNum;
+        m_mapCountry.clear();
+    }
+private:
     pjarea();
 
+public:
+    //get
+    string getAreaName(){return m_name;}
+    int    getCountryNum(){return m_countryNum;}
+    //整个区域的原始数据是否已经准备好
+    bool   isReady() {
+        map<int,country>::iterator it;
+        for(it=m_mapCountry.begin();it!=m_mapCountry.end();++it) {
+            if (!it->second.isReady()) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+public:
+    //set
+    void setCountry(country curCountry) {
+        m_mapCountry[curCountry.getCountryId()]=curCountry;
+    }
+
+protected:
+    string m_name; //区域名称
+    int    m_countryNum; //国家个数
+    map<int,country> m_mapCountry; //对应的国家
 };
 
 #endif // PJAREA_H
