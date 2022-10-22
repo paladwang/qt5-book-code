@@ -174,6 +174,8 @@ protected:
     map<int,onelevel> m_mapOneLevel; //对应的一级指标
 };
 
+using column = country; //给国家起个别名列
+
 class pjarea
 {
 public:
@@ -210,7 +212,32 @@ public:
 protected:
     string m_name; //区域名称
     int    m_countryNum; //国家个数
-    map<int,country> m_mapCountry; //对应的国家
+    map<int,country> m_mapCountry; //对应的原始数据国家
+
+    //对应的归一化后的结果
+    map<int,country> m_mapCountryGYH;
+    //对应的最后结果
+    map<int,country> m_mapCountryResult;
+    //标准差结果
+    column* m_bzcOneResult;
+    //重要性之比前驱值
+    column* m_preOneZYX;
+    //重要性之比
+    column* m_oneZYX;
+    //指标权重
+    column* m_onePower;
+    //准则层标准差
+    column* m_bzcTwoResult;
+    //准则层重要性之比前驱
+    column* m_preTwoZYX;
+    //准则层重要性之比
+    column* m_twoZYX;
+    //准则层权重
+    column* m_twoPower;
+    //指标的全局权重
+    column* m_allPower;
+    //全局其他信息
+    column* m_other;
 };
 
 #endif // PJAREA_H
