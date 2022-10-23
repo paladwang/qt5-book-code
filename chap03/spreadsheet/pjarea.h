@@ -240,6 +240,8 @@ public:
 
     //分析
     void parse();
+    void debugGYH();
+    void debugResult();
 
 protected:
     string m_name; //区域名称
@@ -303,11 +305,8 @@ void pjarea::parse() {
 
 }*/
 
-//数据分析过程-debug版本
-void pjarea::parse() {
-    if(!this->isReady()) {
-        throw std::runtime_error("the pjarea is not ready");
-    }
+void pjarea::debugResult()
+{
     int countryID = 0; //0-尼日利亚,1-安哥拉,2-刚果布,3-加蓬,4-喀麦隆
 
     //0.归一化数据-尼日利亚
@@ -994,4 +993,14 @@ void pjarea::parse() {
         }
     }
 }
+
+//数据分析过程-debug版本
+void pjarea::parse() {
+    if(!this->isReady()) {
+        throw std::runtime_error("the pjarea is not ready");
+    }
+    debugGYH(); //归一化debug数据
+    debugResult(); //result数据
+}
+
 #endif // PJAREA_H
