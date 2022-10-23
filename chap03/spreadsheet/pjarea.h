@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <math.h>
+#include <float.h>
 #include <exception>
 
 using std::string;
@@ -203,21 +205,51 @@ public:
         return true;
     }
 
+    //取最小最大值
+    void getMinMax(vector<float> vectFloat,float& min, float& max) {
+        max = FLT_MIN;
+        min = FLT_MAX;
+        for(unsigned int i=0;i<vectFloat.size();++i) {
+            if(max<vectFloat[i]) {
+                max = vectFloat[i];
+            }
+            if(min>vectFloat[i]) {
+                min = vectFloat[i];
+            }
+        }
+    }
+
 public:
     //set
     void setCountry(country curCountry) {
         m_mapCountry[curCountry.getCountryId()]=curCountry;
     }
 
+    //计算标准差
+    float standardDeviation(vector<float> list ){
+        int n = list.size();
+        double sigma = 0, pSigma = 0;
+        for (int i = 0; i < n; ++i) {
+            float v = list.at(i);
+            sigma += v;        // sum
+            pSigma += v*v;     // 平方和
+        }
+        sigma /= list.size();          // 获得平均值
+        return sqrt((pSigma/n - sigma*sigma)) ;
+    }
+
+    //分析
+    void parse();
+
 protected:
     string m_name; //区域名称
     int    m_countryNum; //国家个数
-    map<int,country> m_mapCountry; //对应的原始数据国家
+    map<int,country*> m_mapCountry; //对应的原始数据国家,国家ID从0开始
 
     //对应的归一化后的结果
-    map<int,country> m_mapCountryGYH;
+    map<int,country*> m_mapCountryGYH;
     //对应的最后结果
-    map<int,country> m_mapCountryResult;
+    map<int,country*> m_mapCountryResult;
     //标准差结果
     column* m_bzcOneResult;
     //重要性之比前驱值
@@ -240,4 +272,194 @@ protected:
     column* m_other;
 };
 
+//数据分析过程
+/*
+void pjarea::parse() {
+    if(!this->isReady()) {
+        throw std::runtime_error("the pjarea is not ready");
+    }
+
+    //1.归一化处理
+    map<int,country>::iterator it;
+    map<int,float> mapGYH;
+    int oneLevel=tlevel::t1;
+    for(it=m_mapCountry.begin();it!=m_mapCountry.end();++it) {
+        onelevel curOneLevel = it->second.getOneLevel(oneLevel);
+        for(int twoLevel=tlevel::t1;twoLevel<=curOneLevel.getTwoLevelNum();++twoLevel) {
+
+        }
+        ++oneLevel;
+    }
+
+    float min(0);
+    float max(0);
+    for(int countryID=0;countryID<m_countryNum;++countryID) {
+
+
+    }
+
+
+    //1.标准化
+
+}*/
+
+//数据分析过程-debug版本
+void pjarea::parse() {
+    if(!this->isReady()) {
+        throw std::runtime_error("the pjarea is not ready");
+    }
+    //1. 归一化数据
+    {
+        country* pCountryGYH = new country("尼日利亚",0);
+        m_mapCountryGYH[0] = pCountryGYH;
+
+        //油气资源潜力
+        {
+            onelevel oneLevelOne("油气资源潜力",tlevel::t7,4);
+            twolevel twoLevel1("油气储量",tlevel::t1,1.00,true);
+            oneLevelOne.setTwoLevel(twoLevel1);
+            twolevel twoLevel2("油气产量",tlevel::t2,1.00,true);
+            oneLevelOne.setTwoLevel(twoLevel2);
+            twolevel twoLevel3("油气储采比",tlevel::t3,1.00,true);
+            oneLevelOne.setTwoLevel(twoLevel3);
+            twolevel twoLevel4("油气出口量",tlevel::t4,1.00,true);
+            oneLevelOne.setTwoLevel(twoLevel4);
+
+            pCountryGYH->setOneLevel(oneLevelOne);
+        }
+        // 经济环境
+        {
+            onelevel oneLevelTwo("经济环境",tlevel::t6,7);
+            twolevel twoLevel1("石油租金",tlevel::t1,0.11,true);
+            oneLevelTwo.setTwoLevel(twoLevel1);
+            twolevel twoLevel2("天然气租金",tlevel::t2,0.78,true);
+            oneLevelTwo.setTwoLevel(twoLevel2);
+            twolevel twoLevel3("经济稳定情况",tlevel::t3,0.45,false);
+            oneLevelTwo.setTwoLevel(twoLevel3);
+            twolevel twoLevel4("经济增速",tlevel::t4,0.66,true);
+            oneLevelTwo.setTwoLevel(twoLevel4);
+            twolevel twoLevel5("经济发展水平",tlevel::t5,0.10,true);
+            oneLevelTwo.setTwoLevel(twoLevel5);
+            twolevel twoLevel6("油气消费情况",tlevel::t6,0.84,true);
+            oneLevelTwo.setTwoLevel(twoLevel6);
+            twolevel twoLevel7("劳动力市场管制",tlevel::t7,0.00,true);
+            oneLevelTwo.setTwoLevel(twoLevel7);
+
+            pCountryGYH->setOneLevel(oneLevelTwo);
+        }
+        // 基础设施和自然环境
+        {
+            onelevel oneLevelThr("基础设施和自然环境",tlevel::t5,7);
+            twolevel twoLevel1("交通运输",tlevel::t1,1.00,true);
+            oneLevelThr.setTwoLevel(twoLevel1);
+            twolevel twoLevel2("信息化水平",tlevel::t2,0.74,true);
+            oneLevelThr.setTwoLevel(twoLevel2);
+            twolevel twoLevel3("医疗条件",tlevel::t3,0.48,true);
+            oneLevelThr.setTwoLevel(twoLevel3);
+            twolevel twoLevel4("教育",tlevel::t4,0.00,false);
+            oneLevelThr.setTwoLevel(twoLevel4);
+            twolevel twoLevel5("海盗",tlevel::t5,0.00,false);
+            oneLevelThr.setTwoLevel(twoLevel5);
+            twolevel twoLevel6("社会治安",tlevel::t6,0.00,false);
+            oneLevelThr.setTwoLevel(twoLevel6);
+            twolevel twoLevel7("国土面积",tlevel::t7,0.67,true);
+            oneLevelThr.setTwoLevel(twoLevel7);
+
+            pCountryGYH->setOneLevel(oneLevelThr);
+        }
+        //  运营制度
+        {
+            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+            twolevel twoLevel1("外贸信用排名",tlevel::t1,1.00,true);
+            oneLevelFour.setTwoLevel(twoLevel1);
+            twolevel twoLevel2("跨境贸易便利性",tlevel::t2,0.74,true);
+            oneLevelFour.setTwoLevel(twoLevel2);
+            twolevel twoLevel3("成立公司便利性",tlevel::t3,0.48,false);
+            oneLevelFour.setTwoLevel(twoLevel3);
+            twolevel twoLevel4("产权注册便利性",tlevel::t4,0.00,false);
+            oneLevelFour.setTwoLevel(twoLevel4);
+            twolevel twoLevel5("纳税所需时间",tlevel::t5,0.00,false);
+            oneLevelFour.setTwoLevel(twoLevel5);
+            twolevel twoLevel6("合同强制执行时间",tlevel::t6,0.00,false);
+            oneLevelFour.setTwoLevel(twoLevel6);
+
+            pCountryGYH->setOneLevel(oneLevelFour);
+        }
+        //  对外合作开放
+        {
+            onelevel oneLevelFive("对外合作开放",tlevel::t3,6);
+
+            twolevel twoLevel1("投资开放度",tlevel::t1,0.00,true);
+            oneLevelFive.setTwoLevel(twoLevel1);
+            twolevel twoLevel2("与中国外交关系",tlevel::t2,0.67,true);
+            oneLevelFive.setTwoLevel(twoLevel2);
+            twolevel twoLevel3("与中国油气合作现状",tlevel::t3,0.00,true);
+            oneLevelFive.setTwoLevel(twoLevel3);
+            twolevel twoLevel4("与中国经贸关系",tlevel::t4,0.66,true);
+            oneLevelFive.setTwoLevel(twoLevel4);
+            twolevel twoLevel5("初级产品关税",tlevel::t5,1.00,false);
+            oneLevelFive.setTwoLevel(twoLevel5);
+            twolevel twoLevel6("物流指数",tlevel::t6,0.87,true);
+            oneLevelFive.setTwoLevel(twoLevel6);
+
+            pCountryGYH->setOneLevel(oneLevelFive);
+        }
+
+        //2-油气管理体制与法律法规
+        {
+            onelevel oneLevelSix("油气管理体制与法律法规",tlevel::t2,5);
+
+            twolevel twoLevel1("油气勘探开发权管理制度",tlevel::t1,0.00,true);
+            oneLevelSix.setTwoLevel(twoLevel1);
+            twolevel twoLevel2("油气税费政策",tlevel::t2,0.00,true);
+            oneLevelSix.setTwoLevel(twoLevel2);
+            twolevel twoLevel3("油气投资促进政策",tlevel::t3,0.00,true);
+            oneLevelSix.setTwoLevel(twoLevel3);
+            twolevel twoLevel4("环境保护法律法规",tlevel::t4,0.00,true);
+            oneLevelSix.setTwoLevel(twoLevel4);
+            twolevel twoLevel5("一般税负情况",tlevel::t5,1.00,false);
+            oneLevelSix.setTwoLevel(twoLevel5);
+
+            pCountryGYH->setOneLevel(oneLevelSix);
+        }
+        //1-政治环境
+        {
+            onelevel oneLevelSix("油气管理体制与法律法规",tlevel::t2,5);
+
+            twolevel twoLevel1("油气勘探开发权管理制度",tlevel::t1,0.00,true);
+            oneLevelSix.setTwoLevel(twoLevel1);
+            twolevel twoLevel2("油气税费政策",tlevel::t2,0.00,true);
+            oneLevelSix.setTwoLevel(twoLevel2);
+            twolevel twoLevel3("油气投资促进政策",tlevel::t3,0.00,true);
+            oneLevelSix.setTwoLevel(twoLevel3);
+            twolevel twoLevel4("环境保护法律法规",tlevel::t4,0.00,true);
+            oneLevelSix.setTwoLevel(twoLevel4);
+            twolevel twoLevel5("一般税负情况",tlevel::t5,1.00,false);
+            oneLevelSix.setTwoLevel(twoLevel5);
+
+            pCountryGYH->setOneLevel(oneLevelSix);
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
 #endif // PJAREA_H
