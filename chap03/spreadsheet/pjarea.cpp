@@ -1,6 +1,16 @@
 #include "pjarea.h"
 
 
+
+//数据分析过程-debug版本
+void pjarea::debugParse() {
+    if(!this->isReady()) {
+        throw std::runtime_error("the pjarea is not ready");
+    }
+    debugGYH(); //归一化debug数据
+    debugResult(); //result数据
+}
+
 void pjarea::debugGYH()
 {
     int countryID = 0; //0-尼日利亚,1-安哥拉,2-刚果布,3-加蓬,4-喀麦隆
@@ -1370,6 +1380,696 @@ void pjarea::debugResult()
             twolevel twoLevel2("油气产量",tlevel::t2,0.00,true);
             twolevel twoLevel3("油气储采比",tlevel::t3,0.002623373,true);
             twolevel twoLevel4("油气出口量",tlevel::t4,0.00,true);
+            oneLevelSeven.setTwoLevel(twoLevel1);
+            oneLevelSeven.setTwoLevel(twoLevel2);
+            oneLevelSeven.setTwoLevel(twoLevel3);
+            oneLevelSeven.setTwoLevel(twoLevel4);
+
+            pCountryResult->setOneLevel(oneLevelSeven);
+        }
+    }
+}
+
+
+void pjarea::debugOriData()
+{
+    int countryID = 0; //0-尼日利亚,1-安哥拉,2-刚果布,3-加蓬,4-喀麦隆
+
+    //0.原始评价数据-尼日利亚
+    {
+        country* pCountry = new country("尼日利亚",countryID);
+        m_mapCountry[countryID] = pCountry;
+
+        //1-政治环境
+        {
+            onelevel oneLevelOne("政治环境",tlevel::t1,5);
+
+            twolevel twoLevel1("政局稳定性",tlevel::t1,9.3,false);
+            twolevel twoLevel2("境内安全风险",tlevel::t2,7.9,false);
+            twolevel twoLevel3("政治动荡性",tlevel::t3,6.6,false);
+            twolevel twoLevel4("境外风险",tlevel::t4,5.7,false);
+            twolevel twoLevel5("政治大选间隔",tlevel::t5,4.0,true);
+            oneLevelOne.setTwoLevel(twoLevel1);
+            oneLevelOne.setTwoLevel(twoLevel2);
+            oneLevelOne.setTwoLevel(twoLevel3);
+            oneLevelOne.setTwoLevel(twoLevel4);
+            oneLevelOne.setTwoLevel(twoLevel5);
+
+            pCountry->setOneLevel(oneLevelOne);
+        }
+        //2-油气管理体制与法律法规
+        {
+            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,5);
+
+            twolevel twoLevel1("油气勘探开发权管理制度",tlevel::t1,2.00,true);
+            twolevel twoLevel2("油气税费政策",tlevel::t2,1.00,true);
+            twolevel twoLevel3("油气投资促进政策",tlevel::t3,1.00,true);
+            twolevel twoLevel4("环境保护法律法规",tlevel::t4,1.00,true);
+            twolevel twoLevel5("一般税负情况",tlevel::t5,0.348,false);
+            oneLevelTwo.setTwoLevel(twoLevel1);
+            oneLevelTwo.setTwoLevel(twoLevel2);
+            oneLevelTwo.setTwoLevel(twoLevel3);
+            oneLevelTwo.setTwoLevel(twoLevel4);
+            oneLevelTwo.setTwoLevel(twoLevel5);
+
+            pCountry->setOneLevel(oneLevelTwo);
+        }
+        //3-对外合作开放
+        {
+            onelevel oneLevelThr("对外合作开放",tlevel::t3,6);
+
+            twolevel twoLevel1("投资开放度",tlevel::t1,0.7,true);
+            twolevel twoLevel2("与中国外交关系",tlevel::t2,3,true);
+            twolevel twoLevel3("与中国油气合作现状",tlevel::t3,2,true);
+            twolevel twoLevel4("与中国经贸关系",tlevel::t4,192.7,true);
+            twolevel twoLevel5("初级产品关税",tlevel::t5,11.8,false);
+            twolevel twoLevel6("物流指数",tlevel::t6,2.53,true);
+            oneLevelThr.setTwoLevel(twoLevel1);
+            oneLevelThr.setTwoLevel(twoLevel2);
+            oneLevelThr.setTwoLevel(twoLevel3);
+            oneLevelThr.setTwoLevel(twoLevel4);
+            oneLevelThr.setTwoLevel(twoLevel5);
+            oneLevelThr.setTwoLevel(twoLevel6);
+
+            pCountry->setOneLevel(oneLevelThr);
+        }
+        //4-运营制度
+        {
+            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+
+            twolevel twoLevel1("外贸信用排名",tlevel::t1,6,true);
+            twolevel twoLevel2("跨境贸易便利性",tlevel::t2,21.06,true);
+            twolevel twoLevel3("成立公司便利性",tlevel::t3,7.2,false);
+            twolevel twoLevel4("产权注册便利性",tlevel::t4,91.66,false);
+            twolevel twoLevel5("纳税所需时间",tlevel::t5,343,false);
+            twolevel twoLevel6("合同强制执行时间",tlevel::t6,399,false);
+            oneLevelFour.setTwoLevel(twoLevel1);
+            oneLevelFour.setTwoLevel(twoLevel2);
+            oneLevelFour.setTwoLevel(twoLevel3);
+            oneLevelFour.setTwoLevel(twoLevel4);
+            oneLevelFour.setTwoLevel(twoLevel5);
+            oneLevelFour.setTwoLevel(twoLevel6);
+
+            pCountry->setOneLevel(oneLevelFour);
+        }
+        //5-基础设施和自然环境
+        {
+            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,7);
+
+            twolevel twoLevel1("交通运输",tlevel::t1,198200,true);
+            twolevel twoLevel2("信息化水平",tlevel::t2,35.8,true);
+            twolevel twoLevel3("医疗条件",tlevel::t3,3.7,true);
+            twolevel twoLevel4("教育",tlevel::t4,29.27,false);
+            twolevel twoLevel5("海盗",tlevel::t5,76,false);
+            twolevel twoLevel6("社会治安",tlevel::t6,17843,false);
+            twolevel twoLevel7("国土面积",tlevel::t7,92.38,true);
+            oneLevelFive.setTwoLevel(twoLevel1);
+            oneLevelFive.setTwoLevel(twoLevel2);
+            oneLevelFive.setTwoLevel(twoLevel3);
+            oneLevelFive.setTwoLevel(twoLevel4);
+            oneLevelFive.setTwoLevel(twoLevel5);
+            oneLevelFive.setTwoLevel(twoLevel6);
+            oneLevelFive.setTwoLevel(twoLevel7);
+
+            pCountry->setOneLevel(oneLevelFive);
+        }
+        //6-经济环境
+        {
+            onelevel oneLevelSix("经济环境",tlevel::t6,7);
+
+            twolevel twoLevel1("石油租金",tlevel::t1,0.074,true);
+            twolevel twoLevel2("天然气租金",tlevel::t2,0.0098,true);
+            twolevel twoLevel3("经济稳定情况",tlevel::t3,0.557,false);
+            twolevel twoLevel4("经济增速",tlevel::t4,0.0296,true);
+            twolevel twoLevel5("经济发展水平",tlevel::t5,2097.09,true);
+            twolevel twoLevel6("油气消费情况",tlevel::t6,275,true);
+            twolevel twoLevel7("劳动力市场管制",tlevel::t7,10,false);
+            oneLevelSix.setTwoLevel(twoLevel1);
+            oneLevelSix.setTwoLevel(twoLevel2);
+            oneLevelSix.setTwoLevel(twoLevel3);
+            oneLevelSix.setTwoLevel(twoLevel4);
+            oneLevelSix.setTwoLevel(twoLevel5);
+            oneLevelSix.setTwoLevel(twoLevel6);
+            oneLevelSix.setTwoLevel(twoLevel7);
+
+            pCountry->setOneLevel(oneLevelSix);
+        }
+        //7-油气资源潜力
+        {
+            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,4);
+
+            twolevel twoLevel1("油气储量",tlevel::t1,72.12,true);
+            twolevel twoLevel2("油气产量",tlevel::t2,1.03,true);
+            twolevel twoLevel3("油气储采比",tlevel::t3,69.74,true);
+            twolevel twoLevel4("油气出口量",tlevel::t4,0.86,true);
+            oneLevelSeven.setTwoLevel(twoLevel1);
+            oneLevelSeven.setTwoLevel(twoLevel2);
+            oneLevelSeven.setTwoLevel(twoLevel3);
+            oneLevelSeven.setTwoLevel(twoLevel4);
+
+            pCountry->setOneLevel(oneLevelSeven);
+        }
+    }
+
+    //1.原始评价数据-安哥拉
+    {
+        countryID = 1; //安哥拉
+        country* pCountryResult = new country("安哥拉",countryID);
+        m_mapCountryResult[countryID] = pCountryResult;
+
+        //1-政治环境
+        {
+            onelevel oneLevelOne("政治环境",tlevel::t1,5);
+
+            twolevel twoLevel1("政局稳定性",tlevel::t1,8.4,false);
+            twolevel twoLevel2("境内安全风险",tlevel::t2,7.1,false);
+            twolevel twoLevel3("政治动荡性",tlevel::t3,5.9,false);
+            twolevel twoLevel4("境外风险",tlevel::t4,4.6,false);
+            twolevel twoLevel5("政治大选间隔",tlevel::t5,5,true);
+            oneLevelOne.setTwoLevel(twoLevel1);
+            oneLevelOne.setTwoLevel(twoLevel2);
+            oneLevelOne.setTwoLevel(twoLevel3);
+            oneLevelOne.setTwoLevel(twoLevel4);
+            oneLevelOne.setTwoLevel(twoLevel5);
+
+            pCountryResult->setOneLevel(oneLevelOne);
+        }
+        //2-油气管理体制与法律法规
+        {
+            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,5);
+
+            twolevel twoLevel1("油气勘探开发权管理制度",tlevel::t1,3,true);
+            twolevel twoLevel2("油气税费政策",tlevel::t2,2,true);
+            twolevel twoLevel3("油气投资促进政策",tlevel::t3,4,true);
+            twolevel twoLevel4("环境保护法律法规",tlevel::t4,3,true);
+            twolevel twoLevel5("一般税负情况",tlevel::t5,0.491,false);
+            oneLevelTwo.setTwoLevel(twoLevel1);
+            oneLevelTwo.setTwoLevel(twoLevel2);
+            oneLevelTwo.setTwoLevel(twoLevel3);
+            oneLevelTwo.setTwoLevel(twoLevel4);
+            oneLevelTwo.setTwoLevel(twoLevel5);
+
+            pCountryResult->setOneLevel(oneLevelTwo);
+        }
+        //3-对外合作开放
+        {
+            onelevel oneLevelThr("对外合作开放",tlevel::t3,6);
+
+            twolevel twoLevel1("投资开放度",tlevel::t1,9.05,true);
+            twolevel twoLevel2("与中国外交关系",tlevel::t2,3,true);
+            twolevel twoLevel3("与中国油气合作现状",tlevel::t3,3,true);
+            twolevel twoLevel4("与中国经贸关系",tlevel::t4,277.55,true);
+            twolevel twoLevel5("初级产品关税",tlevel::t5,14.18,false);
+            twolevel twoLevel6("物流指数",tlevel::t6,2.05,true);
+            oneLevelThr.setTwoLevel(twoLevel1);
+            oneLevelThr.setTwoLevel(twoLevel2);
+            oneLevelThr.setTwoLevel(twoLevel3);
+            oneLevelThr.setTwoLevel(twoLevel4);
+            oneLevelThr.setTwoLevel(twoLevel5);
+            oneLevelThr.setTwoLevel(twoLevel6);
+
+            pCountryResult->setOneLevel(oneLevelThr);
+        }
+        //4-运营制度
+        {
+            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+
+            twolevel twoLevel1("外贸信用排名",tlevel::t1,7,true);
+            twolevel twoLevel2("跨境贸易便利性",tlevel::t2,52.21,true);
+            twolevel twoLevel3("成立公司便利性",tlevel::t3,36,false);
+            twolevel twoLevel4("产权注册便利性",tlevel::t4,190,false);
+            twolevel twoLevel5("纳税所需时间",tlevel::t5,287,false);
+            twolevel twoLevel6("合同强制执行时间",tlevel::t6,1296,false);
+            oneLevelFour.setTwoLevel(twoLevel1);
+            oneLevelFour.setTwoLevel(twoLevel2);
+            oneLevelFour.setTwoLevel(twoLevel3);
+            oneLevelFour.setTwoLevel(twoLevel4);
+            oneLevelFour.setTwoLevel(twoLevel5);
+            oneLevelFour.setTwoLevel(twoLevel6);
+
+            pCountryResult->setOneLevel(oneLevelFour);
+        }
+        //5-基础设施和自然环境
+        {
+            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,7);
+
+            twolevel twoLevel1("交通运输",tlevel::t1,79800,true);
+            twolevel twoLevel2("信息化水平",tlevel::t2,19.88,true);
+            twolevel twoLevel3("医疗条件",tlevel::t3,2.9,true);
+            twolevel twoLevel4("教育",tlevel::t4,19,false);
+            twolevel twoLevel5("海盗",tlevel::t5,10,false);
+            twolevel twoLevel6("社会治安",tlevel::t6,2414,false);
+            twolevel twoLevel7("国土面积",tlevel::t7,124.67,true);
+            oneLevelFive.setTwoLevel(twoLevel1);
+            oneLevelFive.setTwoLevel(twoLevel2);
+            oneLevelFive.setTwoLevel(twoLevel3);
+            oneLevelFive.setTwoLevel(twoLevel4);
+            oneLevelFive.setTwoLevel(twoLevel5);
+            oneLevelFive.setTwoLevel(twoLevel6);
+            oneLevelFive.setTwoLevel(twoLevel7);
+
+            pCountryResult->setOneLevel(oneLevelFive);
+        }
+        //6-经济环境
+        {
+            onelevel oneLevelSix("经济环境",tlevel::t6,7);
+
+            twolevel twoLevel1("石油租金",tlevel::t1,0.251,true);
+            twolevel twoLevel2("天然气租金",tlevel::t2,0.0072,true);
+            twolevel twoLevel3("经济稳定情况",tlevel::t3,0.9725,false);
+            twolevel twoLevel4("经济增速",tlevel::t4,-0.0644,true);
+            twolevel twoLevel5("经济发展水平",tlevel::t5,1776.17,true);
+            twolevel twoLevel6("油气消费情况",tlevel::t6,82.3,true);
+            twolevel twoLevel7("劳动力市场管制",tlevel::t7,10,false);
+            oneLevelSix.setTwoLevel(twoLevel1);
+            oneLevelSix.setTwoLevel(twoLevel2);
+            oneLevelSix.setTwoLevel(twoLevel3);
+            oneLevelSix.setTwoLevel(twoLevel4);
+            oneLevelSix.setTwoLevel(twoLevel5);
+            oneLevelSix.setTwoLevel(twoLevel6);
+            oneLevelSix.setTwoLevel(twoLevel7);
+
+            pCountryResult->setOneLevel(oneLevelSix);
+        }
+        //7-油气资源潜力
+        {
+            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,4);
+
+            twolevel twoLevel1("油气储量",tlevel::t1,11.12,true);
+            twolevel twoLevel2("油气产量",tlevel::t2,0.60,true);
+            twolevel twoLevel3("油气储采比",tlevel::t3,18.68,true);
+            twolevel twoLevel4("油气出口量",tlevel::t4,0.53,true);
+            oneLevelSeven.setTwoLevel(twoLevel1);
+            oneLevelSeven.setTwoLevel(twoLevel2);
+            oneLevelSeven.setTwoLevel(twoLevel3);
+            oneLevelSeven.setTwoLevel(twoLevel4);
+
+            pCountryResult->setOneLevel(oneLevelSeven);
+        }
+    }
+
+    //2.原始评价数据-刚果布
+    {
+        countryID = 2; //刚果布
+        country* pCountryResult = new country("刚果布",countryID);
+        m_mapCountryResult[countryID] = pCountryResult;
+
+        //1-政治环境
+        {
+            onelevel oneLevelOne("政治环境",tlevel::t1,5);
+
+            twolevel twoLevel1("政局稳定性",tlevel::t1,8.0,false);
+            twolevel twoLevel2("境内安全风险",tlevel::t2,7.6,false);
+            twolevel twoLevel3("政治动荡性",tlevel::t3,6.5,false);
+            twolevel twoLevel4("境外风险",tlevel::t4,6.1,false);
+            twolevel twoLevel5("政治大选间隔",tlevel::t5,5,true);
+            oneLevelOne.setTwoLevel(twoLevel1);
+            oneLevelOne.setTwoLevel(twoLevel2);
+            oneLevelOne.setTwoLevel(twoLevel3);
+            oneLevelOne.setTwoLevel(twoLevel4);
+            oneLevelOne.setTwoLevel(twoLevel5);
+
+            pCountryResult->setOneLevel(oneLevelOne);
+        }
+        //2-油气管理体制与法律法规
+        {
+            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,5);
+
+            twolevel twoLevel1("油气勘探开发权管理制度",tlevel::t1,2,true);
+            twolevel twoLevel2("油气税费政策",tlevel::t2,2,true);
+            twolevel twoLevel3("油气投资促进政策",tlevel::t3,1,true);
+            twolevel twoLevel4("环境保护法律法规",tlevel::t4,3,true);
+            twolevel twoLevel5("一般税负情况",tlevel::t5,0.543,false);
+            oneLevelTwo.setTwoLevel(twoLevel1);
+            oneLevelTwo.setTwoLevel(twoLevel2);
+            oneLevelTwo.setTwoLevel(twoLevel3);
+            oneLevelTwo.setTwoLevel(twoLevel4);
+            oneLevelTwo.setTwoLevel(twoLevel5);
+
+            pCountryResult->setOneLevel(oneLevelTwo);
+        }
+        //3-对外合作开放
+        {
+            onelevel oneLevelThr("对外合作开放",tlevel::t3,6);
+
+            twolevel twoLevel1("投资开放度",tlevel::t1,31.11,true);
+            twolevel twoLevel2("与中国外交关系",tlevel::t2,4,true);
+            twolevel twoLevel3("与中国油气合作现状",tlevel::t3,3,true);
+            twolevel twoLevel4("与中国经贸关系",tlevel::t4,63.24,true);
+            twolevel twoLevel5("初级产品关税",tlevel::t5,17.04,false);
+            twolevel twoLevel6("物流指数",tlevel::t6,2.49,true);
+            oneLevelThr.setTwoLevel(twoLevel1);
+            oneLevelThr.setTwoLevel(twoLevel2);
+            oneLevelThr.setTwoLevel(twoLevel3);
+            oneLevelThr.setTwoLevel(twoLevel4);
+            oneLevelThr.setTwoLevel(twoLevel5);
+            oneLevelThr.setTwoLevel(twoLevel6);
+
+            pCountryResult->setOneLevel(oneLevelThr);
+        }
+        //4-运营制度
+        {
+            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+
+            twolevel twoLevel1("外贸信用排名",tlevel::t1,6,true);
+            twolevel twoLevel2("跨境贸易便利性",tlevel::t2,51.1,true);
+            twolevel twoLevel3("成立公司便利性",tlevel::t3,49.5,false);
+            twolevel twoLevel4("产权注册便利性",tlevel::t4,54,false);
+            twolevel twoLevel5("纳税所需时间",tlevel::t5,602,false);
+            twolevel twoLevel6("合同强制执行时间",tlevel::t6,560,false);
+            oneLevelFour.setTwoLevel(twoLevel1);
+            oneLevelFour.setTwoLevel(twoLevel2);
+            oneLevelFour.setTwoLevel(twoLevel3);
+            oneLevelFour.setTwoLevel(twoLevel4);
+            oneLevelFour.setTwoLevel(twoLevel5);
+            oneLevelFour.setTwoLevel(twoLevel6);
+
+            pCountryResult->setOneLevel(oneLevelFour);
+        }
+        //5-基础设施和自然环境
+        {
+            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,7);
+
+            twolevel twoLevel1("交通运输",tlevel::t1,20795,true);
+            twolevel twoLevel2("信息化水平",tlevel::t2,6.13,true);
+            twolevel twoLevel3("医疗条件",tlevel::t3,2.93,true);
+            twolevel twoLevel4("教育",tlevel::t4,20.7,false);
+            twolevel twoLevel5("海盗",tlevel::t5,7,false);
+            twolevel twoLevel6("社会治安",tlevel::t6,466,false);
+            twolevel twoLevel7("国土面积",tlevel::t7,34.2,true);
+            oneLevelFive.setTwoLevel(twoLevel1);
+            oneLevelFive.setTwoLevel(twoLevel2);
+            oneLevelFive.setTwoLevel(twoLevel3);
+            oneLevelFive.setTwoLevel(twoLevel4);
+            oneLevelFive.setTwoLevel(twoLevel5);
+            oneLevelFive.setTwoLevel(twoLevel6);
+            oneLevelFive.setTwoLevel(twoLevel7);
+
+            pCountryResult->setOneLevel(oneLevelFive);
+        }
+        //6-经济环境
+        {
+            onelevel oneLevelSix("经济环境",tlevel::t6,7);
+
+            twolevel twoLevel1("石油租金",tlevel::t1,0.4345,true);
+            twolevel twoLevel2("天然气租金",tlevel::t2,0.0124,true);
+            twolevel twoLevel3("经济稳定情况",tlevel::t3,0.0736,false);
+            twolevel twoLevel4("经济增速",tlevel::t4,-0.2165,true);
+            twolevel twoLevel5("经济发展水平",tlevel::t5,1846.13,true);
+            twolevel twoLevel6("油气消费情况",tlevel::t6,185,true);
+            twolevel twoLevel7("劳动力市场管制",tlevel::t7,1.1,false);
+            oneLevelSix.setTwoLevel(twoLevel1);
+            oneLevelSix.setTwoLevel(twoLevel2);
+            oneLevelSix.setTwoLevel(twoLevel3);
+            oneLevelSix.setTwoLevel(twoLevel4);
+            oneLevelSix.setTwoLevel(twoLevel5);
+            oneLevelSix.setTwoLevel(twoLevel6);
+            oneLevelSix.setTwoLevel(twoLevel7);
+
+            pCountryResult->setOneLevel(oneLevelSix);
+        }
+        //7-油气资源潜力
+        {
+            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,4);
+
+            twolevel twoLevel1("油气储量",tlevel::t1,4.81,true);
+            twolevel twoLevel2("油气产量",tlevel::t2,0.13,true);
+            twolevel twoLevel3("油气储采比",tlevel::t3,36.71,true);
+            twolevel twoLevel4("油气出口量",tlevel::t4,0.12,true);
+            oneLevelSeven.setTwoLevel(twoLevel1);
+            oneLevelSeven.setTwoLevel(twoLevel2);
+            oneLevelSeven.setTwoLevel(twoLevel3);
+            oneLevelSeven.setTwoLevel(twoLevel4);
+
+            pCountryResult->setOneLevel(oneLevelSeven);
+        }
+    }
+
+    //3.原始评价数据-加蓬
+    {
+        countryID = 3; //加蓬
+        country* pCountryResult = new country("加蓬",countryID);
+        m_mapCountryResult[countryID] = pCountryResult;
+
+        //1-政治环境
+        {
+            onelevel oneLevelOne("政治环境",tlevel::t1,5);
+
+            twolevel twoLevel1("政局稳定性",tlevel::t1,6.0,false);
+            twolevel twoLevel2("境内安全风险",tlevel::t2,5.8,false);
+            twolevel twoLevel3("政治动荡性",tlevel::t3,3.3,false);
+            twolevel twoLevel4("境外风险",tlevel::t4,4.5,false);
+            twolevel twoLevel5("政治大选间隔",tlevel::t5,5,true);
+            oneLevelOne.setTwoLevel(twoLevel1);
+            oneLevelOne.setTwoLevel(twoLevel2);
+            oneLevelOne.setTwoLevel(twoLevel3);
+            oneLevelOne.setTwoLevel(twoLevel4);
+            oneLevelOne.setTwoLevel(twoLevel5);
+
+            pCountryResult->setOneLevel(oneLevelOne);
+        }
+        //2-油气管理体制与法律法规
+        {
+            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,5);
+
+            twolevel twoLevel1("油气勘探开发权管理制度",tlevel::t1,2,true);
+            twolevel twoLevel2("油气税费政策",tlevel::t2,4,true);
+            twolevel twoLevel3("油气投资促进政策",tlevel::t3,4,true);
+            twolevel twoLevel4("环境保护法律法规",tlevel::t4,5,true);
+            twolevel twoLevel5("一般税负情况",tlevel::t5,0.471,false);
+            oneLevelTwo.setTwoLevel(twoLevel1);
+            oneLevelTwo.setTwoLevel(twoLevel2);
+            oneLevelTwo.setTwoLevel(twoLevel3);
+            oneLevelTwo.setTwoLevel(twoLevel4);
+            oneLevelTwo.setTwoLevel(twoLevel5);
+
+            pCountryResult->setOneLevel(oneLevelTwo);
+        }
+        //3-对外合作开放
+        {
+            onelevel oneLevelThr("对外合作开放",tlevel::t3,6);
+
+            twolevel twoLevel1("投资开放度",tlevel::t1,9.23,true);
+            twolevel twoLevel2("与中国外交关系",tlevel::t2,2,true);
+            twolevel twoLevel3("与中国油气合作现状",tlevel::t3,2,true);
+            twolevel twoLevel4("与中国经贸关系",tlevel::t4,50.2,true);
+            twolevel twoLevel5("初级产品关税",tlevel::t5,15.27,false);
+            twolevel twoLevel6("物流指数",tlevel::t6,2.16,true);
+            oneLevelThr.setTwoLevel(twoLevel1);
+            oneLevelThr.setTwoLevel(twoLevel2);
+            oneLevelThr.setTwoLevel(twoLevel3);
+            oneLevelThr.setTwoLevel(twoLevel4);
+            oneLevelThr.setTwoLevel(twoLevel5);
+            oneLevelThr.setTwoLevel(twoLevel6);
+
+            pCountryResult->setOneLevel(oneLevelThr);
+        }
+        //4-运营制度
+        {
+            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+
+            twolevel twoLevel1("外贸信用排名",tlevel::t1,6,true);
+            twolevel twoLevel2("跨境贸易便利性",tlevel::t2,51.19,true);
+            twolevel twoLevel3("成立公司便利性",tlevel::t3,10,false);
+            twolevel twoLevel4("产权注册便利性",tlevel::t4,72,false);
+            twolevel twoLevel5("纳税所需时间",tlevel::t5,632,false);
+            twolevel twoLevel6("合同强制执行时间",tlevel::t6,1160,false);
+            oneLevelFour.setTwoLevel(twoLevel1);
+            oneLevelFour.setTwoLevel(twoLevel2);
+            oneLevelFour.setTwoLevel(twoLevel3);
+            oneLevelFour.setTwoLevel(twoLevel4);
+            oneLevelFour.setTwoLevel(twoLevel5);
+            oneLevelFour.setTwoLevel(twoLevel6);
+
+            pCountryResult->setOneLevel(oneLevelFour);
+        }
+        //5-基础设施和自然环境
+        {
+            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,7);
+
+            twolevel twoLevel1("交通运输",tlevel::t1,11192,true);
+            twolevel twoLevel2("信息化水平",tlevel::t2,46.01,true);
+            twolevel twoLevel3("医疗条件",tlevel::t3,2.8,true);
+            twolevel twoLevel4("教育",tlevel::t4,7.56,false);
+            twolevel twoLevel5("海盗",tlevel::t5,7,false);
+            twolevel twoLevel6("社会治安",tlevel::t6,155,false);
+            twolevel twoLevel7("国土面积",tlevel::t7,26.8,true);
+            oneLevelFive.setTwoLevel(twoLevel1);
+            oneLevelFive.setTwoLevel(twoLevel2);
+            oneLevelFive.setTwoLevel(twoLevel3);
+            oneLevelFive.setTwoLevel(twoLevel4);
+            oneLevelFive.setTwoLevel(twoLevel5);
+            oneLevelFive.setTwoLevel(twoLevel6);
+            oneLevelFive.setTwoLevel(twoLevel7);
+
+            pCountryResult->setOneLevel(oneLevelFive);
+        }
+        //6-经济环境
+        {
+            onelevel oneLevelSix("经济环境",tlevel::t6,7);
+
+            twolevel twoLevel1("石油租金",tlevel::t1,0.122,true);
+            twolevel twoLevel2("天然气租金",tlevel::t2,0.0696,true);
+            twolevel twoLevel3("经济稳定情况",tlevel::t3,6881.72,false);
+            twolevel twoLevel4("经济增速",tlevel::t4,0.901,true);
+            twolevel twoLevel5("经济发展水平",tlevel::t5,16.5,true);
+            twolevel twoLevel6("油气消费情况",tlevel::t6,0.188,true);
+            twolevel twoLevel7("劳动力市场管制",tlevel::t7,0.0007,false);
+            oneLevelSix.setTwoLevel(twoLevel1);
+            oneLevelSix.setTwoLevel(twoLevel2);
+            oneLevelSix.setTwoLevel(twoLevel3);
+            oneLevelSix.setTwoLevel(twoLevel4);
+            oneLevelSix.setTwoLevel(twoLevel5);
+            oneLevelSix.setTwoLevel(twoLevel6);
+            oneLevelSix.setTwoLevel(twoLevel7);
+
+            pCountryResult->setOneLevel(oneLevelSix);
+        }
+        //7-油气资源潜力
+        {
+            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,4);
+
+            twolevel twoLevel1("油气储量",tlevel::t1,2.16,true);
+            twolevel twoLevel2("油气产量",tlevel::t2,0.08,true);
+            twolevel twoLevel3("油气储采比",tlevel::t3,28.71,true);
+            twolevel twoLevel4("油气出口量",tlevel::t4,0.06,true);
+            oneLevelSeven.setTwoLevel(twoLevel1);
+            oneLevelSeven.setTwoLevel(twoLevel2);
+            oneLevelSeven.setTwoLevel(twoLevel3);
+            oneLevelSeven.setTwoLevel(twoLevel4);
+
+            pCountryResult->setOneLevel(oneLevelSeven);
+        }
+    }
+
+    //4.原始评价数据-喀麦隆
+    {
+        countryID = 4; //喀麦隆
+        country* pCountryResult = new country("喀麦隆",countryID);
+        m_mapCountryResult[countryID] = pCountryResult;
+
+        //1-政治环境
+        {
+            onelevel oneLevelOne("政治环境",tlevel::t1,5);
+
+            twolevel twoLevel1("政局稳定性",tlevel::t1,8.9,false);
+            twolevel twoLevel2("境内安全风险",tlevel::t2,8.1,false);
+            twolevel twoLevel3("政治动荡性",tlevel::t3,8.3,false);
+            twolevel twoLevel4("境外风险",tlevel::t4,7.0,false);
+            twolevel twoLevel5("政治大选间隔",tlevel::t5,5,true);
+            oneLevelOne.setTwoLevel(twoLevel1);
+            oneLevelOne.setTwoLevel(twoLevel2);
+            oneLevelOne.setTwoLevel(twoLevel3);
+            oneLevelOne.setTwoLevel(twoLevel4);
+            oneLevelOne.setTwoLevel(twoLevel5);
+
+            pCountryResult->setOneLevel(oneLevelOne);
+        }
+        //2-油气管理体制与法律法规
+        {
+            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,5);
+
+            twolevel twoLevel1("油气勘探开发权管理制度",tlevel::t1,2,true);
+            twolevel twoLevel2("油气税费政策",tlevel::t2,1,true);
+            twolevel twoLevel3("油气投资促进政策",tlevel::t3,3,true);
+            twolevel twoLevel4("环境保护法律法规",tlevel::t4,1,true);
+            twolevel twoLevel5("一般税负情况",tlevel::t5,0.577,false);
+            oneLevelTwo.setTwoLevel(twoLevel1);
+            oneLevelTwo.setTwoLevel(twoLevel2);
+            oneLevelTwo.setTwoLevel(twoLevel3);
+            oneLevelTwo.setTwoLevel(twoLevel4);
+            oneLevelTwo.setTwoLevel(twoLevel5);
+
+            pCountryResult->setOneLevel(oneLevelTwo);
+        }
+        //3-对外合作开放
+        {
+            onelevel oneLevelThr("对外合作开放",tlevel::t3,6);
+
+            twolevel twoLevel1("投资开放度",tlevel::t1,2.07,true);
+            twolevel twoLevel2("与中国外交关系",tlevel::t2,1,true);
+            twolevel twoLevel3("与中国油气合作现状",tlevel::t3,2,true);
+            twolevel twoLevel4("与中国经贸关系",tlevel::t4,26.8,true);
+            twolevel twoLevel5("初级产品关税",tlevel::t5,18.38,false);
+            twolevel twoLevel6("物流指数",tlevel::t6,2.6,true);
+            oneLevelThr.setTwoLevel(twoLevel1);
+            oneLevelThr.setTwoLevel(twoLevel2);
+            oneLevelThr.setTwoLevel(twoLevel3);
+            oneLevelThr.setTwoLevel(twoLevel4);
+            oneLevelThr.setTwoLevel(twoLevel5);
+            oneLevelThr.setTwoLevel(twoLevel6);
+
+            pCountryResult->setOneLevel(oneLevelThr);
+        }
+        //4-运营制度
+        {
+            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+
+            twolevel twoLevel1("外贸信用排名",tlevel::t1,6,true);
+            twolevel twoLevel2("跨境贸易便利性",tlevel::t2,21.44,true);
+            twolevel twoLevel3("成立公司便利性",tlevel::t3,13.5,false);
+            twolevel twoLevel4("产权注册便利性",tlevel::t4,81,false);
+            twolevel twoLevel5("纳税所需时间",tlevel::t5,624,false);
+            twolevel twoLevel6("合同强制执行时间",tlevel::t6,800,false);
+            oneLevelFour.setTwoLevel(twoLevel1);
+            oneLevelFour.setTwoLevel(twoLevel2);
+            oneLevelFour.setTwoLevel(twoLevel3);
+            oneLevelFour.setTwoLevel(twoLevel4);
+            oneLevelFour.setTwoLevel(twoLevel5);
+            oneLevelFour.setTwoLevel(twoLevel6);
+
+            pCountryResult->setOneLevel(oneLevelFour);
+        }
+        //5-基础设施和自然环境
+        {
+            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,7);
+
+            twolevel twoLevel1("交通运输",tlevel::t1,79016,true);
+            twolevel twoLevel2("信息化水平",tlevel::t2,38.64,true);
+            twolevel twoLevel3("医疗条件",tlevel::t3,4.69,true);
+            twolevel twoLevel4("教育",tlevel::t4,24.1,false);
+            twolevel twoLevel5("海盗",tlevel::t5,6,false);
+            twolevel twoLevel6("社会治安",tlevel::t6,341,false);
+            twolevel twoLevel7("国土面积",tlevel::t7,47.54,true);
+            oneLevelFive.setTwoLevel(twoLevel1);
+            oneLevelFive.setTwoLevel(twoLevel2);
+            oneLevelFive.setTwoLevel(twoLevel3);
+            oneLevelFive.setTwoLevel(twoLevel4);
+            oneLevelFive.setTwoLevel(twoLevel5);
+            oneLevelFive.setTwoLevel(twoLevel6);
+            oneLevelFive.setTwoLevel(twoLevel7);
+
+            pCountryResult->setOneLevel(oneLevelFive);
+        }
+        //6-经济环境
+        {
+            onelevel oneLevelSix("经济环境",tlevel::t6,7);
+
+            twolevel twoLevel1("石油租金",tlevel::t1,0.028,true);
+            twolevel twoLevel2("天然气租金",tlevel::t2,0.0044,true);
+            twolevel twoLevel3("经济稳定情况",tlevel::t3,0.0552,false);
+            twolevel twoLevel4("经济增速",tlevel::t4,0.1561,true);
+            twolevel twoLevel5("经济发展水平",tlevel::t5,1537.13,true);
+            twolevel twoLevel6("油气消费情况",tlevel::t6,325,true);
+            twolevel twoLevel7("劳动力市场管制",tlevel::t7,7.23,false);
+            oneLevelSix.setTwoLevel(twoLevel1);
+            oneLevelSix.setTwoLevel(twoLevel2);
+            oneLevelSix.setTwoLevel(twoLevel3);
+            oneLevelSix.setTwoLevel(twoLevel4);
+            oneLevelSix.setTwoLevel(twoLevel5);
+            oneLevelSix.setTwoLevel(twoLevel6);
+            oneLevelSix.setTwoLevel(twoLevel7);
+
+            pCountryResult->setOneLevel(oneLevelSix);
+        }
+        //7-油气资源潜力
+        {
+            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,4);
+
+            twolevel twoLevel1("油气储量",tlevel::t1,1.07,true);
+            twolevel twoLevel2("油气产量",tlevel::t2,0.04,true);
+            twolevel twoLevel3("油气储采比",tlevel::t3,25.03,true);
+            twolevel twoLevel4("油气出口量",tlevel::t4,0.03,true);
             oneLevelSeven.setTwoLevel(twoLevel1);
             oneLevelSeven.setTwoLevel(twoLevel2);
             oneLevelSeven.setTwoLevel(twoLevel3);
