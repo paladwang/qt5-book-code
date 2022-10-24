@@ -35,7 +35,7 @@ public:
     int    getLevel(){return m_levelid;}
     bool   isPositive(){return m_isPositive;}
     float  getValue(){return m_value;}
-    bool   isReady() {
+    virtual bool isReady() {
         if (m_levelid>=tlevel::t1 && m_levelid<=tlevel::t7) {
             return true;
         } else {
@@ -48,6 +48,18 @@ protected:
     int    m_levelid; //指标ID
     bool   m_isPositive; //true-正向指标,false-负向指标
     float  m_value; //指标值
+};
+
+class myCell : twolevel {
+public:
+    myCell(int level,float value) {
+        m_levelid = level;
+        m_value = value;
+        m_isPositive = true; //对应cell来说没意义
+        m_name = ""; //这里不用了
+    }
+private:
+    myCell(){;} //禁止默认构造函数
 };
 
 //7个一级指标,每个一级指标4-7个二级指标
@@ -238,11 +250,15 @@ public:
         return sqrt((pSigma/n - sigma*sigma)) ;
     }
 
+public:
     //分析
     void debugParse();
+    void debugOriData();
+
+private:
     void debugGYH();
     void debugResult();
-    void debugOriData();
+    void debugOther();
 
 protected:
     string m_name; //区域名称
