@@ -27,8 +27,9 @@ public:
         m_isPositive=isPositive;
         m_value = value;
     }
+    /*
 private:
-    twolevel(){;} //禁止默认构造函数
+    twolevel(){;} //禁止默认构造函数*/
 
 public:
     string getName(){return m_name;}
@@ -50,7 +51,7 @@ protected:
     float  m_value; //指标值
 };
 
-class myCell : twolevel {
+class myCell : public twolevel {
 public:
     myCell(int level,float value) {
         m_levelid = level;
@@ -58,8 +59,6 @@ public:
         m_isPositive = true; //对应cell来说没意义
         m_name = ""; //这里不用了
     }
-private:
-    myCell(){;} //禁止默认构造函数
 };
 
 //7个一级指标,每个一级指标4-7个二级指标
