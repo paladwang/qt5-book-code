@@ -7,6 +7,7 @@ void pjarea::debugParse() {
     }
     debugGYH(); //归一化debug数据
     debugResult(); //result数据
+    debugOther(); //其他列数据
 }
 
 void pjarea::debugGYH()

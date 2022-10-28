@@ -27,9 +27,12 @@ public:
         m_isPositive=isPositive;
         m_value = value;
     }
-    /*
-private:
-    twolevel(){;} //禁止默认构造函数*/
+    twolevel() {
+        m_name="";
+        m_levelid=0;
+        m_isPositive=true;
+        m_value=-10;
+    }
 
 public:
     string getName(){return m_name;}
@@ -53,7 +56,7 @@ protected:
 
 class myCell : public twolevel {
 public:
-    myCell(int level,float value) {
+    myCell(int level,float value):twolevel("",level,value,true) {
         m_levelid = level;
         m_value = value;
         m_isPositive = true; //对应cell来说没意义
@@ -70,9 +73,11 @@ public:
         m_levelid=levelid;
         m_twolevelNum=twolevelnum;
     }
-
-private:
-    onelevel(){;} //禁止默认构造函数
+    onelevel() {
+        m_name="";
+        m_levelid=0;
+        m_twolevelNum=0;
+    }
 
 public:
     //get
@@ -129,9 +134,6 @@ public:
         m_onelevelNum=onelevelnum;
         m_mapOneLevel.clear();
     }
-
-private:
-    country(){;} //禁止默认构造函数
 
 public:
     //get
@@ -197,8 +199,6 @@ public:
         m_countryNum = countryNum;
         m_mapCountry.clear();
     }
-private:
-    pjarea();
 
 public:
     //get
@@ -206,9 +206,9 @@ public:
     int    getCountryNum(){return m_countryNum;}
     //整个区域的原始数据是否已经准备好
     bool   isReady() {
-        map<int,country>::iterator it;
+        map<int,country*>::const_iterator it;
         for(it=m_mapCountry.begin();it!=m_mapCountry.end();++it) {
-            if (!it->second.isReady()) {
+            if (!it->second->isReady()) {
                 return false;
             }
         }
@@ -232,8 +232,8 @@ public:
 
 public:
     //set
-    void setCountry(country curCountry) {
-        m_mapCountry[curCountry.getCountryId()]=curCountry;
+    void setCountry(country* curCountry) {
+        m_mapCountry[curCountry->getCountryId()]=curCountry;
     }
 
     //计算标准差
@@ -320,14 +320,4 @@ void pjarea::parse() {
     //1.标准化
 
 }*/
-
-//数据分析过程-debug版本
-void pjarea::debugParse() {
-    if(!this->isReady()) {
-        throw std::runtime_error("the pjarea is not ready");
-    }
-    debugGYH(); //归一化debug数据
-    debugResult(); //result数据
-}
-
 #endif // PJAREA_H
