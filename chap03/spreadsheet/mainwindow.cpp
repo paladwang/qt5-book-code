@@ -38,13 +38,16 @@ MainWindow::MainWindow()
     QStringList folderLabels;
     folderLabels << tr("当前评价数据");
 
-    foldersTreeWidget = new QTreeWidget;
-    foldersTreeWidget->setHeaderLabels(folderLabels);
+    this->foldersTreeWidget = new QTreeWidget;
+    this->foldersTreeWidget->setHeaderLabels(folderLabels);
     //foldersTreeWidget->setColumnWidth(5,200); //只是初始宽度
     addFolder(folderIcon, tr("原始评价数据"));
-    addFolder(folderIcon, tr("评价过程"));
-    addFolder(folderIcon, tr("评价结果"));
-    addFolder(trashIcon, tr("Trash"));
+    //addFolder(folderIcon, tr("评价过程"));
+    //addFolder(folderIcon, tr("评价结果"));
+    //addFolder(trashIcon, tr("Trash"));
+    //连接树形节点的单击信号到函数,奇怪的是点了没反应
+    connect(this->foldersTreeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(shiftFile(QTreeWidgetItem* ,int )));
+
 
     rightSplitter = new QSplitter(Qt::Vertical);
     rightSplitter->addWidget(spreadsheet);
@@ -90,6 +93,17 @@ void MainWindow::addFolder(const QIcon &icon, const QString &name)
 
     if (!foldersTreeWidget->currentItem())
         foldersTreeWidget->setCurrentItem(newItem);
+}
+
+void MainWindow::shiftFile(const QTreeWidgetItem *pCurTreeWidgetItem, const int id)
+{
+    QMessageBox::warning(this, tr("QTreeWidget double clicked"),
+                           tr("The document has been modified.\n"
+                              "Do you want to save your changes?"),
+                           QMessageBox::Yes | QMessageBox::No
+                           | QMessageBox::Cancel);
+    return;
+
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -172,6 +186,62 @@ void MainWindow::goToCell()
 
 void MainWindow::sort()
 {
+    SortDialog dialog(this);
+    QTableWidgetSelectionRange range = spreadsheet->selectedRange();
+    dialog.setColumnRange('A' + range.leftColumn(),
+                          'A' + range.rightColumn());
+
+    if (dialog.exec()) {
+        SpreadsheetCompare compare;
+        compare.keys[0] =
+              dialog.primaryColumnCombo->currentIndex();
+        compare.keys[1] =
+              dialog.secondaryColumnCombo->currentIndex() - 1;
+        compare.keys[2] =
+              dialog.tertiaryColumnCombo->currentIndex() - 1;
+        compare.ascending[0] =
+              (dialog.primaryOrderCombo->currentIndex() == 0);
+        compare.ascending[1] =
+              (dialog.secondaryOrderCombo->currentIndex() == 0);
+        compare.ascending[2] =
+              (dialog.tertiaryOrderCombo->currentIndex() == 0);
+        spreadsheet->sort(compare);
+    }
+}
+
+void MainWindow::parse()
+{
+    /*
+    QMessageBox::warning(this, tr("to parse the orignal data"),
+                           tr("The document has been modified.\n"
+                              "Do you want to save your changes?"),
+                           QMessageBox::Yes | QMessageBox::No
+                           | QMessageBox::Cancel);
+    return;*/
+
+    //paladwang 新增
+    QIcon folderIcon(style()->standardPixmap(QStyle::SP_DirClosedIcon));
+    QIcon trashIcon(style()->standardPixmap(QStyle::SP_FileIcon)); //设置图标风格
+
+    /*
+    QStringList folderLabels;
+    folderLabels << tr("当前评价数据");
+
+    foldersTreeWidget = new QTreeWidget;
+    foldersTreeWidget->setHeaderLabels(folderLabels);
+    //foldersTreeWidget->setColumnWidth(5,200); //只是初始宽度
+    addFolder(folderIcon, tr("原始评价数据"));*/
+
+    addFolder(folderIcon, tr("评价过程"));
+    addFolder(folderIcon, tr("评价结果"));
+    addFolder(trashIcon, tr("Trash"));
+    return ;
+
+
+
+
+
+
     SortDialog dialog(this);
     QTableWidgetSelectionRange range = spreadsheet->selectedRange();
     dialog.setColumnRange('A' + range.leftColumn(),
@@ -340,6 +410,12 @@ void MainWindow::createActions()
                                 "cells"));
     connect(sortAction, SIGNAL(triggered()), this, SLOT(sort()));
 
+    //////////////////////////////////////////////////////////////
+    parseAction = new QAction(tr("&Parse..."), this);
+    parseAction->setStatusTip(tr("Parse the current origal data"));
+    connect(parseAction, SIGNAL(triggered()), this, SLOT(parse()));
+    //////////////////////////////////////////////////////////////
+
     showGridAction = new QAction(tr("&Show Grid"), this);
     showGridAction->setCheckable(true);
     showGridAction->setChecked(spreadsheet->showGrid());
@@ -402,6 +478,7 @@ void MainWindow::createMenus()
     toolsMenu = menuBar()->addMenu(tr("&Tools"));
     toolsMenu->addAction(recalculateAction);
     toolsMenu->addAction(sortAction);
+    toolsMenu->addAction(parseAction);
 
     optionsMenu = menuBar()->addMenu(tr("&Options"));
     optionsMenu->addAction(showGridAction);
@@ -436,6 +513,7 @@ void MainWindow::createToolBars()
     editToolBar->addSeparator();
     editToolBar->addAction(findAction);
     editToolBar->addAction(goToCellAction);
+    editToolBar->addAction(parseAction);
 }
 
 void MainWindow::createStatusBar()

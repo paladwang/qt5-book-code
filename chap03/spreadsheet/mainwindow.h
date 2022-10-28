@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QtWidgets>
 
 class QAction;
 class QLabel;
@@ -31,10 +32,12 @@ private slots:
     void find();
     void goToCell();
     void sort();
+    void parse();
     void about();
     void openRecentFile();
     void updateStatusBar();
     void spreadsheetModified();
+    void shiftFile(QTreeWidgetItem* item, int column);
 
 private:
     void createActions();
@@ -87,6 +90,7 @@ private:
     QAction *goToCellAction;
     QAction *recalculateAction;
     QAction *sortAction;
+    QAction *parseAction;
     QAction *showGridAction;
     QAction *autoRecalcAction;
     QAction *aboutAction;
