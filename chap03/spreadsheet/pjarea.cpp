@@ -2377,6 +2377,140 @@ void pjarea::debugOther() {
         }
     }
 
+    columnID = eColumn::r;
+    //2) 重要性之比: m_oneZYX
+    m_oneZYX = new column("重要性之比",columnID);
+    {
+        //1-政治环境
+        {
+            onelevel oneLevelOne("政治环境",tlevel::t1,5);
+
+            myCell curCell1(tlevel::t1,0.0);
+            myCell curCell2(tlevel::t2,1);
+            myCell curCell3(tlevel::t3,1.0967);
+            myCell curCell4(tlevel::t4,1);
+            myCell curCell5(tlevel::t5,1);
+            oneLevelOne.setTwoLevel(curCell1);
+            oneLevelOne.setTwoLevel(curCell2);
+            oneLevelOne.setTwoLevel(curCell3);
+            oneLevelOne.setTwoLevel(curCell4);
+            oneLevelOne.setTwoLevel(curCell5);
+
+            m_oneZYX->setOneLevel(oneLevelOne);
+        }
+        //2-油气管理体制与法律法规
+        {
+            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,5);
+
+            myCell curCell1(tlevel::t1,0.0000);
+            myCell curCell2(tlevel::t2,1.0954);
+            myCell curCell3(tlevel::t3,1);
+            myCell curCell4(tlevel::t4,1.2084);
+            myCell curCell5(tlevel::t5,1.0913);
+            oneLevelTwo.setTwoLevel(curCell1);
+            oneLevelTwo.setTwoLevel(curCell2);
+            oneLevelTwo.setTwoLevel(curCell3);
+            oneLevelTwo.setTwoLevel(curCell4);
+            oneLevelTwo.setTwoLevel(curCell5);
+
+            m_oneZYX->setOneLevel(oneLevelTwo);
+        }
+        //3-对外合作开放
+        {
+            onelevel oneLevelThr("对外合作开放",tlevel::t3,6);
+
+            myCell curCell1(tlevel::t1,0.0000);
+            myCell curCell2(tlevel::t2,1.0558);
+            myCell curCell3(tlevel::t3,1);
+            myCell curCell4(tlevel::t4,1.2688);
+            myCell curCell5(tlevel::t5,1.1138);
+            myCell curCell6(tlevel::t6,1);
+            oneLevelThr.setTwoLevel(curCell1);
+            oneLevelThr.setTwoLevel(curCell2);
+            oneLevelThr.setTwoLevel(curCell3);
+            oneLevelThr.setTwoLevel(curCell4);
+            oneLevelThr.setTwoLevel(curCell5);
+            oneLevelThr.setTwoLevel(curCell6);
+
+            m_oneZYX->setOneLevel(oneLevelThr);
+        }
+        //4-运营制度
+        {
+            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+
+            myCell curCell1(tlevel::t1,0.0000);
+            myCell curCell2(tlevel::t2,1);
+            myCell curCell3(tlevel::t3,1.2118);
+            myCell curCell4(tlevel::t4,1.1183);
+            myCell curCell5(tlevel::t5,1);
+            myCell curCell6(tlevel::t6,1.1439);
+            oneLevelFour.setTwoLevel(curCell1);
+            oneLevelFour.setTwoLevel(curCell2);
+            oneLevelFour.setTwoLevel(curCell3);
+            oneLevelFour.setTwoLevel(curCell4);
+            oneLevelFour.setTwoLevel(curCell5);
+            oneLevelFour.setTwoLevel(curCell6);
+
+            m_oneZYX->setOneLevel(oneLevelFour);
+        }
+        //5-基础设施和自然环境
+        {
+            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,7);
+
+            myCell curCell1(tlevel::t1,0.0000);
+            myCell curCell2(tlevel::t2,1);
+            myCell curCell3(tlevel::t3,1);
+            myCell curCell4(tlevel::t4,1.1478);
+            myCell curCell5(tlevel::t5,1);
+            myCell curCell6(tlevel::t6,1.0122);
+            myCell curCell7(tlevel::t7,1.0111);
+            oneLevelFive.setTwoLevel(curCell1);
+            oneLevelFive.setTwoLevel(curCell2);
+            oneLevelFive.setTwoLevel(curCell3);
+            oneLevelFive.setTwoLevel(curCell4);
+            oneLevelFive.setTwoLevel(curCell5);
+            oneLevelFive.setTwoLevel(curCell6);
+            oneLevelFive.setTwoLevel(curCell7);
+
+            m_oneZYX->setOneLevel(oneLevelFive);
+        }
+        //6-经济环境
+        {
+            onelevel oneLevelSix("经济环境",tlevel::t6,7);
+
+            myCell curCell1(tlevel::t1,0.0000);
+            myCell curCell2(tlevel::t2,1.0116);
+            myCell curCell3(tlevel::t3,1);
+            myCell curCell4(tlevel::t4,1.1468);
+            myCell curCell5(tlevel::t5,1);
+            myCell curCell6(tlevel::t6,1.0200);
+            myCell curCell7(tlevel::t7,1.0218);
+            oneLevelSix.setTwoLevel(curCell1);
+            oneLevelSix.setTwoLevel(curCell2);
+            oneLevelSix.setTwoLevel(curCell3);
+            oneLevelSix.setTwoLevel(curCell4);
+            oneLevelSix.setTwoLevel(curCell5);
+            oneLevelSix.setTwoLevel(curCell6);
+            oneLevelSix.setTwoLevel(curCell7);
+
+            m_oneZYX->setOneLevel(oneLevelSix);
+        }
+        //7-油气资源潜力
+        {
+            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,4);
+
+            myCell curCell1(tlevel::t1,0.0000);
+            myCell curCell2(tlevel::t2,1);
+            myCell curCell3(tlevel::t3,1.1054);
+            myCell curCell4(tlevel::t4,1);
+            oneLevelSeven.setTwoLevel(curCell1);
+            oneLevelSeven.setTwoLevel(curCell2);
+            oneLevelSeven.setTwoLevel(curCell3);
+            oneLevelSeven.setTwoLevel(curCell4);
+
+            m_oneZYX->setOneLevel(oneLevelSeven);
+        }
+    }
 
 
 
