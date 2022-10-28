@@ -2647,6 +2647,75 @@ void pjarea::debugOther() {
         }
     }
 
+    columnID = eColumn::t;
+    //5) 准则层标准差: m_bzcTwoResult
+    m_bzcTwoResult = new column("准则层标准差",columnID);
+    {
+        //1-政治环境
+        {
+            onelevel oneLevelOne("政治环境",tlevel::t1,1);
+
+            myCell curCell1(tlevel::t1,1.8042);
+            oneLevelOne.setTwoLevel(curCell1);
+
+            m_bzcTwoResult->setOneLevel(oneLevelOne);
+        }
+        //2-油气管理体制与法律法规
+        {
+            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,1);
+
+            myCell curCell1(tlevel::t1,1.9343);
+            oneLevelTwo.setTwoLevel(curCell1);
+
+            m_bzcTwoResult->setOneLevel(oneLevelTwo);
+        }
+        //3-对外合作开放
+        {
+            onelevel oneLevelThr("对外合作开放",tlevel::t3,1);
+
+            myCell curCell1(tlevel::t1,2.3193);
+            oneLevelThr.setTwoLevel(curCell1);
+
+            m_bzcTwoResult->setOneLevel(oneLevelThr);
+        }
+        //4-运营制度
+        {
+            onelevel oneLevelFour("运营制度",tlevel::t4,1);
+
+            myCell curCell1(tlevel::t1,2.4372);
+            oneLevelFour.setTwoLevel(curCell1);
+
+            m_bzcTwoResult->setOneLevel(oneLevelFour);
+        }
+        //5-基础设施和自然环境
+        {
+            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,1);
+
+            myCell curCell1(tlevel::t1,2.5908);
+            oneLevelFive.setTwoLevel(curCell1);
+
+            m_bzcTwoResult->setOneLevel(oneLevelFive);
+        }
+        //6-经济环境
+        {
+            onelevel oneLevelSix("经济环境",tlevel::t6,1);
+
+            myCell curCell1(tlevel::t1,2.5549);
+            oneLevelSix.setTwoLevel(curCell1);
+
+            m_bzcTwoResult->setOneLevel(oneLevelSix);
+        }
+        //7-油气资源潜力
+        {
+            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,1);
+
+            myCell curCell1(tlevel::t1,1.5126);
+            oneLevelSeven.setTwoLevel(curCell1);
+
+            m_bzcTwoResult->setOneLevel(oneLevelSeven);
+        }
+    }
+
 
 
 
