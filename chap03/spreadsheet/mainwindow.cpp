@@ -95,7 +95,7 @@ void MainWindow::addFolder(const QIcon &icon, const QString &name)
         foldersTreeWidget->setCurrentItem(newItem);
 }
 
-void MainWindow::shiftFile(const QTreeWidgetItem *pCurTreeWidgetItem, const int id)
+void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
 {
     QMessageBox::warning(this, tr("QTreeWidget double clicked"),
                            tr("The document has been modified.\n"
