@@ -8,6 +8,7 @@ DEPENDPATH += .
 INCLUDEPATH += .
 
 QT += widgets
+QT += charts
 
 # Input
 HEADERS += cell.h \

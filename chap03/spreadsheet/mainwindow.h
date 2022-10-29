@@ -4,6 +4,14 @@
 #include <QMainWindow>
 #include <QtWidgets>
 
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMainWindow>
+#include <QtCharts/QChartView>
+#include <QtCharts/QBarSeries>
+#include <QtCharts/QBarSet>
+#include <QtCharts/QLegend>
+#include <QtCharts/QBarCategoryAxis>
+
 class QAction;
 class QLabel;
 class FindDialog;
@@ -13,6 +21,9 @@ class QIcon;
 class QSplitter;
 class QTextEdit;
 class QTreeWidget;
+
+//用QT的QChartView,必须用这个
+QT_CHARTS_USE_NAMESPACE
 
 class MainWindow : public QMainWindow
 {
@@ -54,6 +65,7 @@ private:
     void updateRecentFileActions();
     QString strippedName(const QString &fullFileName);
     void addFolder(const QIcon &icon, const QString &name);
+    void drawChartView();
 
     Spreadsheet *spreadsheet;
     Spreadsheet *twoSpreadsheet;
@@ -102,7 +114,8 @@ private:
     QSplitter *rightSplitter;
     QTreeWidget *foldersTreeWidget;
     QTreeWidget *messagesTreeWidget;
-    QTextEdit *textEdit;
+    QTextEdit* textEdit;
+    QChartView* chartView;
 };
 
 #endif

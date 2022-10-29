@@ -1,4 +1,11 @@
 #include <QtWidgets>
+#include <QtWidgets/QApplication>
+#include <QtWidgets/QMainWindow>
+#include <QtCharts/QChartView>
+#include <QtCharts/QBarSeries>
+#include <QtCharts/QBarSet>
+#include <QtCharts/QLegend>
+#include <QtCharts/QBarCategoryAxis>
 
 #include "finddialog.h"
 #include "gotocelldialog.h"
@@ -58,6 +65,7 @@ MainWindow::MainWindow()
     //rightSplitter->addWidget(textEdit);
     rightSplitter->setStretchFactor(1, 1);
 
+    //分析结果sheet
     rightSplitter->addWidget(twoSpreadsheet);
     /*
     QWidget中有一个函数.hide();它相当于把一个widget设为不可见setVisible(false);想要恢复它也很容易，setVisible(true)即可。
@@ -65,6 +73,11 @@ MainWindow::MainWindow()
     splitter->addWidget(w);
     QWidget *a = splitter->widget(0);
     a.hide();*/
+
+    //第三个: 图形chart
+    chartView = new QChartView;
+    chartView->hide();
+    rightSplitter->addWidget(chartView);
 
     mainSplitter = new QSplitter(Qt::Horizontal);
     mainSplitter->addWidget(foldersTreeWidget);
@@ -119,13 +132,81 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
     splitter->addWidget(w);
     QWidget *a = splitter->widget(0);
     a.hide();*/
-    QWidget* curWidget = NULL;
-    if (row==0) {
-        curWidget = rightSplitter->widget(0);
-        curWidget->hide();
-        rightSplitter->widget(1)->setVisible(true);
+
+    if(row>(rightSplitter->count()-1)) {
+        //没有对应的widget
+        return;
     }
 
+    //先把所有的widget隐藏起来
+    for(int i=0;i<rightSplitter->count();++i) {
+        rightSplitter->widget(i)->hide();
+    }
+    //drawChartView();
+    if(row==2) {
+        drawChartView();
+        //rightSplitter->widget(row)->resize(420, 300);
+        //chartView->repaint();
+    }
+    //然后根据点击的内容展示相应的widget
+    //QWidget* curWidget = NULL;
+    rightSplitter->widget(row)->setVisible(true);
+    //chartView->repaint();
+}
+
+void MainWindow::drawChartView()
+{
+    //![1]
+        QBarSet *set0 = new QBarSet("Jane");
+        QBarSet *set1 = new QBarSet("John");
+        QBarSet *set2 = new QBarSet("Axel");
+        QBarSet *set3 = new QBarSet("Mary");
+        QBarSet *set4 = new QBarSet("Samantha");
+
+        *set0 << 1 << 2 << 3 << 4 << 5 << 6;// Jane 6个月份的值
+        *set1 << 5 << 0 << 0 << 4 << 0 << 7;
+        *set2 << 3 << 5 << 8 << 19<< 8 << 5;
+        *set3 << 5 << 6 << 7 << 3 << 4 << 5;
+        *set4 << 9 << 7 << 5 << 3 << 1 << 2;
+    //![1]
+
+    //![2]
+        QBarSeries *series = new QBarSeries();
+        series->append(set0);
+        series->append(set1);
+        series->append(set2);
+        series->append(set3);
+        series->append(set4);
+
+    //![2]
+
+    //![3]
+        QChart *chart = new QChart();
+        chart->addSeries(series);
+        chart->setTitle("Simple barchart example");
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+    //![3]
+
+    //![4]
+        QStringList categories;
+        categories << "Jan" << "Feb" << "Mar" << "Apr" << "May" << "Jun";
+        QBarCategoryAxis *axis = new QBarCategoryAxis();
+        axis->append(categories);
+        chart->createDefaultAxes();//创建默认的左侧的坐标轴（根据 QBarSet 设置的值）
+        chart->setAxisX(axis, series);//设置坐标轴
+    //![4]
+
+    //![5]
+        chart->legend()->setVisible(true); //设置图例为显示状态
+        chart->legend()->setAlignment(Qt::AlignBottom);//设置图例的显示位置在底部
+    //![5]
+
+    //![6]
+        //QChartView *chartView = new QChartView(chart);
+        chartView->setChart(chart);
+        chartView->setRenderHint(QPainter::Antialiasing);
+    //![6]
+    //https://blog.csdn.net/weixin_42837024/article/details/82257021
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
