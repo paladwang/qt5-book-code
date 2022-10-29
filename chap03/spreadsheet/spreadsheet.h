@@ -2,6 +2,7 @@
 #define SPREADSHEET_H
 
 #include <QTableWidget>
+#include "pjarea.h"
 
 QT_BEGIN_NAMESPACE
 class Cell;
@@ -23,6 +24,7 @@ public:
     bool readFile(const QString &fileName);
     bool writeFile(const QString &fileName);
     void sort(const SpreadsheetCompare &compare);
+    bool readData(pjarea* curpjarea);
 
 public slots:
     void cut();

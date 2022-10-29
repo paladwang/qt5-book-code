@@ -56,6 +56,7 @@ private:
     void addFolder(const QIcon &icon, const QString &name);
 
     Spreadsheet *spreadsheet;
+    Spreadsheet *twoSpreadsheet;
     FindDialog *findDialog;
     QLabel *locationLabel;
     QLabel *formulaLabel;

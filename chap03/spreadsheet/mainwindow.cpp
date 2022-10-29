@@ -18,6 +18,10 @@ MainWindow::MainWindow()
     spreadsheet->setVerticalHeaderLabels(strs); //设置列表头
     spreadsheet->setSpan(1,1,1,2);
 
+    //设置第二个spreadsheet
+    twoSpreadsheet = new Spreadsheet;
+    twoSpreadsheet->setHidden(true); //这个先不展示
+
     createActions();
     createMenus();
     createContextMenu();
@@ -53,6 +57,8 @@ MainWindow::MainWindow()
     rightSplitter->addWidget(spreadsheet);
     //rightSplitter->addWidget(textEdit);
     rightSplitter->setStretchFactor(1, 1);
+
+    rightSplitter->addWidget(twoSpreadsheet);
     /*
     QWidget中有一个函数.hide();它相当于把一个widget设为不可见setVisible(false);想要恢复它也很容易，setVisible(true)即可。
     QWidget *w = new QWidget();
@@ -97,12 +103,28 @@ void MainWindow::addFolder(const QIcon &icon, const QString &name)
 
 void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
 {
-    QMessageBox::warning(this, tr("QTreeWidget double clicked"),
-                           tr("The document has been modified.\n"
-                              "Do you want to save your changes?"),
-                           QMessageBox::Yes | QMessageBox::No
-                           | QMessageBox::Cancel);
-    return;
+    QTreeWidgetItem *parent=item->parent();//获得父节点
+    if(NULL==parent)
+        return;
+    int row=parent->indexOfChild(item);//获得节点在父节点中的行号(从0开始)
+    /*
+    QString fileName=parent->text(0);//获得父节点的文本字符(Mail)
+    QString text = item->text(0); //(当前节点文本)
+    QMessageBox::warning(this, tr("切换数据"), tr("curItem:(%1,%2):%3").arg(row).arg(column).arg(text));
+    //经过实验得知:(0,0):第一个,(1,0)是第二个, 以此类推*/
+
+    /*
+    QWidget中有一个函数.hide();它相当于把一个widget设为不可见setVisible(false);想要恢复它也很容易，setVisible(true)即可。
+    QWidget *w = new QWidget();
+    splitter->addWidget(w);
+    QWidget *a = splitter->widget(0);
+    a.hide();*/
+    QWidget* curWidget = NULL;
+    if (row==0) {
+        curWidget = rightSplitter->widget(0);
+        curWidget->hide();
+        rightSplitter->widget(1)->setVisible(true);
+    }
 
 }
 

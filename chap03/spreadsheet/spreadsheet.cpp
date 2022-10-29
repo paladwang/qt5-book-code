@@ -2,6 +2,7 @@
 
 #include "cell.h"
 #include "spreadsheet.h"
+#include "pjarea.h"
 
 Spreadsheet::Spreadsheet(QWidget *parent)
     : QTableWidget(parent)
@@ -85,6 +86,28 @@ bool Spreadsheet::readFile(const QString &fileName)
         in >> row >> column >> str;
         setFormula(row, column, str);
     }
+    QApplication::restoreOverrideCursor();
+    return true;
+}
+
+bool Spreadsheet::readData(pjarea* curPjarea)
+{
+    if(!curPjarea->isReady()) {
+        QMessageBox::warning(this, tr("原始数据"),
+                             tr("原始数据尚未准备好."));
+        return false;
+    }
+    clear();
+
+    quint16 row;
+    quint16 column;
+    QString str;
+
+    QApplication::setOverrideCursor(Qt::WaitCursor);
+    /*while (!in.atEnd()) {
+        in >> row >> column >> str;
+        setFormula(row, column, str);
+    }*/
     QApplication::restoreOverrideCursor();
     return true;
 }
