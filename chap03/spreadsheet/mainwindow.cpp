@@ -15,20 +15,7 @@
 
 MainWindow::MainWindow()
 {
-    spreadsheet = new Spreadsheet;
-    //setCentralWidget(spreadsheet);
-    spreadsheet->setHidden(false); //不展示
-
-    //设置表头
-    QStringList strs = {"序号", "登录名", "姓名"};
-    spreadsheet->setHorizontalHeaderLabels(strs); //设置行表头
-    spreadsheet->setVerticalHeaderLabels(strs); //设置列表头
-    spreadsheet->setSpan(1,1,1,2);
-
-    //设置第二个spreadsheet
-    twoSpreadsheet = new Spreadsheet;
-    twoSpreadsheet->setHidden(true); //这个先不展示
-
+    createInfo();
     createActions();
     createMenus();
     createContextMenu();
@@ -41,13 +28,30 @@ MainWindow::MainWindow()
 
     setWindowIcon(QIcon(":/images/icon.png"));
     setCurrentFile(""); //当前文件列表为空
+}
+
+void MainWindow::createInfo()
+{
+    spreadsheet = new Spreadsheet;
+    //setCentralWidget(spreadsheet);
+    spreadsheet->setHidden(false); //不展示
+
+    //设置原始数据表表头
+    QStringList strs = {"序号", "登录名", "姓名"};
+    spreadsheet->setHorizontalHeaderLabels(strs); //设置行表头
+    spreadsheet->setVerticalHeaderLabels(strs); //设置列表头
+    spreadsheet->setSpan(1,1,1,2);
+
+    //设置第二个spreadsheet
+    twoSpreadsheet = new Spreadsheet;
+    twoSpreadsheet->setHidden(true); //这个先不展示
 
     //paladwang 新增
     QIcon folderIcon(style()->standardPixmap(QStyle::SP_DirClosedIcon));
     QIcon trashIcon(style()->standardPixmap(QStyle::SP_FileIcon)); //设置图标风格
 
     QStringList folderLabels;
-    folderLabels << tr("当前评价数据");
+    folderLabels << tr("当前评价");
 
     this->foldersTreeWidget = new QTreeWidget;
     this->foldersTreeWidget->setHeaderLabels(folderLabels);
@@ -85,7 +89,9 @@ MainWindow::MainWindow()
     mainSplitter->setStretchFactor(1, 1);
     setCentralWidget(mainSplitter);
     //设置宽度(似乎不管用)
-    foldersTreeWidget->resizeColumnToContents(240);
+    foldersTreeWidget->setMinimumWidth(300);
+    foldersTreeWidget->setMaximumWidth(500);
+    //foldersTreeWidget->resizeColumnToContents(240);
     //设置背景色
     QPalette p(foldersTreeWidget->palette());
     //p.setColor(QPalette::Base, Qt::green); //设置背景色为green
@@ -209,6 +215,64 @@ void MainWindow::drawChartView()
     //https://blog.csdn.net/weixin_42837024/article/details/82257021
 }
 
+
+
+void MainWindow::parse()
+{
+    /*
+    QMessageBox::warning(this, tr("to parse the orignal data"),
+                           tr("The document has been modified.\n"
+                              "Do you want to save your changes?"),
+                           QMessageBox::Yes | QMessageBox::No
+                           | QMessageBox::Cancel);
+    return;*/
+
+    //paladwang 新增
+    QIcon folderIcon(style()->standardPixmap(QStyle::SP_DirClosedIcon));
+    QIcon trashIcon(style()->standardPixmap(QStyle::SP_FileIcon)); //设置图标风格
+
+    /*
+    QStringList folderLabels;
+    folderLabels << tr("当前评价数据");
+
+    foldersTreeWidget = new QTreeWidget;
+    foldersTreeWidget->setHeaderLabels(folderLabels);
+    //foldersTreeWidget->setColumnWidth(5,200); //只是初始宽度
+    addFolder(folderIcon, tr("原始评价数据"));*/
+
+    addFolder(folderIcon, tr("评价过程"));
+    addFolder(folderIcon, tr("评价结果"));
+    addFolder(trashIcon, tr("Trash"));
+    return ;
+
+
+
+
+
+
+    SortDialog dialog(this);
+    QTableWidgetSelectionRange range = spreadsheet->selectedRange();
+    dialog.setColumnRange('A' + range.leftColumn(),
+                          'A' + range.rightColumn());
+
+    if (dialog.exec()) {
+        SpreadsheetCompare compare;
+        compare.keys[0] =
+              dialog.primaryColumnCombo->currentIndex();
+        compare.keys[1] =
+              dialog.secondaryColumnCombo->currentIndex() - 1;
+        compare.keys[2] =
+              dialog.tertiaryColumnCombo->currentIndex() - 1;
+        compare.ascending[0] =
+              (dialog.primaryOrderCombo->currentIndex() == 0);
+        compare.ascending[1] =
+              (dialog.secondaryOrderCombo->currentIndex() == 0);
+        compare.ascending[2] =
+              (dialog.tertiaryOrderCombo->currentIndex() == 0);
+        spreadsheet->sort(compare);
+    }
+}
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if (okToContinue()) {
@@ -311,63 +375,6 @@ void MainWindow::sort()
         spreadsheet->sort(compare);
     }
 }
-
-void MainWindow::parse()
-{
-    /*
-    QMessageBox::warning(this, tr("to parse the orignal data"),
-                           tr("The document has been modified.\n"
-                              "Do you want to save your changes?"),
-                           QMessageBox::Yes | QMessageBox::No
-                           | QMessageBox::Cancel);
-    return;*/
-
-    //paladwang 新增
-    QIcon folderIcon(style()->standardPixmap(QStyle::SP_DirClosedIcon));
-    QIcon trashIcon(style()->standardPixmap(QStyle::SP_FileIcon)); //设置图标风格
-
-    /*
-    QStringList folderLabels;
-    folderLabels << tr("当前评价数据");
-
-    foldersTreeWidget = new QTreeWidget;
-    foldersTreeWidget->setHeaderLabels(folderLabels);
-    //foldersTreeWidget->setColumnWidth(5,200); //只是初始宽度
-    addFolder(folderIcon, tr("原始评价数据"));*/
-
-    addFolder(folderIcon, tr("评价过程"));
-    addFolder(folderIcon, tr("评价结果"));
-    addFolder(trashIcon, tr("Trash"));
-    return ;
-
-
-
-
-
-
-    SortDialog dialog(this);
-    QTableWidgetSelectionRange range = spreadsheet->selectedRange();
-    dialog.setColumnRange('A' + range.leftColumn(),
-                          'A' + range.rightColumn());
-
-    if (dialog.exec()) {
-        SpreadsheetCompare compare;
-        compare.keys[0] =
-              dialog.primaryColumnCombo->currentIndex();
-        compare.keys[1] =
-              dialog.secondaryColumnCombo->currentIndex() - 1;
-        compare.keys[2] =
-              dialog.tertiaryColumnCombo->currentIndex() - 1;
-        compare.ascending[0] =
-              (dialog.primaryOrderCombo->currentIndex() == 0);
-        compare.ascending[1] =
-              (dialog.secondaryOrderCombo->currentIndex() == 0);
-        compare.ascending[2] =
-              (dialog.tertiaryOrderCombo->currentIndex() == 0);
-        spreadsheet->sort(compare);
-    }
-}
-
 void MainWindow::about()
 {
     QMessageBox::about(this, tr("About Spreadsheet"),

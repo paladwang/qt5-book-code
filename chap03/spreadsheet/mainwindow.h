@@ -56,6 +56,7 @@ private:
     void createContextMenu();
     void createToolBars();
     void createStatusBar();
+    void createInfo();
     void readSettings();
     void writeSettings();
     bool okToContinue();
