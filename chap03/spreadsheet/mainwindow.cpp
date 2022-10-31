@@ -14,6 +14,14 @@
 #include "spreadsheet.h"
 #include "pjarea.h"
 
+QString qssTV = "QTableWidget::item:hover{background-color:rgb(92,188,227,200)}"
+                "QTableWidget::item:selected{background-color:#1B89A1}"
+                "QHeaderView::section,QTableCornerButton:section{ \
+padding:3px; margin:0px; color:#DCDCDC;  border:1px solid #242424; \
+border-left-width:0px; border-right-width:1px; border-top-width:0px; border-bottom-width:1px; \
+background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #646464,stop:1 #525252); }"
+"QTableWidget{background-color:white;border:none;}";
+
 MainWindow::MainWindow()
 {
     createInfo();
@@ -311,8 +319,17 @@ void MainWindow::initSpSheetByDefaultData()
             //QString cHeaderTwo = oneLevel.getName().c_str();
             //spreadsheet->setFormula(rowData, columnData, cHeaderTwo);
 
-            //自设列头
+            //自设行列头
             spreadsheet->setFormula(0,columnData,curCy.getName().c_str());
+            spreadsheet->item(0,columnData)->setTextAlignment(Qt::AlignRight); //Qt::AlignHCenter); //居中展示
+            {
+                QTableWidgetItem* item = spreadsheet->item(0,columnData);
+                //item->setBackgroundColor(QColor(0,60,10));
+                    item->setTextColor(QColor(200,111,100));
+                    //item->setFont(QFont("Helvetica"));
+
+                    item->setFont(QFont("hei", 14));
+            }
             spreadsheet->setFormula(rowData,0,itOne->second->getName().c_str());
             spreadsheet->setSpan(rowData,0,oneLevel.getTwoLevelNum(),1);
 
@@ -327,6 +344,19 @@ void MainWindow::initSpSheetByDefaultData()
                 }
                 QString tmpQStr = QString::number(twoLevel.getValue());
                 spreadsheet->setFormula(rowData, columnData, tmpQStr);
+                //隔行换色
+                {
+
+                    QTableWidgetItem* item = spreadsheet->item(rowData, columnData);
+                    //QColor color; //= QColor(128,128,128,123); //(79,129,189); // 浅蓝 //(252,222,156); 橙黄色
+                    if(rowData%2==0){
+                        QColor color = QColor(0,0,0,40);
+                        item->setBackgroundColor(color);
+                    } else {
+                        QColor color = QColor(128,128,128);
+                        item->setBackgroundColor(color);
+                    }
+                }
                 //qDebug()<<rowData<<columnData<<tmpQStr<<endl;
                 rowData++;
             }
@@ -335,6 +365,8 @@ void MainWindow::initSpSheetByDefaultData()
         columnData++;
     }
     spreadsheet->setSpan(0,0,1,2); //把行头和列头之间的空白合并
+    //spreadsheet->setStyleSheet(qssTV);
+    //spreadsheet->setFont(QFont("song", 12));
 
     //spreadsheet->setHorizontalHeaderLabels(rHeader); //设置行表头
     //spreadsheet->setVerticalHeaderLabels(cHeader); //设置列表头
