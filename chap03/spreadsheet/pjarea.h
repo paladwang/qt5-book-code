@@ -12,14 +12,13 @@
 #include "country.h"
 
 using column = country; //给国家起个别名列
+using MyCell = twolevel;
 
 class pjarea
 {
 public:
-    pjarea(string& areaName) {
-        m_name = areaName;
-        m_mapCountry.clear();
-    }
+    pjarea(string& areaName):m_name(areaName) {;}
+    pjarea():m_name("unkown area") {;}
 
 public:
     //get
@@ -33,17 +32,27 @@ public:
                 return false;
             }
         }
-
         return true;
     }
+    bool isParseOk() {
+        return true; //这里要校验所有的分析结果是否ok
+    }
+
+    //注意:这个函数会返回空指针
     country* getCountry(int countryID)
     {
+        /*
         if(countryID<eCountryID::c0 && countryID>=m_mapCountry.size()) {
             throw std::runtime_error("failed to get countryID");
+        }*/
+        if(m_mapCountry.count(countryID)>0) {
+            return m_mapCountry[countryID];
+        } else {
+            return NULL;
         }
-
-        return m_mapCountry[countryID];
     }
+
+
 
 private:
     //取最小最大值
@@ -77,7 +86,14 @@ private:
 public:
     //set
     void setCountry(country* curCountry) {
-        m_mapCountry[curCountry->getCountryId()]=curCountry;
+
+        if(!curCountry->isReady()) {
+            throw std::runtime_error("the country or column is not ready");
+        }
+        if( m_mapCountry.count(curCountry->getCountryID())>=0) {
+            delete m_mapCountry[curCountry->getCountryID()]; //delete旧的country
+        }
+        m_mapCountry[curCountry->getCountryID()] = curCountry;
     }
 
 public:

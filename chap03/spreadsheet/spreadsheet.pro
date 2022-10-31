@@ -13,13 +13,17 @@ QT += charts
 # Input
 HEADERS += cell.h \
            common.h \
+           common.h \
+           country.h \
            country.h \
            finddialog.h \
            gotocelldialog.h \
            mainwindow.h \
            onelevel.h \
+           onelevel.h \
            sortdialog.h \
            spreadsheet.h \
+           twolevel.h \
            twolevel.h \
            widget.h \
            pjarea.h
