@@ -295,10 +295,11 @@ void MainWindow::initSpSheetByDefaultData()
     //设置原始数据表表头
     QStringList rHeader;
     QStringList cHeader;
-    int column = 0;
+    int column = 1;
     //return;
     bool bIsFirstRow = true;
 
+    rHeader<<""; //列头有2行
     map<int,country*>::const_iterator it;
     for(it=pjArea->begin(eDataType::ORI);it!=pjArea->end(eDataType::ORI);++it) {
         country& curCy = *(it->second);
@@ -314,6 +315,7 @@ void MainWindow::initSpSheetByDefaultData()
 
                 if (bIsFirstRow) {
                     cHeader<<twoLevel.getName().c_str();
+                    //spreadsheet->setFormula(row,1)
                 }
                 QString tmpQStr = QString::number(twoLevel.getValue());
                 spreadsheet->setFormula(row, column, tmpQStr);
