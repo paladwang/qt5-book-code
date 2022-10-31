@@ -12,6 +12,7 @@
 #include "mainwindow.h"
 #include "sortdialog.h"
 #include "spreadsheet.h"
+#include "pjarea.h"
 
 MainWindow::MainWindow()
 {
@@ -96,6 +97,20 @@ void MainWindow::createInfo()
     QPalette p(foldersTreeWidget->palette());
     //p.setColor(QPalette::Base, Qt::green); //设置背景色为green
     foldersTreeWidget->setPalette(p);
+
+    //默认数据
+    string pjName = "西亚地区区块评价";
+    pjArea = new pjarea(pjName,5);
+}
+
+bool MainWindow::setIsLoadDefaultData(bool isLoadDefaultData)
+{
+    m_bIsLoadDefaultData = isLoadDefaultData;
+    if(isLoadDefaultData) {
+        initSpSheetByDefaultData();
+    } else {
+        newFile();
+    }
 }
 
 void MainWindow::addFolder(const QIcon &icon, const QString &name)
@@ -215,8 +230,6 @@ void MainWindow::drawChartView()
     //https://blog.csdn.net/weixin_42837024/article/details/82257021
 }
 
-
-
 void MainWindow::parse()
 {
     /*
@@ -271,6 +284,38 @@ void MainWindow::parse()
               (dialog.tertiaryOrderCombo->currentIndex() == 0);
         spreadsheet->sort(compare);
     }
+}
+
+void MainWindow::initSpSheetByDefaultData()
+{
+    newFile();
+    pjArea->debugOriData(); //set orig data
+
+    //设置原始数据表表头
+    QStringList rHeader;
+    QStringList cHeader;
+    int row=1;
+    int column = 0;
+
+    for (int countryID=0;countryID<pjArea->getCountryNum();++countryID) {
+        country* curCountry = pjArea->getCountry(countryID);
+        column++;
+        rHeader<<"test"; //curCountry->getName().c_str();
+        //for(int oneLevelID = tlevel::t1; oneLevelID<=(curCountry->getOneLevelNum()+tlevel::t1-1);++oneLevelID) {
+        for(int oneLevelID = tlevel::t1; oneLevelID<=7;++oneLevelID) {
+            onelevel oneLevel = curCountry->getOneLevel(oneLevelID);
+            for(int twoLevelID =tlevel::t1; twoLevelID<=(oneLevel.getTwoLevelNum()-1+tlevel::t1);++twoLevelID) {
+                twolevel twoLevel = oneLevel.getTwoLevel(twoLevelID);
+                //cHeader<<twoLevel.getName().c_str();
+                //QString tmpQStr = QString::number(twoLevel.getValue());
+                //spreadsheet->setFormula(row, column, tmpQStr);
+                row++;
+            }
+        }
+    }
+    spreadsheet->setHorizontalHeaderLabels(rHeader); //设置行表头
+    spreadsheet->setVerticalHeaderLabels(cHeader); //设置列表头
+    //spreadsheet->setSpan(1,1,1,2);
 }
 
 void MainWindow::closeEvent(QCloseEvent *event)
@@ -539,6 +584,13 @@ void MainWindow::createActions()
             spreadsheet->viewport(), SLOT(update()));
 #endif
 
+    setDefaultDataAction = new QAction(tr("&Load default data"), this);
+    setDefaultDataAction->setCheckable(true);
+    setDefaultDataAction->setChecked(m_bIsLoadDefaultData);
+    setDefaultDataAction->setStatusTip(tr("Load or not the default data"));
+    connect(setDefaultDataAction, SIGNAL(toggled(bool)),
+            this, SLOT(setIsLoadDefaultData(bool)));
+
     autoRecalcAction = new QAction(tr("&Auto-Recalculate"), this);
     autoRecalcAction->setCheckable(true);
     autoRecalcAction->setChecked(spreadsheet->autoRecalculate());
@@ -593,6 +645,8 @@ void MainWindow::createMenus()
     optionsMenu = menuBar()->addMenu(tr("&Options"));
     optionsMenu->addAction(showGridAction);
     optionsMenu->addAction(autoRecalcAction);
+    optionsMenu->addSeparator();
+    optionsMenu->addAction(setDefaultDataAction);
 
     menuBar()->addSeparator();
 
@@ -660,6 +714,9 @@ void MainWindow::readSettings()
 
     bool autoRecalc = settings.value("autoRecalc", true).toBool();
     autoRecalcAction->setChecked(autoRecalc);
+
+    bool showDefaultData = settings.value("loadDefaultData",true).toBool();
+    setDefaultDataAction->setChecked(showDefaultData);
 }
 
 void MainWindow::writeSettings()
@@ -670,6 +727,7 @@ void MainWindow::writeSettings()
     settings.setValue("recentFiles", recentFiles);
     settings.setValue("showGrid", showGridAction->isChecked());
     settings.setValue("autoRecalc", autoRecalcAction->isChecked());
+    settings.setValue("loadDefaultData",setDefaultDataAction->isChecked());
 }
 
 bool MainWindow::okToContinue()

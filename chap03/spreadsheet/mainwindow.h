@@ -11,6 +11,7 @@
 #include <QtCharts/QBarSet>
 #include <QtCharts/QLegend>
 #include <QtCharts/QBarCategoryAxis>
+#include "pjarea.h"
 
 class QAction;
 class QLabel;
@@ -49,6 +50,7 @@ private slots:
     void updateStatusBar();
     void spreadsheetModified();
     void shiftFile(QTreeWidgetItem* item, int column);
+    bool setIsLoadDefaultData(bool isLoadDefaultData);
 
 private:
     void createActions();
@@ -67,6 +69,7 @@ private:
     QString strippedName(const QString &fullFileName);
     void addFolder(const QIcon &icon, const QString &name);
     void drawChartView();
+    void initSpSheetByDefaultData();
 
     Spreadsheet *spreadsheet;
     Spreadsheet *twoSpreadsheet;
@@ -109,6 +112,7 @@ private:
     QAction *autoRecalcAction;
     QAction *aboutAction;
     QAction *aboutQtAction;
+    QAction *setDefaultDataAction;
 
     //palad 新增
     QSplitter *mainSplitter;
@@ -117,6 +121,8 @@ private:
     QTreeWidget *messagesTreeWidget;
     QTextEdit* textEdit;
     QChartView* chartView;
+    pjarea*  pjArea;
+    bool m_bIsLoadDefaultData;
 };
 
 #endif

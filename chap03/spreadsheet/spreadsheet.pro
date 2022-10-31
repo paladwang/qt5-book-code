@@ -12,11 +12,15 @@ QT += charts
 
 # Input
 HEADERS += cell.h \
+           common.h \
+           country.h \
            finddialog.h \
            gotocelldialog.h \
            mainwindow.h \
+           onelevel.h \
            sortdialog.h \
            spreadsheet.h \
+           twolevel.h \
            widget.h \
            pjarea.h
 FORMS += gotocelldialog.ui sortdialog.ui
