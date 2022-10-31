@@ -90,7 +90,7 @@ public:
         if(!curCountry->isReady()) {
             throw std::runtime_error("the country or column is not ready");
         }
-        if( m_mapCountry.count(curCountry->getCountryID())>=0) {
+        if( m_mapCountry.count(curCountry->getCountryID())>0) {
             delete m_mapCountry[curCountry->getCountryID()]; //delete旧的country
         }
         m_mapCountry[curCountry->getCountryID()] = curCountry;

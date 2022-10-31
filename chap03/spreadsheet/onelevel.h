@@ -10,6 +10,7 @@ private:
     map<int,twolevel*> m_mapTwoLevel;
 public:
     onelevel(string& name,unsigned levelID):m_name(name),m_levelid(levelID){;}
+    onelevel(char* name,unsigned levelID):m_name(name),m_levelid(levelID){;}
     onelevel():m_name("default onelevel"),m_levelid(tlevel::unkown) {;}
     onelevel(onelevel& c) {
         m_name = c.m_name;

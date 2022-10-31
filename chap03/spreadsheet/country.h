@@ -11,6 +11,7 @@ private:
     map<int,onelevel*> m_mapOneLevel;
 public:
     country(string& name,unsigned countryID):m_name(name),m_countryid(countryID){;}
+    country(char* name,unsigned countryID):m_name(name),m_countryid(countryID){;}
     country():m_name("default country"),m_countryid(eCountryID::nocountry) {;}
     country(country& c) {
         m_name = c.m_name;
