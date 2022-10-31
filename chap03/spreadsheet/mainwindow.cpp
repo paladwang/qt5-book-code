@@ -302,13 +302,13 @@ void MainWindow::initSpSheetByDefaultData()
     map<int,country*>::const_iterator it;
     for(it=pjArea->begin(eDataType::ORI);it!=pjArea->end(eDataType::ORI);++it) {
         country& curCy = *(it->second);
-        column++;
         rHeader<<curCy.getName().c_str();
         map<int,onelevel*>::const_iterator itOne;
+
+        int row=0;
         for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
             onelevel& oneLevel = *(itOne->second);
             map<int,twolevel*>::const_iterator itTwo;
-            int row=1;
             for(itTwo=oneLevel.begin();itTwo!=oneLevel.end();++itTwo) {
                 twolevel& twoLevel = *(itTwo->second);
 
@@ -320,8 +320,9 @@ void MainWindow::initSpSheetByDefaultData()
                 //qDebug()<<row<<column<<tmpQStr<<endl;
                 row++;
             }
-            bIsFirstRow = false;
         }
+        bIsFirstRow = false;
+        column++;
     }
 
     spreadsheet->setHorizontalHeaderLabels(rHeader); //设置行表头
