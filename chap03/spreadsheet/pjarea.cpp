@@ -1533,8 +1533,8 @@ void pjarea::debugOriData()
     //1.原始评价数据-安哥拉
     {
         countryID = 1; //安哥拉
-        country* pCountryResult = new country("安哥拉",countryID);
-        m_mapCountryResult[countryID] = pCountryResult;
+        country* pCountry = new country("安哥拉",countryID);
+        m_mapCountry[countryID] = pCountry;
 
         //1-政治环境
         {
@@ -1551,7 +1551,7 @@ void pjarea::debugOriData()
             oneLevelOne->setTwoLevel(twoLevel4);
             oneLevelOne->setTwoLevel(twoLevel5);
 
-            pCountryResult->setOneLevel(oneLevelOne);
+            pCountry->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
@@ -1568,7 +1568,7 @@ void pjarea::debugOriData()
             oneLevelTwo->setTwoLevel(twoLevel4);
             oneLevelTwo->setTwoLevel(twoLevel5);
 
-            pCountryResult->setOneLevel(oneLevelTwo);
+            pCountry->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
@@ -1587,7 +1587,7 @@ void pjarea::debugOriData()
             oneLevelThr->setTwoLevel(twoLevel5);
             oneLevelThr->setTwoLevel(twoLevel6);
 
-            pCountryResult->setOneLevel(oneLevelThr);
+            pCountry->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
@@ -1606,7 +1606,7 @@ void pjarea::debugOriData()
             oneLevelFour->setTwoLevel(twoLevel5);
             oneLevelFour->setTwoLevel(twoLevel6);
 
-            pCountryResult->setOneLevel(oneLevelFour);
+            pCountry->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
@@ -1627,7 +1627,7 @@ void pjarea::debugOriData()
             oneLevelFive->setTwoLevel(twoLevel6);
             oneLevelFive->setTwoLevel(twoLevel7);
 
-            pCountryResult->setOneLevel(oneLevelFive);
+            pCountry->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
@@ -1648,7 +1648,7 @@ void pjarea::debugOriData()
             oneLevelSix->setTwoLevel(twoLevel6);
             oneLevelSix->setTwoLevel(twoLevel7);
 
-            pCountryResult->setOneLevel(oneLevelSix);
+            pCountry->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
@@ -1663,15 +1663,15 @@ void pjarea::debugOriData()
             oneLevelSeven->setTwoLevel(twoLevel3);
             oneLevelSeven->setTwoLevel(twoLevel4);
 
-            pCountryResult->setOneLevel(oneLevelSeven);
+            pCountry->setOneLevel(oneLevelSeven);
         }
     }
 
     //2.原始评价数据-刚果布
     {
         countryID = 2; //刚果布
-        country* pCountryResult = new country("刚果布",countryID);
-        m_mapCountryResult[countryID] = pCountryResult;
+        country* pCountry = new country("刚果布",countryID);
+        m_mapCountry[countryID] = pCountry;
 
         //1-政治环境
         {
@@ -1688,7 +1688,7 @@ void pjarea::debugOriData()
             oneLevelOne->setTwoLevel(twoLevel4);
             oneLevelOne->setTwoLevel(twoLevel5);
 
-            pCountryResult->setOneLevel(oneLevelOne);
+            pCountry->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
@@ -1705,7 +1705,7 @@ void pjarea::debugOriData()
             oneLevelTwo->setTwoLevel(twoLevel4);
             oneLevelTwo->setTwoLevel(twoLevel5);
 
-            pCountryResult->setOneLevel(oneLevelTwo);
+            pCountry->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
@@ -1724,7 +1724,7 @@ void pjarea::debugOriData()
             oneLevelThr->setTwoLevel(twoLevel5);
             oneLevelThr->setTwoLevel(twoLevel6);
 
-            pCountryResult->setOneLevel(oneLevelThr);
+            pCountry->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
@@ -1743,7 +1743,7 @@ void pjarea::debugOriData()
             oneLevelFour->setTwoLevel(twoLevel5);
             oneLevelFour->setTwoLevel(twoLevel6);
 
-            pCountryResult->setOneLevel(oneLevelFour);
+            pCountry->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
@@ -1764,7 +1764,7 @@ void pjarea::debugOriData()
             oneLevelFive->setTwoLevel(twoLevel6);
             oneLevelFive->setTwoLevel(twoLevel7);
 
-            pCountryResult->setOneLevel(oneLevelFive);
+            pCountry->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
@@ -1785,7 +1785,7 @@ void pjarea::debugOriData()
             oneLevelSix->setTwoLevel(twoLevel6);
             oneLevelSix->setTwoLevel(twoLevel7);
 
-            pCountryResult->setOneLevel(oneLevelSix);
+            pCountry->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
@@ -1800,15 +1800,15 @@ void pjarea::debugOriData()
             oneLevelSeven->setTwoLevel(twoLevel3);
             oneLevelSeven->setTwoLevel(twoLevel4);
 
-            pCountryResult->setOneLevel(oneLevelSeven);
+            pCountry->setOneLevel(oneLevelSeven);
         }
     }
 
     //3.原始评价数据-加蓬
     {
         countryID = 3; //加蓬
-        country* pCountryResult = new country("加蓬",countryID);
-        m_mapCountryResult[countryID] = pCountryResult;
+        country* pCountry = new country("加蓬",countryID);
+        m_mapCountry[countryID] = pCountry;
 
         //1-政治环境
         {
@@ -1825,7 +1825,7 @@ void pjarea::debugOriData()
             oneLevelOne->setTwoLevel(twoLevel4);
             oneLevelOne->setTwoLevel(twoLevel5);
 
-            pCountryResult->setOneLevel(oneLevelOne);
+            pCountry->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
@@ -1842,7 +1842,7 @@ void pjarea::debugOriData()
             oneLevelTwo->setTwoLevel(twoLevel4);
             oneLevelTwo->setTwoLevel(twoLevel5);
 
-            pCountryResult->setOneLevel(oneLevelTwo);
+            pCountry->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
@@ -1861,7 +1861,7 @@ void pjarea::debugOriData()
             oneLevelThr->setTwoLevel(twoLevel5);
             oneLevelThr->setTwoLevel(twoLevel6);
 
-            pCountryResult->setOneLevel(oneLevelThr);
+            pCountry->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
@@ -1880,7 +1880,7 @@ void pjarea::debugOriData()
             oneLevelFour->setTwoLevel(twoLevel5);
             oneLevelFour->setTwoLevel(twoLevel6);
 
-            pCountryResult->setOneLevel(oneLevelFour);
+            pCountry->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
@@ -1901,7 +1901,7 @@ void pjarea::debugOriData()
             oneLevelFive->setTwoLevel(twoLevel6);
             oneLevelFive->setTwoLevel(twoLevel7);
 
-            pCountryResult->setOneLevel(oneLevelFive);
+            pCountry->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
@@ -1922,7 +1922,7 @@ void pjarea::debugOriData()
             oneLevelSix->setTwoLevel(twoLevel6);
             oneLevelSix->setTwoLevel(twoLevel7);
 
-            pCountryResult->setOneLevel(oneLevelSix);
+            pCountry->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
@@ -1937,15 +1937,15 @@ void pjarea::debugOriData()
             oneLevelSeven->setTwoLevel(twoLevel3);
             oneLevelSeven->setTwoLevel(twoLevel4);
 
-            pCountryResult->setOneLevel(oneLevelSeven);
+            pCountry->setOneLevel(oneLevelSeven);
         }
     }
 
     //4.原始评价数据-喀麦隆
     {
         countryID = 4; //喀麦隆
-        country* pCountryResult = new country("喀麦隆",countryID);
-        m_mapCountryResult[countryID] = pCountryResult;
+        country* pCountry = new country("喀麦隆",countryID);
+        m_mapCountry[countryID] = pCountry;
 
         //1-政治环境
         {
@@ -1962,7 +1962,7 @@ void pjarea::debugOriData()
             oneLevelOne->setTwoLevel(twoLevel4);
             oneLevelOne->setTwoLevel(twoLevel5);
 
-            pCountryResult->setOneLevel(oneLevelOne);
+            pCountry->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
@@ -1979,7 +1979,7 @@ void pjarea::debugOriData()
             oneLevelTwo->setTwoLevel(twoLevel4);
             oneLevelTwo->setTwoLevel(twoLevel5);
 
-            pCountryResult->setOneLevel(oneLevelTwo);
+            pCountry->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
@@ -1998,7 +1998,7 @@ void pjarea::debugOriData()
             oneLevelThr->setTwoLevel(twoLevel5);
             oneLevelThr->setTwoLevel(twoLevel6);
 
-            pCountryResult->setOneLevel(oneLevelThr);
+            pCountry->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
@@ -2017,7 +2017,7 @@ void pjarea::debugOriData()
             oneLevelFour->setTwoLevel(twoLevel5);
             oneLevelFour->setTwoLevel(twoLevel6);
 
-            pCountryResult->setOneLevel(oneLevelFour);
+            pCountry->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
@@ -2038,7 +2038,7 @@ void pjarea::debugOriData()
             oneLevelFive->setTwoLevel(twoLevel6);
             oneLevelFive->setTwoLevel(twoLevel7);
 
-            pCountryResult->setOneLevel(oneLevelFive);
+            pCountry->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
@@ -2059,7 +2059,7 @@ void pjarea::debugOriData()
             oneLevelSix->setTwoLevel(twoLevel6);
             oneLevelSix->setTwoLevel(twoLevel7);
 
-            pCountryResult->setOneLevel(oneLevelSix);
+            pCountry->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
@@ -2074,7 +2074,7 @@ void pjarea::debugOriData()
             oneLevelSeven->setTwoLevel(twoLevel3);
             oneLevelSeven->setTwoLevel(twoLevel4);
 
-            pCountryResult->setOneLevel(oneLevelSeven);
+            pCountry->setOneLevel(oneLevelSeven);
         }
     }
 }

@@ -32,7 +32,7 @@ public:
                 return false;
             }
         }
-        if (m_levelid<=tlevel::t1 || m_levelid>=tlevel::t7) {
+        if (m_levelid<tlevel::t1 || m_levelid>tlevel::t7) {
             return false;
         }
         return true;

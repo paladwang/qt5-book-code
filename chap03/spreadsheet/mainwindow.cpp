@@ -100,6 +100,8 @@ void MainWindow::createInfo()
 
     //默认数据
     pjArea = new pjarea("西亚地区区块评价");
+    pjArea->debugOriData();
+    pjArea->debugParse();
 }
 
 bool MainWindow::setIsLoadDefaultData(bool isLoadDefaultData)

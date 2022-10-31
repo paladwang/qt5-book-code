@@ -43,7 +43,9 @@ public:
 public:
     void setOneLevel(onelevel* oneLevel) {
         if(!oneLevel->isReady()) {
-            throw std::runtime_error("the onelevel is not ready");
+            char szTmp[128] = {0};
+            snprintf(szTmp,127,"[%s:%d]the onelevel is not ready",__FILE__,__LINE__);
+            throw std::runtime_error(szTmp);
         }
         if( m_mapOneLevel.count(oneLevel->getLevelID())>0 ) {
             delete m_mapOneLevel[oneLevel->getLevelID()]; //delete就的onelevel
