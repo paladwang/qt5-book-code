@@ -20,7 +20,7 @@ public:
     unsigned getLevelID() {return m_levelid;}
     bool isPositive() {return m_bIsPositive;}
     bool isReady() {
-        if (m_value!=DBL_MAX && m_levelid>=tlevel::t1 && m_levelid=<tlevel::t7) {
+        if (m_value!=DBL_MAX && m_levelid>=tlevel::t1 && m_levelid<=tlevel::t7) {
             return true;
         }
         return false;
