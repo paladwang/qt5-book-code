@@ -347,7 +347,9 @@ void Spreadsheet::setColor(int row, int column, int rowSpanCount, int columnSpan
     for(int rowCnt=0; rowCnt<rowSpanCount; rowCnt++) {
         for(int colCnt=0; colCnt<columnSpanCount; ++colCnt) {
             QTableWidgetItem* curItem = this->item(row+rowCnt, column+colCnt);
-            curItem->setBackgroundColor(color);
+            if(curItem!=NULL) {
+                curItem->setBackgroundColor(color);
+            }
         }
     }
 }
@@ -357,7 +359,9 @@ void Spreadsheet::setFont(int row, int column, int rowSpanCount, int columnSpanC
     for(int rowCnt=0; rowCnt<rowSpanCount; rowCnt++) {
         for(int colCnt=0; colCnt<columnSpanCount; ++colCnt) {
             QTableWidgetItem* curItem = this->item(row+rowCnt, column+colCnt);
-            curItem->setFont(font);
+            if(curItem!=NULL) {
+                curItem->setFont(font);
+            }
         }
     }
 }

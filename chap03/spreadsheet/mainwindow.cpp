@@ -306,6 +306,8 @@ void MainWindow::initSpSheetByDefaultData()
     QFont font = QFont("SimHei",12);
     font.setBold(true);
 
+    int twolevelCnt = 0;
+
     map<int,country*>::const_iterator it;
     for(it=pjArea->begin(eDataType::ORI);it!=pjArea->end(eDataType::ORI);++it) {
         country& curCy = *(it->second);
@@ -346,13 +348,14 @@ void MainWindow::initSpSheetByDefaultData()
                 }
                 //qDebug()<<rowData<<columnData<<tmpQStr<<endl;
                 rowData++;
+                twolevelCnt++;
             }
         }
         bIsFirstRow = false;
         columnData++;
     }
     spreadsheet->setSpan(0,0,1,2); //把行头和列头之间的空白合并
-    //spreadsheet->setFont(QFont("song", 12));
+    spreadsheet->setFont(1,0,twolevelCnt,1,font);
 
     //spreadsheet->setHorizontalHeaderLabels(rHeader); //设置行表头
     //spreadsheet->setVerticalHeaderLabels(cHeader); //设置列表头
