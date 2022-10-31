@@ -15,4 +15,6 @@ enum eCountryID {nocountry=-1,c0=0,c1,c2,c3,c4};
 
 enum eColumn {p=5,q,r,s,t,u,v,w,x,y};
 
+enum eDataType {ORI,GYH,RESULT};
+
 #endif // COMMON_H

@@ -18,6 +18,7 @@ class pjarea
 {
 public:
     pjarea(string& areaName):m_name(areaName) {;}
+    pjarea(char* areaName):m_name(areaName) {;}
     pjarea():m_name("unkown area") {;}
 
 public:
@@ -105,6 +106,25 @@ private:
     void debugGYH();
     void debugResult();
     void debugOther();
+
+public:
+    map<int,country*>::const_iterator begin(eDataType dt) {
+        if (dt==eDataType::ORI) { return m_mapCountry.begin(); }
+        else if (dt==eDataType::GYH) { return m_mapCountryGYH.begin();}
+        else if (dt==eDataType::RESULT) { return  m_mapCountryResult.begin();}
+        else {
+            throw std::runtime_error("the data_type is out of range[ORI,GYH,RESULT]");
+        }
+    }
+
+    map<int,country*>::const_iterator end(eDataType dt) {
+        if (dt==eDataType::ORI) { return m_mapCountry.end(); }
+        else if (dt==eDataType::GYH) { return m_mapCountryGYH.end();}
+        else if (dt==eDataType::RESULT) { return  m_mapCountryResult.end();}
+        else {
+            throw std::runtime_error("the data_type is out of range[ORI,GYH,RESULT]");
+        }
+    }
 
 protected:
     string m_name; //区域名称

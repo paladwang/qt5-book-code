@@ -684,7 +684,7 @@ void pjarea::debugGYH()
         }
         //7-油气资源潜力
         {
-            onelevel* oneLevelSeven = new onelevel("油气资源潜力",tlevel::t7;
+            onelevel* oneLevelSeven = new onelevel("油气资源潜力",tlevel::t7);
 
             twolevel* twoLevel1 = new twolevel("油气储量",tlevel::t1,0.00,true);
             twolevel* twoLevel2 = new twolevel("油气产量",tlevel::t2,0.00,true);

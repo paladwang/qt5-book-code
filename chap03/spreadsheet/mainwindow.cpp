@@ -99,8 +99,7 @@ void MainWindow::createInfo()
     foldersTreeWidget->setPalette(p);
 
     //默认数据
-    string pjName = "西亚地区区块评价";
-    pjArea = new pjarea(pjName,5);
+    pjArea = new pjarea("西亚地区区块评价");
 }
 
 bool MainWindow::setIsLoadDefaultData(bool isLoadDefaultData)
@@ -297,22 +296,26 @@ void MainWindow::initSpSheetByDefaultData()
     int row=1;
     int column = 0;
 
-    for (int countryID=0;countryID<pjArea->getCountryNum();++countryID) {
-        country* curCountry = pjArea->getCountry(countryID);
+    map<int,country*>::const_iterator it;
+    for(it=pjArea->begin(eDataType::ORI);it!=pjArea->end(eDataType::ORI);++it) {
+        country& curCy = *(it->second);
         column++;
-        rHeader<<"test"; //curCountry->getName().c_str();
-        //for(int oneLevelID = tlevel::t1; oneLevelID<=(curCountry->getOneLevelNum()+tlevel::t1-1);++oneLevelID) {
-        for(int oneLevelID = tlevel::t1; oneLevelID<=7;++oneLevelID) {
-            onelevel oneLevel = curCountry->getOneLevel(oneLevelID);
-            for(int twoLevelID =tlevel::t1; twoLevelID<=(oneLevel.getTwoLevelNum()-1+tlevel::t1);++twoLevelID) {
-                twolevel twoLevel = oneLevel.getTwoLevel(twoLevelID);
-                //cHeader<<twoLevel.getName().c_str();
-                //QString tmpQStr = QString::number(twoLevel.getValue());
-                //spreadsheet->setFormula(row, column, tmpQStr);
+        rHeader<<curCy.getName().c_str();
+        map<int,onelevel*>::const_iterator oIt;
+        for(oIt=curCy.begin();oIt!=curCy.end();++it) {
+            onelevel& oneLevel = *(oIt->second);
+            map<int,twolevel*>::const_iterator tIt;
+            for(tIt=oneLevel.begin();tIt!=oneLevel.end();++tIt) {
+                twolevel& twoLevel = *(tIt->second);
+
+                cHeader<<twoLevel.getName().c_str();
+                QString tmpQStr = QString::number(twoLevel.getValue());
+                spreadsheet->setFormula(row, column, tmpQStr);
                 row++;
             }
         }
     }
+
     spreadsheet->setHorizontalHeaderLabels(rHeader); //设置行表头
     spreadsheet->setVerticalHeaderLabels(cHeader); //设置列表头
     //spreadsheet->setSpan(1,1,1,2);
