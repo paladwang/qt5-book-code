@@ -12,7 +12,7 @@
 #include "country.h"
 
 using column = country; //给国家起个别名列
-using MyCell = twolevel;
+using myCell = twolevel;
 
 class pjarea
 {

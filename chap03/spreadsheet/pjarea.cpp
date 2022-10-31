@@ -2110,130 +2110,130 @@ void pjarea::debugOther() {
     {
         //1-政治环境
         {
-            onelevel oneLevelOne("政治环境",tlevel::t1,5);
+            onelevel* oneLevelOne = new onelevel("政治环境",tlevel::t1);
 
-            myCell curCell1(tlevel::t1,0.3483);
-            myCell curCell2(tlevel::t2,0.3554);
-            myCell curCell3(tlevel::t3,0.3241);
-            myCell curCell4(tlevel::t4,0.3764);
-            myCell curCell5(tlevel::t5,0.4000);
-            oneLevelOne.setTwoLevel(curCell1);
-            oneLevelOne.setTwoLevel(curCell2);
-            oneLevelOne.setTwoLevel(curCell3);
-            oneLevelOne.setTwoLevel(curCell4);
-            oneLevelOne.setTwoLevel(curCell5);
+            myCell* curCell1 = new myCell(tlevel::t1,0.3483);
+            myCell* curCell2 = new myCell(tlevel::t2,0.3554);
+            myCell* curCell3 = new myCell(tlevel::t3,0.3241);
+            myCell* curCell4 = new myCell(tlevel::t4,0.3764);
+            myCell* curCell5 = new myCell(tlevel::t5,0.4000);
+            oneLevelOne->setTwoLevel(curCell1);
+            oneLevelOne->setTwoLevel(curCell2);
+            oneLevelOne->setTwoLevel(curCell3);
+            oneLevelOne->setTwoLevel(curCell4);
+            oneLevelOne->setTwoLevel(curCell5);
 
             m_bzcOneResult->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
-            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,5);
+            onelevel* oneLevelTwo = new onelevel("油气管理体制与法律法规",tlevel::t2);
 
-            myCell curCell1(tlevel::t1,0.4000);
-            myCell curCell2(tlevel::t2,0.3651);
-            myCell curCell3(tlevel::t3,0.4522);
-            myCell curCell4(tlevel::t4,0.3742);
-            myCell curCell5(tlevel::t5,0.3429);
-            oneLevelTwo.setTwoLevel(curCell1);
-            oneLevelTwo.setTwoLevel(curCell2);
-            oneLevelTwo.setTwoLevel(curCell3);
-            oneLevelTwo.setTwoLevel(curCell4);
-            oneLevelTwo.setTwoLevel(curCell5);
+            myCell* curCell1 = new myCell(tlevel::t1,0.4000);
+            myCell* curCell2 = new myCell(tlevel::t2,0.3651);
+            myCell* curCell3 = new myCell(tlevel::t3,0.4522);
+            myCell* curCell4 = new myCell(tlevel::t4,0.3742);
+            myCell* curCell5 = new myCell(tlevel::t5,0.3429);
+            oneLevelTwo->setTwoLevel(curCell1);
+            oneLevelTwo->setTwoLevel(curCell2);
+            oneLevelTwo->setTwoLevel(curCell3);
+            oneLevelTwo->setTwoLevel(curCell4);
+            oneLevelTwo->setTwoLevel(curCell5);
 
             m_bzcOneResult->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
-            onelevel oneLevelThr("对外合作开放",tlevel::t3,6);
+            onelevel* oneLevelThr = new onelevel("对外合作开放",tlevel::t3);
 
-            myCell curCell1(tlevel::t1,0.3589);
-            myCell curCell2(tlevel::t2,0.3399);
-            myCell curCell3(tlevel::t3,0.4899);
-            myCell curCell4(tlevel::t4,0.3861);
-            myCell curCell5(tlevel::t5,0.3466);
-            myCell curCell6(tlevel::t6,0.3978);
-            oneLevelThr.setTwoLevel(curCell1);
-            oneLevelThr.setTwoLevel(curCell2);
-            oneLevelThr.setTwoLevel(curCell3);
-            oneLevelThr.setTwoLevel(curCell4);
-            oneLevelThr.setTwoLevel(curCell5);
-            oneLevelThr.setTwoLevel(curCell6);
+            myCell* curCell1 = new myCell(tlevel::t1,0.3589);
+            myCell* curCell2 = new myCell(tlevel::t2,0.3399);
+            myCell* curCell3 = new myCell(tlevel::t3,0.4899);
+            myCell* curCell4 = new myCell(tlevel::t4,0.3861);
+            myCell* curCell5 = new myCell(tlevel::t5,0.3466);
+            myCell* curCell6 = new myCell(tlevel::t6,0.3978);
+            oneLevelThr->setTwoLevel(curCell1);
+            oneLevelThr->setTwoLevel(curCell2);
+            oneLevelThr->setTwoLevel(curCell3);
+            oneLevelThr->setTwoLevel(curCell4);
+            oneLevelThr->setTwoLevel(curCell5);
+            oneLevelThr->setTwoLevel(curCell6);
 
             m_bzcOneResult->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
-            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+            onelevel* oneLevelFour = new onelevel("运营制度",tlevel::t4);
 
-            myCell curCell1(tlevel::t1,0.4000);
-            myCell curCell2(tlevel::t2,0.4759);
-            myCell curCell3(tlevel::t3,0.3927);
-            myCell curCell4(tlevel::t4,0.3512);
-            myCell curCell5(tlevel::t5,0.4361);
-            myCell curCell6(tlevel::t6,0.3813);
-            oneLevelFour.setTwoLevel(curCell1);
-            oneLevelFour.setTwoLevel(curCell2);
-            oneLevelFour.setTwoLevel(curCell3);
-            oneLevelFour.setTwoLevel(curCell4);
-            oneLevelFour.setTwoLevel(curCell5);
-            oneLevelFour.setTwoLevel(curCell6);
+            myCell* curCell1 = new myCell(tlevel::t1,0.4000);
+            myCell* curCell2 = new myCell(tlevel::t2,0.4759);
+            myCell* curCell3 = new myCell(tlevel::t3,0.3927);
+            myCell* curCell4 = new myCell(tlevel::t4,0.3512);
+            myCell* curCell5 = new myCell(tlevel::t5,0.4361);
+            myCell* curCell6 = new myCell(tlevel::t6,0.3813);
+            oneLevelFour->setTwoLevel(curCell1);
+            oneLevelFour->setTwoLevel(curCell2);
+            oneLevelFour->setTwoLevel(curCell3);
+            oneLevelFour->setTwoLevel(curCell4);
+            oneLevelFour->setTwoLevel(curCell5);
+            oneLevelFour->setTwoLevel(curCell6);
 
             m_bzcOneResult->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
-            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,7);
+            onelevel* oneLevelFive = new onelevel("基础设施和自然环境",tlevel::t5);
 
-            myCell curCell1(tlevel::t1,0.3562);
-            myCell curCell2(tlevel::t2,0.3606);
-            myCell curCell3(tlevel::t3,0.3804);
-            myCell curCell4(tlevel::t4,0.3315);
-            myCell curCell5(tlevel::t5,0.3919);
-            myCell curCell6(tlevel::t6,0.3872);
-            myCell curCell7(tlevel::t7,0.3829);
-            oneLevelFive.setTwoLevel(curCell1);
-            oneLevelFive.setTwoLevel(curCell2);
-            oneLevelFive.setTwoLevel(curCell3);
-            oneLevelFive.setTwoLevel(curCell4);
-            oneLevelFive.setTwoLevel(curCell5);
-            oneLevelFive.setTwoLevel(curCell6);
-            oneLevelFive.setTwoLevel(curCell7);
+            myCell* curCell1 = new myCell(tlevel::t1,0.3562);
+            myCell* curCell2 = new myCell(tlevel::t2,0.3606);
+            myCell* curCell3 = new myCell(tlevel::t3,0.3804);
+            myCell* curCell4 = new myCell(tlevel::t4,0.3315);
+            myCell* curCell5 = new myCell(tlevel::t5,0.3919);
+            myCell* curCell6 = new myCell(tlevel::t6,0.3872);
+            myCell* curCell7 = new myCell(tlevel::t7,0.3829);
+            oneLevelFive->setTwoLevel(curCell1);
+            oneLevelFive->setTwoLevel(curCell2);
+            oneLevelFive->setTwoLevel(curCell3);
+            oneLevelFive->setTwoLevel(curCell4);
+            oneLevelFive->setTwoLevel(curCell5);
+            oneLevelFive->setTwoLevel(curCell6);
+            oneLevelFive->setTwoLevel(curCell7);
 
             m_bzcOneResult->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
-            onelevel oneLevelSix("经济环境",tlevel::t6,7);
+            onelevel* oneLevelSix = new onelevel("经济环境",tlevel::t6);
 
-            myCell curCell1(tlevel::t1,0.3532);
-            myCell curCell2(tlevel::t2,0.3492);
-            myCell curCell3(tlevel::t3,0.3917);
-            myCell curCell4(tlevel::t4,0.3415);
-            myCell curCell5(tlevel::t5,0.3807);
-            myCell curCell6(tlevel::t6,0.3733);
-            myCell curCell7(tlevel::t7,0.3653);
-            oneLevelSix.setTwoLevel(curCell1);
-            oneLevelSix.setTwoLevel(curCell2);
-            oneLevelSix.setTwoLevel(curCell3);
-            oneLevelSix.setTwoLevel(curCell4);
-            oneLevelSix.setTwoLevel(curCell5);
-            oneLevelSix.setTwoLevel(curCell6);
-            oneLevelSix.setTwoLevel(curCell7);
+            myCell* curCell1 = new myCell(tlevel::t1,0.3532);
+            myCell* curCell2 = new myCell(tlevel::t2,0.3492);
+            myCell* curCell3 = new myCell(tlevel::t3,0.3917);
+            myCell* curCell4 = new myCell(tlevel::t4,0.3415);
+            myCell* curCell5 = new myCell(tlevel::t5,0.3807);
+            myCell* curCell6 = new myCell(tlevel::t6,0.3733);
+            myCell* curCell7 = new myCell(tlevel::t7,0.3653);
+            oneLevelSix->setTwoLevel(curCell1);
+            oneLevelSix->setTwoLevel(curCell2);
+            oneLevelSix->setTwoLevel(curCell3);
+            oneLevelSix->setTwoLevel(curCell4);
+            oneLevelSix->setTwoLevel(curCell5);
+            oneLevelSix->setTwoLevel(curCell6);
+            oneLevelSix->setTwoLevel(curCell7);
 
             m_bzcOneResult->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
-            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,4);
+            onelevel* oneLevelSeven = new onelevel("油气资源潜力",tlevel::t7);
 
-            myCell curCell1(tlevel::t1,0.3822);
-            myCell curCell2(tlevel::t2,0.3887);
-            myCell curCell3(tlevel::t3,0.3517);
-            myCell curCell4(tlevel::t4,0.3899);
-            oneLevelSeven.setTwoLevel(curCell1);
-            oneLevelSeven.setTwoLevel(curCell2);
-            oneLevelSeven.setTwoLevel(curCell3);
-            oneLevelSeven.setTwoLevel(curCell4);
+            myCell* curCell1 = new myCell(tlevel::t1,0.3822);
+            myCell* curCell2 = new myCell(tlevel::t2,0.3887);
+            myCell* curCell3 = new myCell(tlevel::t3,0.3517);
+            myCell* curCell4 = new myCell(tlevel::t4,0.3899);
+            oneLevelSeven->setTwoLevel(curCell1);
+            oneLevelSeven->setTwoLevel(curCell2);
+            oneLevelSeven->setTwoLevel(curCell3);
+            oneLevelSeven->setTwoLevel(curCell4);
 
             m_bzcOneResult->setOneLevel(oneLevelSeven);
         }
@@ -2245,130 +2245,130 @@ void pjarea::debugOther() {
     {
         //1-政治环境
         {
-            onelevel oneLevelOne("政治环境",tlevel::t1,5);
+            onelevel* oneLevelOne = new onelevel("政治环境",tlevel::t1);
 
-            myCell curCell1(tlevel::t1,0.0);
-            myCell curCell2(tlevel::t2,0.9801);
-            myCell curCell3(tlevel::t3,1.0967);
-            myCell curCell4(tlevel::t4,0.8609);
-            myCell curCell5(tlevel::t5,0.9411);
-            oneLevelOne.setTwoLevel(curCell1);
-            oneLevelOne.setTwoLevel(curCell2);
-            oneLevelOne.setTwoLevel(curCell3);
-            oneLevelOne.setTwoLevel(curCell4);
-            oneLevelOne.setTwoLevel(curCell5);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0);
+            myCell* curCell2 = new myCell(tlevel::t2,0.9801);
+            myCell* curCell3 = new myCell(tlevel::t3,1.0967);
+            myCell* curCell4 = new myCell(tlevel::t4,0.8609);
+            myCell* curCell5 = new myCell(tlevel::t5,0.9411);
+            oneLevelOne->setTwoLevel(curCell1);
+            oneLevelOne->setTwoLevel(curCell2);
+            oneLevelOne->setTwoLevel(curCell3);
+            oneLevelOne->setTwoLevel(curCell4);
+            oneLevelOne->setTwoLevel(curCell5);
 
             m_preOneZYX->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
-            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,5);
+            onelevel* oneLevelTwo = new onelevel("油气管理体制与法律法规",tlevel::t2);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,1.0954);
-            myCell curCell3(tlevel::t3,0.8076);
-            myCell curCell4(tlevel::t4,1.2084);
-            myCell curCell5(tlevel::t5,1.0913);
-            oneLevelTwo.setTwoLevel(curCell1);
-            oneLevelTwo.setTwoLevel(curCell2);
-            oneLevelTwo.setTwoLevel(curCell3);
-            oneLevelTwo.setTwoLevel(curCell4);
-            oneLevelTwo.setTwoLevel(curCell5);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,1.0954);
+            myCell* curCell3 = new myCell(tlevel::t3,0.8076);
+            myCell* curCell4 = new myCell(tlevel::t4,1.2084);
+            myCell* curCell5 = new myCell(tlevel::t5,1.0913);
+            oneLevelTwo->setTwoLevel(curCell1);
+            oneLevelTwo->setTwoLevel(curCell2);
+            oneLevelTwo->setTwoLevel(curCell3);
+            oneLevelTwo->setTwoLevel(curCell4);
+            oneLevelTwo->setTwoLevel(curCell5);
 
             m_preOneZYX->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
-            onelevel oneLevelThr("对外合作开放",tlevel::t3,6);
+            onelevel* oneLevelThr = new onelevel("对外合作开放",tlevel::t3);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,1.0558);
-            myCell curCell3(tlevel::t3,0.6939);
-            myCell curCell4(tlevel::t4,1.2688);
-            myCell curCell5(tlevel::t5,1.1138);
-            myCell curCell6(tlevel::t6,0.8715);
-            oneLevelThr.setTwoLevel(curCell1);
-            oneLevelThr.setTwoLevel(curCell2);
-            oneLevelThr.setTwoLevel(curCell3);
-            oneLevelThr.setTwoLevel(curCell4);
-            oneLevelThr.setTwoLevel(curCell5);
-            oneLevelThr.setTwoLevel(curCell6);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,1.0558);
+            myCell* curCell3 = new myCell(tlevel::t3,0.6939);
+            myCell* curCell4 = new myCell(tlevel::t4,1.2688);
+            myCell* curCell5 = new myCell(tlevel::t5,1.1138);
+            myCell* curCell6 = new myCell(tlevel::t6,0.8715);
+            oneLevelThr->setTwoLevel(curCell1);
+            oneLevelThr->setTwoLevel(curCell2);
+            oneLevelThr->setTwoLevel(curCell3);
+            oneLevelThr->setTwoLevel(curCell4);
+            oneLevelThr->setTwoLevel(curCell5);
+            oneLevelThr->setTwoLevel(curCell6);
 
             m_preOneZYX->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
-            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+            onelevel* oneLevelFour = new onelevel("运营制度",tlevel::t4);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,0.8405);
-            myCell curCell3(tlevel::t3,1.2118);
-            myCell curCell4(tlevel::t4,1.1183);
-            myCell curCell5(tlevel::t5,0.8052);
-            myCell curCell6(tlevel::t6,1.1439);
-            oneLevelFour.setTwoLevel(curCell1);
-            oneLevelFour.setTwoLevel(curCell2);
-            oneLevelFour.setTwoLevel(curCell3);
-            oneLevelFour.setTwoLevel(curCell4);
-            oneLevelFour.setTwoLevel(curCell5);
-            oneLevelFour.setTwoLevel(curCell6);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,0.8405);
+            myCell* curCell3 = new myCell(tlevel::t3,1.2118);
+            myCell* curCell4 = new myCell(tlevel::t4,1.1183);
+            myCell* curCell5 = new myCell(tlevel::t5,0.8052);
+            myCell* curCell6 = new myCell(tlevel::t6,1.1439);
+            oneLevelFour->setTwoLevel(curCell1);
+            oneLevelFour->setTwoLevel(curCell2);
+            oneLevelFour->setTwoLevel(curCell3);
+            oneLevelFour->setTwoLevel(curCell4);
+            oneLevelFour->setTwoLevel(curCell5);
+            oneLevelFour->setTwoLevel(curCell6);
 
             m_preOneZYX->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
-            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,7);
+            onelevel* oneLevelFive = new onelevel("基础设施和自然环境",tlevel::t5);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,0.9877);
-            myCell curCell3(tlevel::t3,0.9480);
-            myCell curCell4(tlevel::t4,1.1478);
-            myCell curCell5(tlevel::t5,0.8458);
-            myCell curCell6(tlevel::t6,1.0122);
-            myCell curCell7(tlevel::t7,1.0111);
-            oneLevelFive.setTwoLevel(curCell1);
-            oneLevelFive.setTwoLevel(curCell2);
-            oneLevelFive.setTwoLevel(curCell3);
-            oneLevelFive.setTwoLevel(curCell4);
-            oneLevelFive.setTwoLevel(curCell5);
-            oneLevelFive.setTwoLevel(curCell6);
-            oneLevelFive.setTwoLevel(curCell7);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,0.9877);
+            myCell* curCell3 = new myCell(tlevel::t3,0.9480);
+            myCell* curCell4 = new myCell(tlevel::t4,1.1478);
+            myCell* curCell5 = new myCell(tlevel::t5,0.8458);
+            myCell* curCell6 = new myCell(tlevel::t6,1.0122);
+            myCell* curCell7 = new myCell(tlevel::t7,1.0111);
+            oneLevelFive->setTwoLevel(curCell1);
+            oneLevelFive->setTwoLevel(curCell2);
+            oneLevelFive->setTwoLevel(curCell3);
+            oneLevelFive->setTwoLevel(curCell4);
+            oneLevelFive->setTwoLevel(curCell5);
+            oneLevelFive->setTwoLevel(curCell6);
+            oneLevelFive->setTwoLevel(curCell7);
 
             m_preOneZYX->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
-            onelevel oneLevelSix("经济环境",tlevel::t6,7);
+            onelevel* oneLevelSix = new onelevel("经济环境",tlevel::t6);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,1.0116);
-            myCell curCell3(tlevel::t3,0.8914);
-            myCell curCell4(tlevel::t4,1.1468);
-            myCell curCell5(tlevel::t5,0.8971);
-            myCell curCell6(tlevel::t6,1.0200);
-            myCell curCell7(tlevel::t7,1.0218);
-            oneLevelSix.setTwoLevel(curCell1);
-            oneLevelSix.setTwoLevel(curCell2);
-            oneLevelSix.setTwoLevel(curCell3);
-            oneLevelSix.setTwoLevel(curCell4);
-            oneLevelSix.setTwoLevel(curCell5);
-            oneLevelSix.setTwoLevel(curCell6);
-            oneLevelSix.setTwoLevel(curCell7);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,1.0116);
+            myCell* curCell3 = new myCell(tlevel::t3,0.8914);
+            myCell* curCell4 = new myCell(tlevel::t4,1.1468);
+            myCell* curCell5 = new myCell(tlevel::t5,0.8971);
+            myCell* curCell6 = new myCell(tlevel::t6,1.0200);
+            myCell* curCell7 = new myCell(tlevel::t7,1.0218);
+            oneLevelSix->setTwoLevel(curCell1);
+            oneLevelSix->setTwoLevel(curCell2);
+            oneLevelSix->setTwoLevel(curCell3);
+            oneLevelSix->setTwoLevel(curCell4);
+            oneLevelSix->setTwoLevel(curCell5);
+            oneLevelSix->setTwoLevel(curCell6);
+            oneLevelSix->setTwoLevel(curCell7);
 
             m_preOneZYX->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
-            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,4);
+            onelevel* oneLevelSeven = new onelevel("油气资源潜力",tlevel::t7);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,0.9832);
-            myCell curCell3(tlevel::t3,1.1054);
-            myCell curCell4(tlevel::t4,0.9019);
-            oneLevelSeven.setTwoLevel(curCell1);
-            oneLevelSeven.setTwoLevel(curCell2);
-            oneLevelSeven.setTwoLevel(curCell3);
-            oneLevelSeven.setTwoLevel(curCell4);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,0.9832);
+            myCell* curCell3 = new myCell(tlevel::t3,1.1054);
+            myCell* curCell4 = new myCell(tlevel::t4,0.9019);
+            oneLevelSeven->setTwoLevel(curCell1);
+            oneLevelSeven->setTwoLevel(curCell2);
+            oneLevelSeven->setTwoLevel(curCell3);
+            oneLevelSeven->setTwoLevel(curCell4);
 
             m_preOneZYX->setOneLevel(oneLevelSeven);
         }
@@ -2380,130 +2380,130 @@ void pjarea::debugOther() {
     {
         //1-政治环境
         {
-            onelevel oneLevelOne("政治环境",tlevel::t1,5);
+            onelevel* oneLevelOne = new onelevel("政治环境",tlevel::t1);
 
-            myCell curCell1(tlevel::t1,0.0);
-            myCell curCell2(tlevel::t2,1);
-            myCell curCell3(tlevel::t3,1.0967);
-            myCell curCell4(tlevel::t4,1);
-            myCell curCell5(tlevel::t5,1);
-            oneLevelOne.setTwoLevel(curCell1);
-            oneLevelOne.setTwoLevel(curCell2);
-            oneLevelOne.setTwoLevel(curCell3);
-            oneLevelOne.setTwoLevel(curCell4);
-            oneLevelOne.setTwoLevel(curCell5);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0);
+            myCell* curCell2 = new myCell(tlevel::t2,1);
+            myCell* curCell3 = new myCell(tlevel::t3,1.0967);
+            myCell* curCell4 = new myCell(tlevel::t4,1);
+            myCell* curCell5 = new myCell(tlevel::t5,1);
+            oneLevelOne->setTwoLevel(curCell1);
+            oneLevelOne->setTwoLevel(curCell2);
+            oneLevelOne->setTwoLevel(curCell3);
+            oneLevelOne->setTwoLevel(curCell4);
+            oneLevelOne->setTwoLevel(curCell5);
 
             m_oneZYX->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
-            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,5);
+            onelevel* oneLevelTwo = new onelevel("油气管理体制与法律法规",tlevel::t2);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,1.0954);
-            myCell curCell3(tlevel::t3,1);
-            myCell curCell4(tlevel::t4,1.2084);
-            myCell curCell5(tlevel::t5,1.0913);
-            oneLevelTwo.setTwoLevel(curCell1);
-            oneLevelTwo.setTwoLevel(curCell2);
-            oneLevelTwo.setTwoLevel(curCell3);
-            oneLevelTwo.setTwoLevel(curCell4);
-            oneLevelTwo.setTwoLevel(curCell5);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,1.0954);
+            myCell* curCell3 = new myCell(tlevel::t3,1);
+            myCell* curCell4 = new myCell(tlevel::t4,1.2084);
+            myCell* curCell5 = new myCell(tlevel::t5,1.0913);
+            oneLevelTwo->setTwoLevel(curCell1);
+            oneLevelTwo->setTwoLevel(curCell2);
+            oneLevelTwo->setTwoLevel(curCell3);
+            oneLevelTwo->setTwoLevel(curCell4);
+            oneLevelTwo->setTwoLevel(curCell5);
 
             m_oneZYX->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
-            onelevel oneLevelThr("对外合作开放",tlevel::t3,6);
+            onelevel* oneLevelThr = new onelevel("对外合作开放",tlevel::t3);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,1.0558);
-            myCell curCell3(tlevel::t3,1);
-            myCell curCell4(tlevel::t4,1.2688);
-            myCell curCell5(tlevel::t5,1.1138);
-            myCell curCell6(tlevel::t6,1);
-            oneLevelThr.setTwoLevel(curCell1);
-            oneLevelThr.setTwoLevel(curCell2);
-            oneLevelThr.setTwoLevel(curCell3);
-            oneLevelThr.setTwoLevel(curCell4);
-            oneLevelThr.setTwoLevel(curCell5);
-            oneLevelThr.setTwoLevel(curCell6);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,1.0558);
+            myCell* curCell3 = new myCell(tlevel::t3,1);
+            myCell* curCell4 = new myCell(tlevel::t4,1.2688);
+            myCell* curCell5 = new myCell(tlevel::t5,1.1138);
+            myCell* curCell6 = new myCell(tlevel::t6,1);
+            oneLevelThr->setTwoLevel(curCell1);
+            oneLevelThr->setTwoLevel(curCell2);
+            oneLevelThr->setTwoLevel(curCell3);
+            oneLevelThr->setTwoLevel(curCell4);
+            oneLevelThr->setTwoLevel(curCell5);
+            oneLevelThr->setTwoLevel(curCell6);
 
             m_oneZYX->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
-            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+            onelevel* oneLevelFour = new onelevel("运营制度",tlevel::t4);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,1);
-            myCell curCell3(tlevel::t3,1.2118);
-            myCell curCell4(tlevel::t4,1.1183);
-            myCell curCell5(tlevel::t5,1);
-            myCell curCell6(tlevel::t6,1.1439);
-            oneLevelFour.setTwoLevel(curCell1);
-            oneLevelFour.setTwoLevel(curCell2);
-            oneLevelFour.setTwoLevel(curCell3);
-            oneLevelFour.setTwoLevel(curCell4);
-            oneLevelFour.setTwoLevel(curCell5);
-            oneLevelFour.setTwoLevel(curCell6);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,1);
+            myCell* curCell3 = new myCell(tlevel::t3,1.2118);
+            myCell* curCell4 = new myCell(tlevel::t4,1.1183);
+            myCell* curCell5 = new myCell(tlevel::t5,1);
+            myCell* curCell6 = new myCell(tlevel::t6,1.1439);
+            oneLevelFour->setTwoLevel(curCell1);
+            oneLevelFour->setTwoLevel(curCell2);
+            oneLevelFour->setTwoLevel(curCell3);
+            oneLevelFour->setTwoLevel(curCell4);
+            oneLevelFour->setTwoLevel(curCell5);
+            oneLevelFour->setTwoLevel(curCell6);
 
             m_oneZYX->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
-            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,7);
+            onelevel* oneLevelFive = new onelevel("基础设施和自然环境",tlevel::t5);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,1);
-            myCell curCell3(tlevel::t3,1);
-            myCell curCell4(tlevel::t4,1.1478);
-            myCell curCell5(tlevel::t5,1);
-            myCell curCell6(tlevel::t6,1.0122);
-            myCell curCell7(tlevel::t7,1.0111);
-            oneLevelFive.setTwoLevel(curCell1);
-            oneLevelFive.setTwoLevel(curCell2);
-            oneLevelFive.setTwoLevel(curCell3);
-            oneLevelFive.setTwoLevel(curCell4);
-            oneLevelFive.setTwoLevel(curCell5);
-            oneLevelFive.setTwoLevel(curCell6);
-            oneLevelFive.setTwoLevel(curCell7);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,1);
+            myCell* curCell3 = new myCell(tlevel::t3,1);
+            myCell* curCell4 = new myCell(tlevel::t4,1.1478);
+            myCell* curCell5 = new myCell(tlevel::t5,1);
+            myCell* curCell6 = new myCell(tlevel::t6,1.0122);
+            myCell* curCell7 = new myCell(tlevel::t7,1.0111);
+            oneLevelFive->setTwoLevel(curCell1);
+            oneLevelFive->setTwoLevel(curCell2);
+            oneLevelFive->setTwoLevel(curCell3);
+            oneLevelFive->setTwoLevel(curCell4);
+            oneLevelFive->setTwoLevel(curCell5);
+            oneLevelFive->setTwoLevel(curCell6);
+            oneLevelFive->setTwoLevel(curCell7);
 
             m_oneZYX->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
-            onelevel oneLevelSix("经济环境",tlevel::t6,7);
+            onelevel* oneLevelSix = new onelevel("经济环境",tlevel::t6);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,1.0116);
-            myCell curCell3(tlevel::t3,1);
-            myCell curCell4(tlevel::t4,1.1468);
-            myCell curCell5(tlevel::t5,1);
-            myCell curCell6(tlevel::t6,1.0200);
-            myCell curCell7(tlevel::t7,1.0218);
-            oneLevelSix.setTwoLevel(curCell1);
-            oneLevelSix.setTwoLevel(curCell2);
-            oneLevelSix.setTwoLevel(curCell3);
-            oneLevelSix.setTwoLevel(curCell4);
-            oneLevelSix.setTwoLevel(curCell5);
-            oneLevelSix.setTwoLevel(curCell6);
-            oneLevelSix.setTwoLevel(curCell7);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,1.0116);
+            myCell* curCell3 = new myCell(tlevel::t3,1);
+            myCell* curCell4 = new myCell(tlevel::t4,1.1468);
+            myCell* curCell5 = new myCell(tlevel::t5,1);
+            myCell* curCell6 = new myCell(tlevel::t6,1.0200);
+            myCell* curCell7 = new myCell(tlevel::t7,1.0218);
+            oneLevelSix->setTwoLevel(curCell1);
+            oneLevelSix->setTwoLevel(curCell2);
+            oneLevelSix->setTwoLevel(curCell3);
+            oneLevelSix->setTwoLevel(curCell4);
+            oneLevelSix->setTwoLevel(curCell5);
+            oneLevelSix->setTwoLevel(curCell6);
+            oneLevelSix->setTwoLevel(curCell7);
 
             m_oneZYX->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
-            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,4);
+            onelevel* oneLevelSeven = new onelevel("油气资源潜力",tlevel::t7);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            myCell curCell2(tlevel::t2,1);
-            myCell curCell3(tlevel::t3,1.1054);
-            myCell curCell4(tlevel::t4,1);
-            oneLevelSeven.setTwoLevel(curCell1);
-            oneLevelSeven.setTwoLevel(curCell2);
-            oneLevelSeven.setTwoLevel(curCell3);
-            oneLevelSeven.setTwoLevel(curCell4);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            myCell* curCell2 = new myCell(tlevel::t2,1);
+            myCell* curCell3 = new myCell(tlevel::t3,1.1054);
+            myCell* curCell4 = new myCell(tlevel::t4,1);
+            oneLevelSeven->setTwoLevel(curCell1);
+            oneLevelSeven->setTwoLevel(curCell2);
+            oneLevelSeven->setTwoLevel(curCell3);
+            oneLevelSeven->setTwoLevel(curCell4);
 
             m_oneZYX->setOneLevel(oneLevelSeven);
         }
@@ -2515,130 +2515,130 @@ void pjarea::debugOther() {
     {
         //1-政治环境
         {
-            onelevel oneLevelOne("政治环境",tlevel::t1,5);
+            onelevel* oneLevelOne = new onelevel("政治环境",tlevel::t1);
 
-            myCell curCell1(tlevel::t1,0.211167956);
-            myCell curCell2(tlevel::t2,0.211167956);
-            myCell curCell3(tlevel::t3,0.192554696);
-            myCell curCell4(tlevel::t4,0.192554696);
-            myCell curCell5(tlevel::t5,0.192554696);
-            oneLevelOne.setTwoLevel(curCell1);
-            oneLevelOne.setTwoLevel(curCell2);
-            oneLevelOne.setTwoLevel(curCell3);
-            oneLevelOne.setTwoLevel(curCell4);
-            oneLevelOne.setTwoLevel(curCell5);
+            myCell* curCell1 = new myCell(tlevel::t1,0.211167956);
+            myCell* curCell2 = new myCell(tlevel::t2,0.211167956);
+            myCell* curCell3 = new myCell(tlevel::t3,0.192554696);
+            myCell* curCell4 = new myCell(tlevel::t4,0.192554696);
+            myCell* curCell5 = new myCell(tlevel::t5,0.192554696);
+            oneLevelOne->setTwoLevel(curCell1);
+            oneLevelOne->setTwoLevel(curCell2);
+            oneLevelOne->setTwoLevel(curCell3);
+            oneLevelOne->setTwoLevel(curCell4);
+            oneLevelOne->setTwoLevel(curCell5);
 
             m_onePower->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
-            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,5);
+            onelevel* oneLevelTwo = new onelevel("油气管理体制与法律法规",tlevel::t2);
 
-            myCell curCell1(tlevel::t1,0.234006825);
-            myCell curCell2(tlevel::t2,0.213618028);
-            myCell curCell3(tlevel::t3,0.213618028);
-            myCell curCell4(tlevel::t4,0.17677232);
-            myCell curCell5(tlevel::t5,0.161984798);
-            oneLevelTwo.setTwoLevel(curCell1);
-            oneLevelTwo.setTwoLevel(curCell2);
-            oneLevelTwo.setTwoLevel(curCell3);
-            oneLevelTwo.setTwoLevel(curCell4);
-            oneLevelTwo.setTwoLevel(curCell5);
+            myCell* curCell1 = new myCell(tlevel::t1,0.234006825);
+            myCell* curCell2 = new myCell(tlevel::t2,0.213618028);
+            myCell* curCell3 = new myCell(tlevel::t3,0.213618028);
+            myCell* curCell4 = new myCell(tlevel::t4,0.17677232);
+            myCell* curCell5 = new myCell(tlevel::t5,0.161984798);
+            oneLevelTwo->setTwoLevel(curCell1);
+            oneLevelTwo->setTwoLevel(curCell2);
+            oneLevelTwo->setTwoLevel(curCell3);
+            oneLevelTwo->setTwoLevel(curCell4);
+            oneLevelTwo->setTwoLevel(curCell5);
 
             m_onePower->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
-            onelevel oneLevelThr("对外合作开放",tlevel::t3,6);
+            onelevel* oneLevelThr = new onelevel("对外合作开放",tlevel::t3);
 
-            myCell curCell1(tlevel::t1,0.20075194);
-            myCell curCell2(tlevel::t2,0.190147423);
-            myCell curCell3(tlevel::t3,0.190147423);
-            myCell curCell4(tlevel::t4,0.149859543);
-            myCell curCell5(tlevel::t5,0.134546836);
-            myCell curCell6(tlevel::t6,0.134546836);
-            oneLevelThr.setTwoLevel(curCell1);
-            oneLevelThr.setTwoLevel(curCell2);
-            oneLevelThr.setTwoLevel(curCell3);
-            oneLevelThr.setTwoLevel(curCell4);
-            oneLevelThr.setTwoLevel(curCell5);
-            oneLevelThr.setTwoLevel(curCell6);
+            myCell* curCell1 = new myCell(tlevel::t1,0.20075194);
+            myCell* curCell2 = new myCell(tlevel::t2,0.190147423);
+            myCell* curCell3 = new myCell(tlevel::t3,0.190147423);
+            myCell* curCell4 = new myCell(tlevel::t4,0.149859543);
+            myCell* curCell5 = new myCell(tlevel::t5,0.134546836);
+            myCell* curCell6 = new myCell(tlevel::t6,0.134546836);
+            oneLevelThr->setTwoLevel(curCell1);
+            oneLevelThr->setTwoLevel(curCell2);
+            oneLevelThr->setTwoLevel(curCell3);
+            oneLevelThr->setTwoLevel(curCell4);
+            oneLevelThr->setTwoLevel(curCell5);
+            oneLevelThr->setTwoLevel(curCell6);
 
             m_onePower->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
-            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+            onelevel* oneLevelFour = new onelevel("运营制度",tlevel::t4);
 
-            myCell curCell1(tlevel::t1,0.202184019);
-            myCell curCell2(tlevel::t2,0.202184019);
-            myCell curCell3(tlevel::t3,0.166840013);
-            myCell curCell4(tlevel::t4,0.149186646);
-            myCell curCell5(tlevel::t5,0.149186646);
-            myCell curCell6(tlevel::t6,0.130418656);
-            oneLevelFour.setTwoLevel(curCell1);
-            oneLevelFour.setTwoLevel(curCell2);
-            oneLevelFour.setTwoLevel(curCell3);
-            oneLevelFour.setTwoLevel(curCell4);
-            oneLevelFour.setTwoLevel(curCell5);
-            oneLevelFour.setTwoLevel(curCell6);
+            myCell* curCell1 = new myCell(tlevel::t1,0.202184019);
+            myCell* curCell2 = new myCell(tlevel::t2,0.202184019);
+            myCell* curCell3 = new myCell(tlevel::t3,0.166840013);
+            myCell* curCell4 = new myCell(tlevel::t4,0.149186646);
+            myCell* curCell5 = new myCell(tlevel::t5,0.149186646);
+            myCell* curCell6 = new myCell(tlevel::t6,0.130418656);
+            oneLevelFour->setTwoLevel(curCell1);
+            oneLevelFour->setTwoLevel(curCell2);
+            oneLevelFour->setTwoLevel(curCell3);
+            oneLevelFour->setTwoLevel(curCell4);
+            oneLevelFour->setTwoLevel(curCell5);
+            oneLevelFour->setTwoLevel(curCell6);
 
             m_onePower->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
-            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,7);
+            onelevel* oneLevelFive = new onelevel("基础设施和自然环境",tlevel::t5);
 
-            myCell curCell1(tlevel::t1,0.154927164);
-            myCell curCell2(tlevel::t2,0.154927164);
-            myCell curCell3(tlevel::t3,0.154927164);
-            myCell curCell4(tlevel::t4,0.134982664);
-            myCell curCell5(tlevel::t5,0.134982664);
-            myCell curCell6(tlevel::t6,0.133358549);
-            myCell curCell7(tlevel::t7,0.131894632);
-            oneLevelFive.setTwoLevel(curCell1);
-            oneLevelFive.setTwoLevel(curCell2);
-            oneLevelFive.setTwoLevel(curCell3);
-            oneLevelFive.setTwoLevel(curCell4);
-            oneLevelFive.setTwoLevel(curCell5);
-            oneLevelFive.setTwoLevel(curCell6);
-            oneLevelFive.setTwoLevel(curCell7);
+            myCell* curCell1 = new myCell(tlevel::t1,0.154927164);
+            myCell* curCell2 = new myCell(tlevel::t2,0.154927164);
+            myCell* curCell3 = new myCell(tlevel::t3,0.154927164);
+            myCell* curCell4 = new myCell(tlevel::t4,0.134982664);
+            myCell* curCell5 = new myCell(tlevel::t5,0.134982664);
+            myCell* curCell6 = new myCell(tlevel::t6,0.133358549);
+            myCell* curCell7 = new myCell(tlevel::t7,0.131894632);
+            oneLevelFive->setTwoLevel(curCell1);
+            oneLevelFive->setTwoLevel(curCell2);
+            oneLevelFive->setTwoLevel(curCell3);
+            oneLevelFive->setTwoLevel(curCell4);
+            oneLevelFive->setTwoLevel(curCell5);
+            oneLevelFive->setTwoLevel(curCell6);
+            oneLevelFive->setTwoLevel(curCell7);
 
             m_onePower->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
-            onelevel oneLevelSix("经济环境",tlevel::t6,7);
+            onelevel* oneLevelSix = new onelevel("经济环境",tlevel::t6);
 
-            myCell curCell1(tlevel::t1,0.156909167);
-            myCell curCell2(tlevel::t2,0.155107593);
-            myCell curCell3(tlevel::t3,0.155107593);
-            myCell curCell4(tlevel::t4,0.135252531);
-            myCell curCell5(tlevel::t5,0.135252531);
-            myCell curCell6(tlevel::t6,0.132598393);
-            myCell curCell7(tlevel::t7,0.129772191);
-            oneLevelSix.setTwoLevel(curCell1);
-            oneLevelSix.setTwoLevel(curCell2);
-            oneLevelSix.setTwoLevel(curCell3);
-            oneLevelSix.setTwoLevel(curCell4);
-            oneLevelSix.setTwoLevel(curCell5);
-            oneLevelSix.setTwoLevel(curCell6);
-            oneLevelSix.setTwoLevel(curCell7);
+            myCell* curCell1 = new myCell(tlevel::t1,0.156909167);
+            myCell* curCell2 = new myCell(tlevel::t2,0.155107593);
+            myCell* curCell3 = new myCell(tlevel::t3,0.155107593);
+            myCell* curCell4 = new myCell(tlevel::t4,0.135252531);
+            myCell* curCell5 = new myCell(tlevel::t5,0.135252531);
+            myCell* curCell6 = new myCell(tlevel::t6,0.132598393);
+            myCell* curCell7 = new myCell(tlevel::t7,0.129772191);
+            oneLevelSix->setTwoLevel(curCell1);
+            oneLevelSix->setTwoLevel(curCell2);
+            oneLevelSix->setTwoLevel(curCell3);
+            oneLevelSix->setTwoLevel(curCell4);
+            oneLevelSix->setTwoLevel(curCell5);
+            oneLevelSix->setTwoLevel(curCell6);
+            oneLevelSix->setTwoLevel(curCell7);
 
             m_onePower->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
-            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,4);
+            onelevel* oneLevelSeven = new onelevel("油气资源潜力",tlevel::t7);
 
-            myCell curCell1(tlevel::t1,0.262513087);
-            myCell curCell2(tlevel::t2,0.262513087);
-            myCell curCell3(tlevel::t3,0.237486913);
-            myCell curCell4(tlevel::t4,0.237486913);
-            oneLevelSeven.setTwoLevel(curCell1);
-            oneLevelSeven.setTwoLevel(curCell2);
-            oneLevelSeven.setTwoLevel(curCell3);
-            oneLevelSeven.setTwoLevel(curCell4);
+            myCell* curCell1 = new myCell(tlevel::t1,0.262513087);
+            myCell* curCell2 = new myCell(tlevel::t2,0.262513087);
+            myCell* curCell3 = new myCell(tlevel::t3,0.237486913);
+            myCell* curCell4 = new myCell(tlevel::t4,0.237486913);
+            oneLevelSeven->setTwoLevel(curCell1);
+            oneLevelSeven->setTwoLevel(curCell2);
+            oneLevelSeven->setTwoLevel(curCell3);
+            oneLevelSeven->setTwoLevel(curCell4);
 
             m_onePower->setOneLevel(oneLevelSeven);
         }
@@ -2650,64 +2650,64 @@ void pjarea::debugOther() {
     {
         //1-政治环境
         {
-            onelevel oneLevelOne("政治环境",tlevel::t1,1);
+            onelevel* oneLevelOne = new onelevel("政治环境",tlevel::t1);
 
-            myCell curCell1(tlevel::t1,1.8042);
-            oneLevelOne.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,1.8042);
+            oneLevelOne->setTwoLevel(curCell1);
 
             m_bzcTwoResult->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
-            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,1);
+            onelevel* oneLevelTwo = new onelevel("油气管理体制与法律法规",tlevel::t2);
 
-            myCell curCell1(tlevel::t1,1.9343);
-            oneLevelTwo.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,1.9343);
+            oneLevelTwo->setTwoLevel(curCell1);
 
             m_bzcTwoResult->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
-            onelevel oneLevelThr("对外合作开放",tlevel::t3,1);
+            onelevel* oneLevelThr = new onelevel("对外合作开放",tlevel::t3);
 
-            myCell curCell1(tlevel::t1,2.3193);
-            oneLevelThr.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,2.3193);
+            oneLevelThr->setTwoLevel(curCell1);
 
             m_bzcTwoResult->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
-            onelevel oneLevelFour("运营制度",tlevel::t4,1);
+            onelevel* oneLevelFour = new onelevel("运营制度",tlevel::t4);
 
-            myCell curCell1(tlevel::t1,2.4372);
-            oneLevelFour.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,2.4372);
+            oneLevelFour->setTwoLevel(curCell1);
 
             m_bzcTwoResult->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
-            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,1);
+            onelevel* oneLevelFive = new onelevel("基础设施和自然环境",tlevel::t5);
 
-            myCell curCell1(tlevel::t1,2.5908);
-            oneLevelFive.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,2.5908);
+            oneLevelFive->setTwoLevel(curCell1);
 
             m_bzcTwoResult->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
-            onelevel oneLevelSix("经济环境",tlevel::t6,1);
+            onelevel* oneLevelSix = new onelevel("经济环境",tlevel::t6);
 
-            myCell curCell1(tlevel::t1,2.5549);
-            oneLevelSix.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,2.5549);
+            oneLevelSix->setTwoLevel(curCell1);
 
             m_bzcTwoResult->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
-            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,1);
+            onelevel* oneLevelSeven = new onelevel("油气资源潜力",tlevel::t7);
 
-            myCell curCell1(tlevel::t1,1.5126);
-            oneLevelSeven.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,1.5126);
+            oneLevelSeven->setTwoLevel(curCell1);
 
             m_bzcTwoResult->setOneLevel(oneLevelSeven);
         }
@@ -2719,64 +2719,64 @@ void pjarea::debugOther() {
     {
         //1-政治环境
         {
-            onelevel oneLevelOne("政治环境",tlevel::t1,1);
+            onelevel* oneLevelOne = new onelevel("政治环境",tlevel::t1);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            oneLevelOne.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            oneLevelOne->setTwoLevel(curCell1);
 
             m_preTwoZYX->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
-            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,1);
+            onelevel* oneLevelTwo = new onelevel("油气管理体制与法律法规",tlevel::t2);
 
-            myCell curCell1(tlevel::t1,0.9327);
-            oneLevelTwo.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.9327);
+            oneLevelTwo->setTwoLevel(curCell1);
 
             m_preTwoZYX->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
-            onelevel oneLevelThr("对外合作开放",tlevel::t3,1);
+            onelevel* oneLevelThr = new onelevel("对外合作开放",tlevel::t3);
 
-            myCell curCell1(tlevel::t1,0.8340);
-            oneLevelThr.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.8340);
+            oneLevelThr->setTwoLevel(curCell1);
 
             m_preTwoZYX->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
-            onelevel oneLevelFour("运营制度",tlevel::t4,1);
+            onelevel* oneLevelFour = new onelevel("运营制度",tlevel::t4);
 
-            myCell curCell1(tlevel::t1,0.9516);
-            oneLevelFour.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.9516);
+            oneLevelFour->setTwoLevel(curCell1);
 
             m_preTwoZYX->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
-            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,1);
+            onelevel* oneLevelFive = new onelevel("基础设施和自然环境",tlevel::t5);
 
-            myCell curCell1(tlevel::t1,0.9407);
-            oneLevelFive.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.9407);
+            oneLevelFive->setTwoLevel(curCell1);
 
             m_preTwoZYX->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
-            onelevel oneLevelSix("经济环境",tlevel::t6,1);
+            onelevel* oneLevelSix = new onelevel("经济环境",tlevel::t6);
 
-            myCell curCell1(tlevel::t1,1.0140);
-            oneLevelSix.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,1.0140);
+            oneLevelSix->setTwoLevel(curCell1);
 
             m_preTwoZYX->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
-            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,1);
+            onelevel* oneLevelSeven = new onelevel("油气资源潜力",tlevel::t7);
 
-            myCell curCell1(tlevel::t1,1.6891);
-            oneLevelSeven.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,1.6891);
+            oneLevelSeven->setTwoLevel(curCell1);
 
             m_preTwoZYX->setOneLevel(oneLevelSeven);
         }
@@ -2788,64 +2788,64 @@ void pjarea::debugOther() {
     {
         //1-政治环境
         {
-            onelevel oneLevelOne("政治环境",tlevel::t1,1);
+            onelevel* oneLevelOne = new onelevel("政治环境",tlevel::t1);
 
-            myCell curCell1(tlevel::t1,0.0000);
-            oneLevelOne.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.0000);
+            oneLevelOne->setTwoLevel(curCell1);
 
             m_twoZYX->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
-            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,1);
+            onelevel* oneLevelTwo = new onelevel("油气管理体制与法律法规",tlevel::t2);
 
-            myCell curCell1(tlevel::t1,1.0000);
-            oneLevelTwo.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,1.0000);
+            oneLevelTwo->setTwoLevel(curCell1);
 
             m_twoZYX->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
-            onelevel oneLevelThr("对外合作开放",tlevel::t3,1);
+            onelevel* oneLevelThr = new onelevel("对外合作开放",tlevel::t3);
 
-            myCell curCell1(tlevel::t1,1.0000);
-            oneLevelThr.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,1.0000);
+            oneLevelThr->setTwoLevel(curCell1);
 
             m_twoZYX->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
-            onelevel oneLevelFour("运营制度",tlevel::t4,1);
+            onelevel* oneLevelFour = new onelevel("运营制度",tlevel::t4);
 
-            myCell curCell1(tlevel::t1,1);
-            oneLevelFour.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,1);
+            oneLevelFour->setTwoLevel(curCell1);
 
             m_twoZYX->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
-            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,1);
+            onelevel* oneLevelFive = new onelevel("基础设施和自然环境",tlevel::t5);
 
-            myCell curCell1(tlevel::t1,1);
-            oneLevelFive.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,1);
+            oneLevelFive->setTwoLevel(curCell1);
 
             m_twoZYX->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
-            onelevel oneLevelSix("经济环境",tlevel::t6,1);
+            onelevel* oneLevelSix = new onelevel("经济环境",tlevel::t6);
 
-            myCell curCell1(tlevel::t1,1.0140);
-            oneLevelSix.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,1.0140);
+            oneLevelSix->setTwoLevel(curCell1);
 
             m_twoZYX->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
-            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,1);
+            onelevel* oneLevelSeven = new onelevel("油气资源潜力",tlevel::t7);
 
-            myCell curCell1(tlevel::t1,1.6891);
-            oneLevelSeven.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,1.6891);
+            oneLevelSeven->setTwoLevel(curCell1);
 
             m_twoZYX->setOneLevel(oneLevelSeven);
         }
@@ -2857,64 +2857,64 @@ void pjarea::debugOther() {
     {
         //1-政治环境
         {
-            onelevel oneLevelOne("政治环境",tlevel::t1,1);
+            onelevel* oneLevelOne = new onelevel("政治环境",tlevel::t1);
 
-            myCell curCell1(tlevel::t1,0.152207111);
-            oneLevelOne.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.152207111);
+            oneLevelOne->setTwoLevel(curCell1);
 
             m_twoPower->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
-            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,1);
+            onelevel* oneLevelTwo = new onelevel("油气管理体制与法律法规",tlevel::t2);
 
-            myCell curCell1(tlevel::t1,0.152207111);
-            oneLevelTwo.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.152207111);
+            oneLevelTwo->setTwoLevel(curCell1);
 
             m_twoPower->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
-            onelevel oneLevelThr("对外合作开放",tlevel::t3,1);
+            onelevel* oneLevelThr = new onelevel("对外合作开放",tlevel::t3);
 
-            myCell curCell1(tlevel::t1,0.152207111);
-            oneLevelThr.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.152207111);
+            oneLevelThr->setTwoLevel(curCell1);
 
             m_twoPower->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
-            onelevel oneLevelFour("运营制度",tlevel::t4,1);
+            onelevel* oneLevelFour = new onelevel("运营制度",tlevel::t4);
 
-            myCell curCell1(tlevel::t1,0.152207111);
-            oneLevelFour.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.152207111);
+            oneLevelFour->setTwoLevel(curCell1);
 
             m_twoPower->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
-            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,1);
+            onelevel* oneLevelFive = new onelevel("基础设施和自然环境",tlevel::t5);
 
-            myCell curCell1(tlevel::t1,0.152207111);
-            oneLevelFive.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.152207111);
+            oneLevelFive->setTwoLevel(curCell1);
 
             m_twoPower->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
-            onelevel oneLevelSix("经济环境",tlevel::t6,1);
+            onelevel* oneLevelSix = new onelevel("经济环境",tlevel::t6);
 
-            myCell curCell1(tlevel::t1,0.150100482);
-            oneLevelSix.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.150100482);
+            oneLevelSix->setTwoLevel(curCell1);
 
             m_twoPower->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
-            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,1);
+            onelevel* oneLevelSeven = new onelevel("油气资源潜力",tlevel::t7);
 
-            myCell curCell1(tlevel::t1,0.088863961);
-            oneLevelSeven.setTwoLevel(curCell1);
+            myCell* curCell1 = new myCell(tlevel::t1,0.088863961);
+            oneLevelSeven->setTwoLevel(curCell1);
 
             m_twoPower->setOneLevel(oneLevelSeven);
         }
@@ -2926,130 +2926,130 @@ void pjarea::debugOther() {
     {
         //1-政治环境
         {
-            onelevel oneLevelOne("政治环境",tlevel::t1,5);
+            onelevel* oneLevelOne = new onelevel("政治环境",tlevel::t1);
 
-            myCell curCell1(tlevel::t1,0.032141241);
-            myCell curCell2(tlevel::t2,0.032141241);
-            myCell curCell3(tlevel::t3,0.029308173);
-            myCell curCell4(tlevel::t4,0.029308173);
-            myCell curCell5(tlevel::t5,0.029308173);
-            oneLevelOne.setTwoLevel(curCell1);
-            oneLevelOne.setTwoLevel(curCell2);
-            oneLevelOne.setTwoLevel(curCell3);
-            oneLevelOne.setTwoLevel(curCell4);
-            oneLevelOne.setTwoLevel(curCell5);
+            myCell* curCell1 = new myCell(tlevel::t1,0.032141241);
+            myCell* curCell2 = new myCell(tlevel::t2,0.032141241);
+            myCell* curCell3 = new myCell(tlevel::t3,0.029308173);
+            myCell* curCell4 = new myCell(tlevel::t4,0.029308173);
+            myCell* curCell5 = new myCell(tlevel::t5,0.029308173);
+            oneLevelOne->setTwoLevel(curCell1);
+            oneLevelOne->setTwoLevel(curCell2);
+            oneLevelOne->setTwoLevel(curCell3);
+            oneLevelOne->setTwoLevel(curCell4);
+            oneLevelOne->setTwoLevel(curCell5);
 
             m_allPower->setOneLevel(oneLevelOne);
         }
         //2-油气管理体制与法律法规
         {
-            onelevel oneLevelTwo("油气管理体制与法律法规",tlevel::t2,5);
+            onelevel* oneLevelTwo = new onelevel("油气管理体制与法律法规",tlevel::t2);
 
-            myCell curCell1(tlevel::t1,0.035617477);
-            myCell curCell2(tlevel::t2,0.032514159);
-            myCell curCell3(tlevel::t3,0.032514159);
-            myCell curCell4(tlevel::t4,0.026905985);
-            myCell curCell5(tlevel::t5,0.02465522);
-            oneLevelTwo.setTwoLevel(curCell1);
-            oneLevelTwo.setTwoLevel(curCell2);
-            oneLevelTwo.setTwoLevel(curCell3);
-            oneLevelTwo.setTwoLevel(curCell4);
-            oneLevelTwo.setTwoLevel(curCell5);
+            myCell* curCell1 = new myCell(tlevel::t1,0.035617477);
+            myCell* curCell2 = new myCell(tlevel::t2,0.032514159);
+            myCell* curCell3 = new myCell(tlevel::t3,0.032514159);
+            myCell* curCell4 = new myCell(tlevel::t4,0.026905985);
+            myCell* curCell5 = new myCell(tlevel::t5,0.02465522);
+            oneLevelTwo->setTwoLevel(curCell1);
+            oneLevelTwo->setTwoLevel(curCell2);
+            oneLevelTwo->setTwoLevel(curCell3);
+            oneLevelTwo->setTwoLevel(curCell4);
+            oneLevelTwo->setTwoLevel(curCell5);
 
             m_allPower->setOneLevel(oneLevelTwo);
         }
         //3-对外合作开放
         {
-            onelevel oneLevelThr("对外合作开放",tlevel::t3,6);
+            onelevel* oneLevelThr = new onelevel("对外合作开放",tlevel::t3);
 
-            myCell curCell1(tlevel::t1,0.030555851);
-            myCell curCell2(tlevel::t2,0.028941769);
-            myCell curCell3(tlevel::t3,0.028941769);
-            myCell curCell4(tlevel::t4,0.022809671);
-            myCell curCell5(tlevel::t5,0.02047897);
-            myCell curCell6(tlevel::t6,0.02047897);
-            oneLevelThr.setTwoLevel(curCell1);
-            oneLevelThr.setTwoLevel(curCell2);
-            oneLevelThr.setTwoLevel(curCell3);
-            oneLevelThr.setTwoLevel(curCell4);
-            oneLevelThr.setTwoLevel(curCell5);
-            oneLevelThr.setTwoLevel(curCell6);
+            myCell* curCell1 = new myCell(tlevel::t1,0.030555851);
+            myCell* curCell2 = new myCell(tlevel::t2,0.028941769);
+            myCell* curCell3 = new myCell(tlevel::t3,0.028941769);
+            myCell* curCell4 = new myCell(tlevel::t4,0.022809671);
+            myCell* curCell5 = new myCell(tlevel::t5,0.02047897);
+            myCell* curCell6 = new myCell(tlevel::t6,0.02047897);
+            oneLevelThr->setTwoLevel(curCell1);
+            oneLevelThr->setTwoLevel(curCell2);
+            oneLevelThr->setTwoLevel(curCell3);
+            oneLevelThr->setTwoLevel(curCell4);
+            oneLevelThr->setTwoLevel(curCell5);
+            oneLevelThr->setTwoLevel(curCell6);
 
             m_allPower->setOneLevel(oneLevelThr);
         }
         //4-运营制度
         {
-            onelevel oneLevelFour("运营制度",tlevel::t4,6);
+            onelevel* oneLevelFour = new onelevel("运营制度",tlevel::t4);
 
-            myCell curCell1(tlevel::t1,0.030773823);
-            myCell curCell2(tlevel::t2,0.030773823);
-            myCell curCell3(tlevel::t3,0.025394218);
-            myCell curCell4(tlevel::t4,0.022707252);
-            myCell curCell5(tlevel::t5,0.022707252);
-            myCell curCell6(tlevel::t6,0.019850632);
-            oneLevelFour.setTwoLevel(curCell1);
-            oneLevelFour.setTwoLevel(curCell2);
-            oneLevelFour.setTwoLevel(curCell3);
-            oneLevelFour.setTwoLevel(curCell4);
-            oneLevelFour.setTwoLevel(curCell5);
-            oneLevelFour.setTwoLevel(curCell6);
+            myCell* curCell1 = new myCell(tlevel::t1,0.030773823);
+            myCell* curCell2 = new myCell(tlevel::t2,0.030773823);
+            myCell* curCell3 = new myCell(tlevel::t3,0.025394218);
+            myCell* curCell4 = new myCell(tlevel::t4,0.022707252);
+            myCell* curCell5 = new myCell(tlevel::t5,0.022707252);
+            myCell* curCell6 = new myCell(tlevel::t6,0.019850632);
+            oneLevelFour->setTwoLevel(curCell1);
+            oneLevelFour->setTwoLevel(curCell2);
+            oneLevelFour->setTwoLevel(curCell3);
+            oneLevelFour->setTwoLevel(curCell4);
+            oneLevelFour->setTwoLevel(curCell5);
+            oneLevelFour->setTwoLevel(curCell6);
 
             m_allPower->setOneLevel(oneLevelFour);
         }
         //5-基础设施和自然环境
         {
-            onelevel oneLevelFive("基础设施和自然环境",tlevel::t5,7);
+            onelevel* oneLevelFive = new onelevel("基础设施和自然环境",tlevel::t5);
 
-            myCell curCell1(tlevel::t1,0.023580999);
-            myCell curCell2(tlevel::t2,0.023580999);
-            myCell curCell3(tlevel::t3,0.023580999);
-            myCell curCell4(tlevel::t4,0.020545306);
-            myCell curCell5(tlevel::t5,0.020545306);
-            myCell curCell6(tlevel::t6,0.020298105);
-            myCell curCell7(tlevel::t7,0.020075286);
-            oneLevelFive.setTwoLevel(curCell1);
-            oneLevelFive.setTwoLevel(curCell2);
-            oneLevelFive.setTwoLevel(curCell3);
-            oneLevelFive.setTwoLevel(curCell4);
-            oneLevelFive.setTwoLevel(curCell5);
-            oneLevelFive.setTwoLevel(curCell6);
-            oneLevelFive.setTwoLevel(curCell7);
+            myCell* curCell1 = new myCell(tlevel::t1,0.023580999);
+            myCell* curCell2 = new myCell(tlevel::t2,0.023580999);
+            myCell* curCell3 = new myCell(tlevel::t3,0.023580999);
+            myCell* curCell4 = new myCell(tlevel::t4,0.020545306);
+            myCell* curCell5 = new myCell(tlevel::t5,0.020545306);
+            myCell* curCell6 = new myCell(tlevel::t6,0.020298105);
+            myCell* curCell7 = new myCell(tlevel::t7,0.020075286);
+            oneLevelFive->setTwoLevel(curCell1);
+            oneLevelFive->setTwoLevel(curCell2);
+            oneLevelFive->setTwoLevel(curCell3);
+            oneLevelFive->setTwoLevel(curCell4);
+            oneLevelFive->setTwoLevel(curCell5);
+            oneLevelFive->setTwoLevel(curCell6);
+            oneLevelFive->setTwoLevel(curCell7);
 
             m_allPower->setOneLevel(oneLevelFive);
         }
         //6-经济环境
         {
-            onelevel oneLevelSix("经济环境",tlevel::t6,7);
+            onelevel* oneLevelSix = new onelevel("经济环境",tlevel::t6);
 
-            myCell curCell1(tlevel::t1,0.023552066);
-            myCell curCell2(tlevel::t2,0.02328165);
-            myCell curCell3(tlevel::t3,0.02328165);
-            myCell curCell4(tlevel::t4,0.020301405);
-            myCell curCell5(tlevel::t5,0.020301405);
-            myCell curCell6(tlevel::t6,0.019903019);
-            myCell curCell7(tlevel::t7,0.019478806);
-            oneLevelSix.setTwoLevel(curCell1);
-            oneLevelSix.setTwoLevel(curCell2);
-            oneLevelSix.setTwoLevel(curCell3);
-            oneLevelSix.setTwoLevel(curCell4);
-            oneLevelSix.setTwoLevel(curCell5);
-            oneLevelSix.setTwoLevel(curCell6);
-            oneLevelSix.setTwoLevel(curCell7);
+            myCell* curCell1 = new myCell(tlevel::t1,0.023552066);
+            myCell* curCell2 = new myCell(tlevel::t2,0.02328165);
+            myCell* curCell3 = new myCell(tlevel::t3,0.02328165);
+            myCell* curCell4 = new myCell(tlevel::t4,0.020301405);
+            myCell* curCell5 = new myCell(tlevel::t5,0.020301405);
+            myCell* curCell6 = new myCell(tlevel::t6,0.019903019);
+            myCell* curCell7 = new myCell(tlevel::t7,0.019478806);
+            oneLevelSix->setTwoLevel(curCell1);
+            oneLevelSix->setTwoLevel(curCell2);
+            oneLevelSix->setTwoLevel(curCell3);
+            oneLevelSix->setTwoLevel(curCell4);
+            oneLevelSix->setTwoLevel(curCell5);
+            oneLevelSix->setTwoLevel(curCell6);
+            oneLevelSix->setTwoLevel(curCell7);
 
             m_allPower->setOneLevel(oneLevelSix);
         }
         //7-油气资源潜力
         {
-            onelevel oneLevelSeven("油气资源潜力",tlevel::t7,4);
+            onelevel* oneLevelSeven = new onelevel("油气资源潜力",tlevel::t7);
 
-            myCell curCell1(tlevel::t1,0.023327963);
-            myCell curCell2(tlevel::t2,0.023327963);
-            myCell curCell3(tlevel::t3,0.021104037);
-            myCell curCell4(tlevel::t4,0.021104037);
-            oneLevelSeven.setTwoLevel(curCell1);
-            oneLevelSeven.setTwoLevel(curCell2);
-            oneLevelSeven.setTwoLevel(curCell3);
-            oneLevelSeven.setTwoLevel(curCell4);
+            myCell* curCell1 = new myCell(tlevel::t1,0.023327963);
+            myCell* curCell2 = new myCell(tlevel::t2,0.023327963);
+            myCell* curCell3 = new myCell(tlevel::t3,0.021104037);
+            myCell* curCell4 = new myCell(tlevel::t4,0.021104037);
+            oneLevelSeven->setTwoLevel(curCell1);
+            oneLevelSeven->setTwoLevel(curCell2);
+            oneLevelSeven->setTwoLevel(curCell3);
+            oneLevelSeven->setTwoLevel(curCell4);
 
             m_allPower->setOneLevel(oneLevelSeven);
         }
