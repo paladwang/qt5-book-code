@@ -335,6 +335,7 @@ void MainWindow::initSpSheetByDefaultData()
                 if (bIsFirstRow) {
                     //cHeader<<twoLevel.getName().c_str();
                     spreadsheet->setFormula(rowData,1,twoLevel.getName().c_str());
+                    spreadsheet->setFlags(rowData,1,1,1,Qt::ItemIsEditable);
                 }
                 QString tmpQStr = QString::number(twoLevel.getValue());
                 spreadsheet->setFormula(rowData, columnData, tmpQStr);
@@ -350,12 +351,19 @@ void MainWindow::initSpSheetByDefaultData()
                 rowData++;
                 twolevelCnt++;
             }
+
+            //每一个onelevel完后再空一行
+            //spreadsheet->insertRow(rowData++);
         }
         bIsFirstRow = false;
         columnData++;
     }
+    spreadsheet->setFlags(0,0,1,2,Qt::ItemIsEditable);
     spreadsheet->setSpan(0,0,1,2); //把行头和列头之间的空白合并
     spreadsheet->setFont(1,0,twolevelCnt,1,font);
+    spreadsheet->setFlags(1,0,twolevelCnt,1,Qt::ItemIsEditable);
+    //spreadsheet->setColumnCount(twolevelCnt+10);
+    //spreadsheet->insertRow(8);
 
     //spreadsheet->setHorizontalHeaderLabels(rHeader); //设置行表头
     //spreadsheet->setVerticalHeaderLabels(cHeader); //设置列表头

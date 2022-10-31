@@ -366,6 +366,18 @@ void Spreadsheet::setFont(int row, int column, int rowSpanCount, int columnSpanC
     }
 }
 
+void Spreadsheet::setFlags(int row, int column, int rowSpanCount, int columnSpanCount, const Qt::ItemFlags flags)
+{
+    for(int rowCnt=0; rowCnt<rowSpanCount; rowCnt++) {
+        for(int colCnt=0; colCnt<columnSpanCount; ++colCnt) {
+            QTableWidgetItem* curItem = this->item(row+rowCnt, column+colCnt);
+            if(curItem!=NULL) {
+                curItem->setFlags(flags);
+            }
+        }
+    }
+}
+
 
 bool SpreadsheetCompare::operator()(const QStringList &row1,
                                     const QStringList &row2) const

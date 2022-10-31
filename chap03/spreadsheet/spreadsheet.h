@@ -27,6 +27,7 @@ public:
     bool readData(pjarea* curpjarea);
     void setColor(int row, int column, int rowSpanCount, int columnSpanCount,const QColor& color);
     void setFont(int row, int column, int rowSpanCount, int columnSpanCount,const QFont& font);
+    void setFlags(int row, int column, int rowSpanCount, int columnSpanCount,const Qt::ItemFlags flags);
 
 public slots:
     void cut();
@@ -47,7 +48,7 @@ private slots:
     void somethingChanged();
 
 private:
-    enum { MagicNumber = 0x7F51C883, RowCount = 999, ColumnCount = 26 };
+    enum { MagicNumber = 0x7F51C883, RowCount = 45/*999表格行数*/, ColumnCount = 26 };
 
     Cell *cell(int row, int column) const;
     QString text(int row, int column) const;
