@@ -16,6 +16,8 @@
 
 QColor ligthgray = QColor(211,211,211);
 QColor gray = QColor(128,128,128);
+QColor black = QColor(0,0,0);
+QBrush redBrush = QBrush(QColor(255,0,0));
 
 MainWindow::MainWindow()
 {
@@ -303,8 +305,8 @@ void MainWindow::initSpSheetByDefaultData()
     rHeader<<""; //列头有2行
 
     //黑体加粗
-    QFont font = QFont("SimHei",12);
-    font.setBold(true);
+    QFont fontHei = QFont("SimHei",12);
+    fontHei.setBold(true);
 
     int twolevelCnt = 0;
 
@@ -323,9 +325,11 @@ void MainWindow::initSpSheetByDefaultData()
             //自设行列头
             spreadsheet->setFormula(0,columnData,curCy.getName().c_str());
             //spreadsheet->item(0,columnData)->setTextAlignment(Qt::AlignRight); //Qt::AlignHCenter); //居中展示
-            spreadsheet->setFont(0,columnData,1,1,font);
+            spreadsheet->setFont(0,columnData,1,1,fontHei);
+
             spreadsheet->setFormula(rowData,0,itOne->second->getName().c_str());
             spreadsheet->setSpan(rowData,0,oneLevel.getTwoLevelNum(),1);
+            spreadsheet->setForeground(rowData,0,oneLevel.getTwoLevelNum(),1,redBrush);
 
             map<int,twolevel*>::const_iterator itTwo;
             for(itTwo=oneLevel.begin();itTwo!=oneLevel.end();++itTwo) {
@@ -358,12 +362,26 @@ void MainWindow::initSpSheetByDefaultData()
         bIsFirstRow = false;
         columnData++;
     }
-    spreadsheet->setFlags(0,0,1,2,Qt::ItemIsEditable);
+    //spreadsheet->setFlags(0,0,1,2,Qt::ItemIsEditable);
     spreadsheet->setSpan(0,0,1,2); //把行头和列头之间的空白合并
-    spreadsheet->setFont(1,0,twolevelCnt,1,font);
+    spreadsheet->setFont(1,0,twolevelCnt,1,fontHei);
     spreadsheet->setFlags(1,0,twolevelCnt,1,Qt::ItemIsEditable);
     //spreadsheet->setColumnCount(twolevelCnt+10);
-    //spreadsheet->insertRow(8);
+    //spreadsheet->insertRow(6);
+
+    //每个onelevel后边都增加一个空行
+    country curCy = *(pjArea->begin(eDataType::ORI)->second);
+    map<int,onelevel*>::const_iterator itOne;
+    int spanRow = 1;
+    for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
+        onelevel& oneLevel = *(itOne->second);
+        spanRow += oneLevel.getTwoLevelNum();
+        spreadsheet->insertRow(spanRow);
+        spreadsheet->setRowHeight(spanRow,25);
+        spreadsheet->setColor(spanRow,0,1,2+pjArea->getCountryNum(),black);
+        spreadsheet->setSpan(spanRow,0,1,2+pjArea->getCountryNum());
+        spanRow++;
+    }
 
     //spreadsheet->setHorizontalHeaderLabels(rHeader); //设置行表头
     //spreadsheet->setVerticalHeaderLabels(cHeader); //设置列表头

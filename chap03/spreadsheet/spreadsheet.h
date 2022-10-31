@@ -28,6 +28,8 @@ public:
     void setColor(int row, int column, int rowSpanCount, int columnSpanCount,const QColor& color);
     void setFont(int row, int column, int rowSpanCount, int columnSpanCount,const QFont& font);
     void setFlags(int row, int column, int rowSpanCount, int columnSpanCount,const Qt::ItemFlags flags);
+    void setForeground(int row, int column, int rowSpanCount, int columnSpanCount,const QBrush& brush);
+
 
 public slots:
     void cut();

@@ -347,9 +347,11 @@ void Spreadsheet::setColor(int row, int column, int rowSpanCount, int columnSpan
     for(int rowCnt=0; rowCnt<rowSpanCount; rowCnt++) {
         for(int colCnt=0; colCnt<columnSpanCount; ++colCnt) {
             QTableWidgetItem* curItem = this->item(row+rowCnt, column+colCnt);
-            if(curItem!=NULL) {
-                curItem->setBackgroundColor(color);
+            if(curItem==NULL) {
+                curItem = new Cell();
+                //curItem->setData(Qt::EditRole,"   ");
             }
+            curItem->setBackgroundColor(color);
         }
     }
 }
@@ -371,13 +373,24 @@ void Spreadsheet::setFlags(int row, int column, int rowSpanCount, int columnSpan
     for(int rowCnt=0; rowCnt<rowSpanCount; rowCnt++) {
         for(int colCnt=0; colCnt<columnSpanCount; ++colCnt) {
             QTableWidgetItem* curItem = this->item(row+rowCnt, column+colCnt);
-            if(curItem!=NULL) {
-                curItem->setFlags(flags);
+            if(curItem==NULL) {
+                curItem = new Cell();
             }
+            curItem->setFlags(flags);
         }
     }
 }
 
+void Spreadsheet::setForeground(int row, int column, int rowSpanCount, int columnSpanCount, const QBrush &brush) {
+    for(int rowCnt=0; rowCnt<rowSpanCount; rowCnt++) {
+        for(int colCnt=0; colCnt<columnSpanCount; ++colCnt) {
+            QTableWidgetItem* curItem = this->item(row+rowCnt, column+colCnt);
+            if(curItem!=NULL) {
+                curItem->setForeground(brush);
+            }
+        }
+    }
+}
 
 bool SpreadsheetCompare::operator()(const QStringList &row1,
                                     const QStringList &row2) const
