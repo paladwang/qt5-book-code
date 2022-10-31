@@ -342,6 +342,27 @@ QString Spreadsheet::text(int row, int column) const
     }
 }
 
+void Spreadsheet::setColor(int row, int column, int rowSpanCount, int columnSpanCount, const QColor &color)
+{
+    for(int rowCnt=0; rowCnt<rowSpanCount; rowCnt++) {
+        for(int colCnt=0; colCnt<columnSpanCount; ++colCnt) {
+            QTableWidgetItem* curItem = this->item(row+rowCnt, column+colCnt);
+            curItem->setBackgroundColor(color);
+        }
+    }
+}
+
+void Spreadsheet::setFont(int row, int column, int rowSpanCount, int columnSpanCount, const QFont& font)
+{
+    for(int rowCnt=0; rowCnt<rowSpanCount; rowCnt++) {
+        for(int colCnt=0; colCnt<columnSpanCount; ++colCnt) {
+            QTableWidgetItem* curItem = this->item(row+rowCnt, column+colCnt);
+            curItem->setFont(font);
+        }
+    }
+}
+
+
 bool SpreadsheetCompare::operator()(const QStringList &row1,
                                     const QStringList &row2) const
 {

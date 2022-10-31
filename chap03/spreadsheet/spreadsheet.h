@@ -25,6 +25,8 @@ public:
     bool writeFile(const QString &fileName);
     void sort(const SpreadsheetCompare &compare);
     bool readData(pjarea* curpjarea);
+    void setColor(int row, int column, int rowSpanCount, int columnSpanCount,const QColor& color);
+    void setFont(int row, int column, int rowSpanCount, int columnSpanCount,const QFont& font);
 
 public slots:
     void cut();
