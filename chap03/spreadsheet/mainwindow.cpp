@@ -295,26 +295,32 @@ void MainWindow::initSpSheetByDefaultData()
     //设置原始数据表表头
     QStringList rHeader;
     QStringList cHeader;
-    int row=1;
     int column = 0;
+    //return;
+    bool bIsFirstRow = true;
 
     map<int,country*>::const_iterator it;
     for(it=pjArea->begin(eDataType::ORI);it!=pjArea->end(eDataType::ORI);++it) {
         country& curCy = *(it->second);
         column++;
         rHeader<<curCy.getName().c_str();
-        map<int,onelevel*>::const_iterator oIt;
-        for(oIt=curCy.begin();oIt!=curCy.end();++it) {
-            onelevel& oneLevel = *(oIt->second);
-            map<int,twolevel*>::const_iterator tIt;
-            for(tIt=oneLevel.begin();tIt!=oneLevel.end();++tIt) {
-                twolevel& twoLevel = *(tIt->second);
+        map<int,onelevel*>::const_iterator itOne;
+        for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
+            onelevel& oneLevel = *(itOne->second);
+            map<int,twolevel*>::const_iterator itTwo;
+            int row=1;
+            for(itTwo=oneLevel.begin();itTwo!=oneLevel.end();++itTwo) {
+                twolevel& twoLevel = *(itTwo->second);
 
-                cHeader<<twoLevel.getName().c_str();
+                if (bIsFirstRow) {
+                    cHeader<<twoLevel.getName().c_str();
+                }
                 QString tmpQStr = QString::number(twoLevel.getValue());
                 spreadsheet->setFormula(row, column, tmpQStr);
+                //qDebug()<<row<<column<<tmpQStr<<endl;
                 row++;
             }
+            bIsFirstRow = false;
         }
     }
 
