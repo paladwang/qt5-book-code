@@ -37,6 +37,7 @@ public:
         }
         return true;
     }
+    unsigned getTwoLevelNum() { return m_mapTwoLevel.size();}
     map<int,twolevel*>::const_iterator begin() {return m_mapTwoLevel.begin();}
     map<int,twolevel*>::const_iterator end() { return m_mapTwoLevel.end();}
 public:

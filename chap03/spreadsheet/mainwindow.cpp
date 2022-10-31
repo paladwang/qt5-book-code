@@ -295,40 +295,52 @@ void MainWindow::initSpSheetByDefaultData()
     //设置原始数据表表头
     QStringList rHeader;
     QStringList cHeader;
-    int column = 1;
-    //return;
+    int columnData = 2; //数据列从2开始(第0,1列作为自设列头)
     bool bIsFirstRow = true;
-
     rHeader<<""; //列头有2行
+
     map<int,country*>::const_iterator it;
     for(it=pjArea->begin(eDataType::ORI);it!=pjArea->end(eDataType::ORI);++it) {
         country& curCy = *(it->second);
         rHeader<<curCy.getName().c_str();
         map<int,onelevel*>::const_iterator itOne;
 
-        int row=0;
+        int rowData=1; // 数据行从1开始(第0行作为自设行头)
         for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
             onelevel& oneLevel = *(itOne->second);
+            //QString cHeaderTwo = oneLevel.getName().c_str();
+            //spreadsheet->setFormula(rowData, columnData, cHeaderTwo);
+
+            //自设列头
+            spreadsheet->setFormula(0,columnData,curCy.getName().c_str());
+            spreadsheet->setFormula(rowData,0,itOne->second->getName().c_str());
+            spreadsheet->setSpan(rowData,0,oneLevel.getTwoLevelNum(),1);
+
             map<int,twolevel*>::const_iterator itTwo;
             for(itTwo=oneLevel.begin();itTwo!=oneLevel.end();++itTwo) {
                 twolevel& twoLevel = *(itTwo->second);
 
+                //自设二级列头
                 if (bIsFirstRow) {
-                    cHeader<<twoLevel.getName().c_str();
-                    //spreadsheet->setFormula(row,1)
+                    //cHeader<<twoLevel.getName().c_str();
+                    spreadsheet->setFormula(rowData,1,twoLevel.getName().c_str());
                 }
                 QString tmpQStr = QString::number(twoLevel.getValue());
-                spreadsheet->setFormula(row, column, tmpQStr);
-                //qDebug()<<row<<column<<tmpQStr<<endl;
-                row++;
+                spreadsheet->setFormula(rowData, columnData, tmpQStr);
+                //qDebug()<<rowData<<columnData<<tmpQStr<<endl;
+                rowData++;
             }
         }
         bIsFirstRow = false;
-        column++;
+        columnData++;
     }
+    spreadsheet->setSpan(0,0,1,2); //把行头和列头之间的空白合并
 
-    spreadsheet->setHorizontalHeaderLabels(rHeader); //设置行表头
-    spreadsheet->setVerticalHeaderLabels(cHeader); //设置列表头
+    //spreadsheet->setHorizontalHeaderLabels(rHeader); //设置行表头
+    //spreadsheet->setVerticalHeaderLabels(cHeader); //设置列表头
+    //因为表头不能合并,所以隐藏表头并用单元格合并
+    //spreadsheet->verticalHeader()->setHidden(true);
+    //spreadsheet->horizontalHeader()->setHidden(true);
     //spreadsheet->setSpan(1,1,1,2);
 }
 
