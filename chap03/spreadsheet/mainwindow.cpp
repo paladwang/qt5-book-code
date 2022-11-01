@@ -51,9 +51,10 @@ void MainWindow::createInfo()
     spreadsheet->setSpan(1,1,1,2);
 
     //设置第二个spreadsheet
-    twoSpreadsheet = new Spreadsheet;
-    twoSpreadsheet->setHidden(true); //这个先不展示
+    spreadsheetGYH = new Spreadsheet;
+    spreadsheetGYH->setHidden(true); //这个先不展示
 
+    /*
     //paladwang 新增
     QIcon folderIcon(style()->standardPixmap(QStyle::SP_DirClosedIcon));
     QIcon trashIcon(style()->standardPixmap(QStyle::SP_FileIcon)); //设置图标风格
@@ -70,7 +71,9 @@ void MainWindow::createInfo()
     //addFolder(trashIcon, tr("Trash"));
     //连接树形节点的单击信号到函数,奇怪的是点了没反应
     connect(this->foldersTreeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(shiftFile(QTreeWidgetItem* ,int )));
+    */
 
+    createTree();
 
     rightSplitter = new QSplitter(Qt::Vertical);
     rightSplitter->addWidget(spreadsheet);
@@ -78,7 +81,7 @@ void MainWindow::createInfo()
     rightSplitter->setStretchFactor(1, 1);
 
     //分析结果sheet
-    rightSplitter->addWidget(twoSpreadsheet);
+    rightSplitter->addWidget(spreadsheetGYH);
     /*
     QWidget中有一个函数.hide();它相当于把一个widget设为不可见setVisible(false);想要恢复它也很容易，setVisible(true)即可。
     QWidget *w = new QWidget();
@@ -107,8 +110,8 @@ void MainWindow::createInfo()
 
     //默认数据
     pjArea = new pjarea("西亚地区区块评价");
-    pjArea->debugOriData();
-    pjArea->debugParse();
+    //pjArea->debugOriData();
+    //pjArea->debugParse();
 }
 
 bool MainWindow::setIsLoadDefaultData(bool isLoadDefaultData)
@@ -238,8 +241,77 @@ void MainWindow::drawChartView()
     //https://blog.csdn.net/weixin_42837024/article/details/82257021
 }
 
+void MainWindow::createTree() {
+    //设置树型结构的title
+    QStringList folderLabels;
+    folderLabels << tr("当前评价");
+    this->foldersTreeWidget = new QTreeWidget;
+    this->foldersTreeWidget->setHeaderLabels(folderLabels);
+
+    QTreeWidgetItem *root;
+    if (foldersTreeWidget->topLevelItemCount() == 0) {
+        root = new QTreeWidgetItem(foldersTreeWidget);
+        root->setText(0, tr("评价数据及结果"));
+        foldersTreeWidget->setItemExpanded(root, true);
+    } else {
+        root = foldersTreeWidget->topLevelItem(0);
+    }
+
+    QIcon folderIcon(style()->standardPixmap(QStyle::SP_DirClosedIcon));
+    QIcon fileIcon(style()->standardPixmap(QStyle::SP_FileIcon)); //设置图标风格
+
+    //(0,0),原始评价数据
+    QTreeWidgetItem *item1 = new QTreeWidgetItem(root);
+    item1->setText(0, "原始评价数据");
+    item1->setIcon(0, fileIcon);
+    item1->setDisabled(false); //设置这个item不可用(展示上是灰的,不能点击)
+    item1->setSelected(true);
+    //connect(newItem, SIGNAL((itemClicked)), this, SLOT(newFile()));
+
+    QTreeWidgetItem *item2 = new QTreeWidgetItem(root);
+    item2->setText(0, "评价过程数据");
+    item2->setIcon(0, folderIcon);
+    //item2->setFlags(Qt::ItemIsSelectable); //这个和下边的setDisabled效果一样
+    item2->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+
+    QTreeWidgetItem *item2_1 = new QTreeWidgetItem(item2);
+    item2_1->setText(0, "归一化数据");
+    item2_1->setIcon(0, fileIcon);
+    item2_1->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+    item2->addChild(item2_1);
+
+    QTreeWidgetItem *item2_2 = new QTreeWidgetItem(item2);
+    item2_2->setText(0, "分析过程数据");
+    item2_2->setIcon(0, fileIcon);
+    item2_2->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+    item2->addChild(item2_2);
+
+    QTreeWidgetItem *item3 = new QTreeWidgetItem(root);
+    item3->setText(0, "评价结果图示");
+    item3->setIcon(0, folderIcon);
+    item3->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+
+    QTreeWidgetItem *item3_1 = new QTreeWidgetItem(item3);
+    item3_1->setText(0, "重要性之比");
+    item3_1->setIcon(0, fileIcon);
+    item3_1->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+    item3->addChild(item3_1);
+
+    QTreeWidgetItem *item3_2 = new QTreeWidgetItem(item3);
+    item3_2->setText(0, "最终结果");
+    item3_2->setIcon(0, fileIcon);
+    item3_2->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+    item3->addChild(item3_2);
+
+    if (!foldersTreeWidget->currentItem())
+        foldersTreeWidget->setCurrentItem(item1);
+
+    connect(this->foldersTreeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(shiftFile(QTreeWidgetItem* ,int )));
+}
+
 void MainWindow::parse()
 {
+    pjArea->debugParse();
     /*
     QMessageBox::warning(this, tr("to parse the orignal data"),
                            tr("The document has been modified.\n"

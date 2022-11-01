@@ -70,9 +70,11 @@ private:
     void addFolder(const QIcon &icon, const QString &name);
     void drawChartView();
     void initSpSheetByDefaultData();
+    void createTree();
 
-    Spreadsheet *spreadsheet;
-    Spreadsheet *twoSpreadsheet;
+    Spreadsheet *spreadsheet; //原始表
+    Spreadsheet *spreadsheetGYH; //原始信息带归一化的表
+    Spreadsheet *spreadsheetResult; //带除了归一化外所有数据的表
     FindDialog *findDialog;
     QLabel *locationLabel;
     QLabel *formulaLabel;
