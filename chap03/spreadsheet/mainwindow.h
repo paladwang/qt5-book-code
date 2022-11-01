@@ -26,6 +26,8 @@ class QTreeWidget;
 //用QT的QChartView,必须用这个
 QT_CHARTS_USE_NAMESPACE
 
+typedef map<int,country*>::const_iterator countryIter;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -70,7 +72,10 @@ private:
     void addFolder(const QIcon &icon, const QString &name);
     void drawChartView();
     void initSpSheetByDefaultData();
+    void fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIter end, int sRow, int sColumn);
+    void fillSpreadsheetHeader(Spreadsheet* form);
     void createTree();
+
 
     Spreadsheet *spreadsheet; //原始表
     Spreadsheet *spreadsheetGYH; //原始信息带归一化的表
