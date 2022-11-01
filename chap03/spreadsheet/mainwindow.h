@@ -72,8 +72,8 @@ private:
     void addFolder(const QIcon &icon, const QString &name);
     void drawChartView();
     void initSpSheetByDefaultData();
-    void fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIter end, int sRow, int sColumn);
-    void fillSpreadsheetHeader(Spreadsheet* form);
+    void fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIter end, int sRow, int sColumn, bool isInsertBlankRow=false);
+    void fillSpreadsheetHeader(Spreadsheet* form, bool isInsertBlankRow=false);
     void createTree();
 
 
@@ -128,6 +128,7 @@ private:
     QTreeWidget *messagesTreeWidget;
     QTextEdit* textEdit;
     QChartView* chartView;
+    QChartView* charViewResult;
     pjarea*  pjArea;
     bool m_bIsLoadDefaultData;
 };

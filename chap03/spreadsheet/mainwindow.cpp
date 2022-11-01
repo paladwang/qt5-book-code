@@ -44,15 +44,20 @@ void MainWindow::createInfo()
     //setCentralWidget(spreadsheet);
     spreadsheet->setHidden(false); //不展示
 
+    /*
     //设置原始数据表表头
     QStringList strs = {"序号", "登录名", "姓名"};
     spreadsheet->setHorizontalHeaderLabels(strs); //设置行表头
     spreadsheet->setVerticalHeaderLabels(strs); //设置列表头
-    spreadsheet->setSpan(1,1,1,2);
+    spreadsheet->setSpan(1,1,1,2);*/
 
     //设置第二个spreadsheet
     spreadsheetGYH = new Spreadsheet;
     spreadsheetGYH->setHidden(true); //这个先不展示
+
+    //第三个spreadsheet
+    spreadsheetResult = new Spreadsheet;
+    spreadsheetResult->setHidden(true); //先不展示
 
     /*
     //paladwang 新增
@@ -76,12 +81,10 @@ void MainWindow::createInfo()
     createTree();
 
     rightSplitter = new QSplitter(Qt::Vertical);
-    rightSplitter->addWidget(spreadsheet);
-    //rightSplitter->addWidget(textEdit);
-    rightSplitter->setStretchFactor(1, 1);
+    rightSplitter->addWidget(spreadsheet); //原始数据sheet
+    rightSplitter->addWidget(spreadsheetGYH);//归一化sheet
+    rightSplitter->addWidget(spreadsheetResult); //最终结果sheet
 
-    //分析结果sheet
-    rightSplitter->addWidget(spreadsheetGYH);
     /*
     QWidget中有一个函数.hide();它相当于把一个widget设为不可见setVisible(false);想要恢复它也很容易，setVisible(true)即可。
     QWidget *w = new QWidget();
@@ -89,10 +92,16 @@ void MainWindow::createInfo()
     QWidget *a = splitter->widget(0);
     a.hide();*/
 
-    //第三个: 图形chart
+    //第4个: 图形chart
     chartView = new QChartView;
     chartView->hide();
     rightSplitter->addWidget(chartView);
+    charViewResult = new QChartView;
+    charViewResult->hide();
+    rightSplitter->addWidget(charViewResult);
+
+    //rightSplitter->addWidget(textEdit);
+    rightSplitter->setStretchFactor(1, 1);
 
     mainSplitter = new QSplitter(Qt::Horizontal);
     mainSplitter->addWidget(foldersTreeWidget);
@@ -180,7 +189,7 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
         rightSplitter->widget(i)->hide();
     }
 
-    int index = 0;
+    int index = 10;
     if(text.toStdString()==string("原始评价数据")) {
         index = 0;
     } else  if(text.toStdString()==string("归一化数据")) {
@@ -336,7 +345,7 @@ void MainWindow::createTree() {
     connect(this->foldersTreeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(shiftFile(QTreeWidgetItem* ,int )));
 }
 
-void MainWindow::fillSpreadsheetHeader(Spreadsheet *form)
+void MainWindow::fillSpreadsheetHeader(Spreadsheet *form, bool isInsertBlankRow)
 {
     if (pjArea->begin(eDataType::ORI)==pjArea->end(eDataType::ORI)) {
         return; //万一pjArea还没初始化
@@ -418,18 +427,20 @@ void MainWindow::fillSpreadsheetHeader(Spreadsheet *form)
     //form->setColumnCount(twolevelCnt+10);
     //form->insertRow(6);
 
-    //每个onelevel后边都增加一个空行
-    country curCy = *(pjArea->begin(eDataType::ORI)->second);
-    map<int,onelevel*>::const_iterator itOne;
-    int spanRow = 1;
-    for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
-        onelevel& oneLevel = *(itOne->second);
-        spanRow += oneLevel.getTwoLevelNum();
-        form->insertRow(spanRow);
-        form->setRowHeight(spanRow,25);
-        form->setColor(spanRow,0,1,2+pjArea->getCountryNum(),black);
-        form->setSpan(spanRow,0,1,2+pjArea->getCountryNum());
-        spanRow++;
+    if(isInsertBlankRow) {
+        //每个onelevel后边都增加一个空行
+        country curCy = *(pjArea->begin(eDataType::ORI)->second);
+        map<int,onelevel*>::const_iterator itOne;
+        int spanRow = 1;
+        for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
+            onelevel& oneLevel = *(itOne->second);
+            spanRow += oneLevel.getTwoLevelNum();
+            form->insertRow(spanRow);
+            form->setRowHeight(spanRow,25);
+            form->setColor(spanRow,0,1,2+pjArea->getCountryNum(),black);
+            form->setSpan(spanRow,0,1,2+pjArea->getCountryNum());
+            spanRow++;
+        }
     }
 
     //form->setHorizontalHeaderLabels(rHeader); //设置行表头
@@ -440,7 +451,7 @@ void MainWindow::fillSpreadsheetHeader(Spreadsheet *form)
     //form->setSpan(1,1,1,2);
 }
 
-void MainWindow::fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIter end, int sRow, int sColumn) {
+void MainWindow::fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIter end, int sRow, int sColumn, bool isInsertBlankRow) {
     int columnData = sColumn; //从给定列开始
     bool bIsFirstRow = true;
 
@@ -515,18 +526,20 @@ void MainWindow::fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIte
     //form->insertRow(6);
     */
 
-    //每个onelevel后边都增加一个空行
-    country curCy = *(pjArea->begin(eDataType::ORI)->second);
-    map<int,onelevel*>::const_iterator itOne;
-    int spanRow = 1;
-    for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
-        onelevel& oneLevel = *(itOne->second);
-        spanRow += oneLevel.getTwoLevelNum();
-        form->insertRow(spanRow);
-        form->setRowHeight(spanRow,25);
-        form->setColor(spanRow,0,1,2+pjArea->getCountryNum(),black);
-        form->setSpan(spanRow,0,1,2+pjArea->getCountryNum());
-        spanRow++;
+    if(isInsertBlankRow) {
+        //每个onelevel后边都增加一个空行
+        country curCy = *(pjArea->begin(eDataType::ORI)->second);
+        map<int,onelevel*>::const_iterator itOne;
+        int spanRow = 1;
+        for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
+            onelevel& oneLevel = *(itOne->second);
+            spanRow += oneLevel.getTwoLevelNum();
+            form->insertRow(spanRow);
+            form->setRowHeight(spanRow,25);
+            form->setColor(spanRow,0,1,2+pjArea->getCountryNum(),black);
+            form->setSpan(spanRow,0,1,2+pjArea->getCountryNum());
+            spanRow++;
+        }
     }
 }
 
@@ -541,35 +554,27 @@ void MainWindow::parse()
                            | QMessageBox::Cancel);
     return;*/
 
+    //parse过程就是把数据填入相应的sheet
+    this->fillSpreadsheetHeader(spreadsheetGYH);
+    this->fillSpreadsheet(spreadsheetGYH,pjArea->m_mapCountry.begin(),pjArea->m_mapCountry.end(),1,4);
+    this->fillSpreadsheet(spreadsheetGYH,pjArea->m_mapCountryGYH.begin(),pjArea->m_mapCountryGYH.end(),1,4+pjArea->m_mapCountry.size(),true);
 
-    return ;
+    //把后边的map组织下
+    map<int,country*> mapAll;
+    mapAll[pjArea->m_bzcOneResult->getCountryID()] = pjArea->m_bzcOneResult;//标准差结果
+    mapAll[pjArea->m_preOneZYX->getCountryID()] = pjArea->m_preOneZYX;//重要性之比前驱值
+    mapAll[pjArea->m_oneZYX->getCountryID()] = pjArea->m_oneZYX;//重要性之比
+    mapAll[pjArea->m_onePower->getCountryID()] = pjArea->m_onePower;//指标权重
+    mapAll[pjArea->m_bzcTwoResult->getCountryID()] = pjArea->m_bzcTwoResult;//准则层标准差
+    mapAll[pjArea->m_preTwoZYX->getCountryID()] = pjArea->m_preTwoZYX;//准则层重要性之比前驱
+    mapAll[pjArea->m_twoZYX->getCountryID()] = pjArea->m_twoZYX;//准则层重要性之比
+    mapAll[pjArea->m_twoPower->getCountryID()] = pjArea->m_twoPower;//准则层权重
+    mapAll[pjArea->m_allPower->getCountryID()] = pjArea->m_allPower;//指标的全局权重
+    mapAll[pjArea->m_other->getCountryID()] = pjArea->m_other;//全局其他信息
 
-
-
-
-
-
-    SortDialog dialog(this);
-    QTableWidgetSelectionRange range = spreadsheet->selectedRange();
-    dialog.setColumnRange('A' + range.leftColumn(),
-                          'A' + range.rightColumn());
-
-    if (dialog.exec()) {
-        SpreadsheetCompare compare;
-        compare.keys[0] =
-              dialog.primaryColumnCombo->currentIndex();
-        compare.keys[1] =
-              dialog.secondaryColumnCombo->currentIndex() - 1;
-        compare.keys[2] =
-              dialog.tertiaryColumnCombo->currentIndex() - 1;
-        compare.ascending[0] =
-              (dialog.primaryOrderCombo->currentIndex() == 0);
-        compare.ascending[1] =
-              (dialog.secondaryOrderCombo->currentIndex() == 0);
-        compare.ascending[2] =
-              (dialog.tertiaryOrderCombo->currentIndex() == 0);
-        spreadsheet->sort(compare);
-    }
+    //再挨个输出这些值
+    this->fillSpreadsheetHeader(spreadsheetResult);
+    this->fillSpreadsheet(spreadsheetResult,mapAll.begin(),mapAll.end(),1,4,true);
 }
 
 void MainWindow::initSpSheetByDefaultData()

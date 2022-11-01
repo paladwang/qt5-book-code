@@ -128,6 +128,7 @@ public:
 
 protected:
     string m_name; //区域名称
+public: //暂时先这样,不合理
     map<int,country*> m_mapCountry; //对应的原始数据国家,国家ID从0开始
 
     //对应的归一化后的结果
