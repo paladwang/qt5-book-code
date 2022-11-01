@@ -19,6 +19,8 @@ QColor gray = QColor(128,128,128);
 QColor black = QColor(0,0,0);
 QBrush redBrush = QBrush(QColor(255,0,0));
 
+note::noteMap note::m_mapNote = note::createNoteMap();
+
 MainWindow::MainWindow()
 {
     createInfo();
@@ -300,7 +302,7 @@ void MainWindow::initSpSheetByDefaultData()
     //设置原始数据表表头
     QStringList rHeader;
     QStringList cHeader;
-    int columnData = 2; //数据列从2开始(第0,1列作为自设列头)
+    int columnData = 4; //数据列从4开始(第0为一级指标名,第1列为二级指标名,第3列为二级指标备注,第4列为正负向说明)
     bool bIsFirstRow = true;
     rHeader<<""; //列头有2行
 
@@ -340,6 +342,9 @@ void MainWindow::initSpSheetByDefaultData()
                     //cHeader<<twoLevel.getName().c_str();
                     spreadsheet->setFormula(rowData,1,twoLevel.getName().c_str());
                     spreadsheet->setFlags(rowData,1,1,1,Qt::ItemIsEditable);
+                    //二级指标备注和正负向说明
+                    spreadsheet->setFormula(rowData,2,note::getNote(oneLevel.getLevelID(),twoLevel.getLevelID()).c_str());
+                    spreadsheet->setFormula(rowData,3,twoLevel.isPositive()?"正向指标":"负向指标");
                 }
                 QString tmpQStr = QString::number(twoLevel.getValue());
                 spreadsheet->setFormula(rowData, columnData, tmpQStr);
