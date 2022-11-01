@@ -189,7 +189,7 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
         rightSplitter->widget(i)->hide();
     }
 
-    int index = 10;
+    int index = -1;
     if(text.toStdString()==string("原始评价数据")) {
         index = 0;
     } else  if(text.toStdString()==string("归一化数据")) {
@@ -202,7 +202,7 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
         index = 4;
     }
 
-    if(index>(rightSplitter->count()-1)) {
+    if(index>(rightSplitter->count()-1) || index==-1) {
         //没有对应的widget
         return;
     } else {
@@ -570,11 +570,13 @@ void MainWindow::parse()
     mapAll[pjArea->m_twoZYX->getCountryID()] = pjArea->m_twoZYX;//准则层重要性之比
     mapAll[pjArea->m_twoPower->getCountryID()] = pjArea->m_twoPower;//准则层权重
     mapAll[pjArea->m_allPower->getCountryID()] = pjArea->m_allPower;//指标的全局权重
-    mapAll[pjArea->m_other->getCountryID()] = pjArea->m_other;//全局其他信息
+    //mapAll[pjArea->m_other->getCountryID()] = pjArea->m_other;//全局其他信息
 
     //再挨个输出这些值
+    map<int,country*> mapResult = pjArea->m_mapCountryResult;
     this->fillSpreadsheetHeader(spreadsheetResult);
-    this->fillSpreadsheet(spreadsheetResult,mapAll.begin(),mapAll.end(),1,4,true);
+    this->fillSpreadsheet(spreadsheetResult,mapAll.begin(),mapAll.end(),1,4,false);
+    this->fillSpreadsheet(spreadsheetResult,mapResult.begin(),mapResult.end(),1,4+mapAll.size(),true);
 }
 
 void MainWindow::initSpSheetByDefaultData()
