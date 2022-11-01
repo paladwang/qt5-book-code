@@ -209,6 +209,16 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
         rightSplitter->widget(index)->setVisible(true);
     }
 
+    //debug
+    if(index==4) {
+        drawOriData();
+        rightSplitter->widget(index)->setVisible(true);
+    }
+    if(index==5) {
+        drawResult();
+        rightSplitter->widget(index)->setVisible(true);
+    }
+
     /*
     //drawChartView();
     if(row==2) {
@@ -222,8 +232,182 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
     //chartView->repaint(); */
 }
 
-void MainWindow::drawChartView()
+void MainWindow::drawOriData() {
+    string title = "各国一级指标得分柱状图";
+    vector<string> cateGor;
+    cateGor.push_back("尼日利亚");
+    cateGor.push_back("安哥拉");
+    cateGor.push_back("刚果布");
+    cateGor.push_back("加蓬");
+    cateGor.push_back("喀麦隆");
+
+    map<string,vector<double>> charItem;
+    {
+        vector<double> item;
+        item.push_back(0.028465734);
+        item.push_back(0.093765198);
+        item.push_back(0.069571996);
+        item.push_back(0.152207);
+        item.push_back(0.033204081);
+        charItem["政治环境"]=item;
+    }
+    {
+        vector<double> item;
+        item.push_back(0.02465522);
+        item.push_back(0.101681847);
+        item.push_back(0.027951646);
+        item.push_back(0.103346763);
+        item.push_back(0.021676106);
+        charItem["油气管理体制与法律法规"]=item;
+    }
+    {
+        vector<double> item;
+        item.push_back(0.072737263);
+        item.push_back(0.092507684);
+        item.push_back(0.112307847);
+        item.push_back(0.034121831);
+        item.push_back(0.021855541);
+        charItem["对外合作开放"]=item;
+    }
+    {
+        vector<double> item;
+        item.push_back(0.080685634);
+        item.push_back(0.092359436);
+        item.push_back(0.070646722);
+        item.push_back(0.076190981);
+        item.push_back(0.051689743);
+        charItem["运营制度"]=item;
+    }
+    {
+        vector<double> item;
+        item.push_back(0.065805781);
+        item.push_back(0.08490061);
+        item.push_back(0.05265403);
+        item.push_back(0.084676212);
+        item.push_back(0.101133308);
+        charItem["基础设施和自然环境"]=item;
+    }
+    {
+        vector<double> item;
+        item.push_back(0.063531983);
+        item.push_back(0.03929497);
+        item.push_back(0.101171758);
+        item.push_back(0.072808704);
+        item.push_back(0.076911151);
+        charItem["经济环境"]=item;
+    }
+    {
+        vector<double> item;
+        item.push_back(0.088864);
+        item.push_back(0.029065129);
+        item.push_back(0.013112571);
+        item.push_back(0.006200099);
+        item.push_back(0.002623373);
+        charItem["油气资源潜力"]=item;
+    }
+
+    drawChartView(chartView,title,cateGor,charItem);
+}
+
+void MainWindow::drawResult() {
+    //老的图形还在,delete,该chart相关的对象都会被Qt自动delete
+    if (charViewResult->chart()!=NULL) {
+        delete charViewResult->chart();
+    }
+
+    DataTable dataTable;
+/*
+    // set seed for random stuff
+    qsrand(QTime(0, 0, 0).secsTo(QTime::currentTime()));
+
+    // generate random data
+    for (int i(0); i < listCount; i++) {
+        DataList dataList;
+        qreal yValue(0);
+        for (int j(0); j < valueCount; j++) {
+            yValue = yValue + (qreal)(qrand() % valueMax) / (qreal) valueCount;
+            QPointF value((j + (qreal) rand() / (qreal) RAND_MAX) * ((qreal) m_valueMax / (qreal) valueCount),
+                          yValue);
+            QString label = "Slice " + QString::number(i) + ":" + QString::number(j);
+            dataList << Data(value, label);
+        }
+        dataTable << dataList;
+    }*/
+
+    {
+        DataList dataList;
+        qreal yValue(0);
+        QPoint value(10,yValue);
+        QString label = "尼日利亚";
+        dataList << Data(value,label);
+        dataTable << dataList;
+    }
+
+    int valueCount = 10;
+
+         //Q_UNUSED(valueCount);
+         QChart *chart = new QChart();
+         chart->setTitle("最终结果");
 {
+         QStackedBarSeries *series = new QStackedBarSeries(chart);
+         for (int i(0); i < dataTable.count(); i++) {
+             QBarSet *set = new QBarSet("Bar set " + QString::number(i));
+             for (const Data &data : dataTable[i])
+                 *set << data.first.y();
+             series->append(set);
+         }
+         chart->addSeries(series);
+         chart->createDefaultAxes();
+         }
+
+
+                 charViewResult->setChart(chart);
+                 charViewResult->setRenderHint(QPainter::Antialiasing);
+
+         //return chart;
+}
+
+void MainWindow::drawChartView(QChartView* curChartView,string& title,vector<string>& cateGor, map<string,vector<double>> charItem)
+{
+    //老的图形还在,delete,该chart相关的对象都会被Qt自动delete
+    if (chartView->chart()!=NULL) {
+        delete chartView->chart();
+    }
+
+    QBarSeries *series = new QBarSeries();
+    map<string,vector<double>>::const_iterator it;
+    for(it=charItem.begin();it!=charItem.end();++it) {
+        const vector<double>& item = it->second;
+        QBarSet *set = new QBarSet(it->first.c_str());
+        for(int i=0;i<item.size();++i) {
+            *set << item[i];
+        }
+        series->append(set);
+    }
+
+    QChart *chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle(title.c_str());
+    chart->setAnimationOptions(QChart::SeriesAnimations);
+
+    QStringList categories;
+    for(int i=0;i<cateGor.size();++i) {
+        categories <<cateGor[i].c_str();
+    }
+
+    QBarCategoryAxis *axis = new QBarCategoryAxis();
+    axis->append(categories);
+    chart->createDefaultAxes();//创建默认的左侧的坐标轴（根据 QBarSet 设置的值）
+    chart->setAxisX(axis, series);//设置坐标轴
+
+    chart->legend()->setVisible(true); //设置图例为显示状态
+    chart->legend()->setAlignment(Qt::AlignBottom);//设置图例的显示位置在底部
+
+    //QChartView *chartView = new QChartView(chart);
+    curChartView->setChart(chart);
+    curChartView->setRenderHint(QPainter::Antialiasing);
+
+    /*
     //![1]
         QBarSet *set0 = new QBarSet("Jane");
         QBarSet *set1 = new QBarSet("John");
@@ -245,7 +429,6 @@ void MainWindow::drawChartView()
         series->append(set2);
         series->append(set3);
         series->append(set4);
-
     //![2]
 
     //![3]
@@ -274,6 +457,7 @@ void MainWindow::drawChartView()
         chartView->setChart(chart);
         chartView->setRenderHint(QPainter::Antialiasing);
     //![6]
+    */
     //https://blog.csdn.net/weixin_42837024/article/details/82257021
 }
 

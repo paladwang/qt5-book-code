@@ -11,6 +11,7 @@
 #include <QtCharts/QBarSet>
 #include <QtCharts/QLegend>
 #include <QtCharts/QBarCategoryAxis>
+#include <QtCharts/QStackedBarSeries>
 #include "pjarea.h"
 
 class QAction;
@@ -22,11 +23,16 @@ class QIcon;
 class QSplitter;
 class QTextEdit;
 class QTreeWidget;
+//class QStackedBarSeries;
 
 //用QT的QChartView,必须用这个
 QT_CHARTS_USE_NAMESPACE
 
 typedef map<int,country*>::const_iterator countryIter;
+
+typedef QPair<QPointF, QString> Data;
+typedef QList<Data> DataList;
+typedef QList<DataList> DataTable;
 
 class MainWindow : public QMainWindow
 {
@@ -70,11 +76,14 @@ private:
     void updateRecentFileActions();
     QString strippedName(const QString &fullFileName);
     void addFolder(const QIcon &icon, const QString &name);
-    void drawChartView();
+    void drawChartView(QChartView* curChartView,string& title,vector<string>& cateGor, map<string,vector<double>> charItem);
     void initSpSheetByDefaultData();
     void fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIter end, int sRow, int sColumn, bool isInsertBlankRow=false);
     void fillSpreadsheetHeader(Spreadsheet* form, bool isInsertBlankRow=false);
     void createTree();
+
+    void drawOriData(); //画原始结果图
+    void drawResult(); //画结果图
 
 
     Spreadsheet *spreadsheet; //原始表
