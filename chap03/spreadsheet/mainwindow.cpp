@@ -152,28 +152,55 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
     if(NULL==parent)
         return;
     int row=parent->indexOfChild(item);//获得节点在父节点中的行号(从0开始)
-    /*
+
     QString fileName=parent->text(0);//获得父节点的文本字符(Mail)
     QString text = item->text(0); //(当前节点文本)
-    QMessageBox::warning(this, tr("切换数据"), tr("curItem:(%1,%2):%3").arg(row).arg(column).arg(text));
-    //经过实验得知:(0,0):第一个,(1,0)是第二个, 以此类推*/
-
     /*
+    QMessageBox::warning(this, tr("切换数据"), tr("curItem:(%1,%2):%3").arg(row).arg(column).arg(text));
+    //经过实验得知:(0,0):第一个,(1,0)是第二个, 以此类推
+    return;
+
     QWidget中有一个函数.hide();它相当于把一个widget设为不可见setVisible(false);想要恢复它也很容易，setVisible(true)即可。
     QWidget *w = new QWidget();
     splitter->addWidget(w);
     QWidget *a = splitter->widget(0);
     a.hide();*/
 
-    if(row>(rightSplitter->count()-1)) {
-        //没有对应的widget
-        return;
+    //把之前的选中去掉,然后设置最新的选中
+    //遍历treeWidget
+    QTreeWidgetItemIterator it(this->foldersTreeWidget);
+    while (*it) {
+        (*it)->setSelected(false); //设置为未选中
+        ++it;
     }
+    item->setSelected(true); //当前节点设置为选中
 
     //先把所有的widget隐藏起来
     for(int i=0;i<rightSplitter->count();++i) {
         rightSplitter->widget(i)->hide();
     }
+
+    int index = 0;
+    if(text.toStdString()==string("原始评价数据")) {
+        index = 0;
+    } else  if(text.toStdString()==string("归一化数据")) {
+        index = 1;
+    } else  if(text.toStdString()==string("分析过程数据")) {
+        index = 2;
+    } else  if(text.toStdString()==string("重要性之比")) {
+        index = 3;
+    }else  if(text.toStdString()==string("最终结果")) {
+        index = 4;
+    }
+
+    if(index>(rightSplitter->count()-1)) {
+        //没有对应的widget
+        return;
+    } else {
+        rightSplitter->widget(index)->setVisible(true);
+    }
+
+    /*
     //drawChartView();
     if(row==2) {
         drawChartView();
@@ -183,7 +210,7 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
     //然后根据点击的内容展示相应的widget
     //QWidget* curWidget = NULL;
     rightSplitter->widget(row)->setVisible(true);
-    //chartView->repaint();
+    //chartView->repaint(); */
 }
 
 void MainWindow::drawChartView()
@@ -262,7 +289,7 @@ void MainWindow::createTree() {
 
     //(0,0),原始评价数据
     QTreeWidgetItem *item1 = new QTreeWidgetItem(root);
-    item1->setText(0, "原始评价数据");
+    item1->setText(0, "原始评价数据"); //todo: 这个值改了后必须得改shifeFile那里
     item1->setIcon(0, fileIcon);
     item1->setDisabled(false); //设置这个item不可用(展示上是灰的,不能点击)
     item1->setSelected(true);
