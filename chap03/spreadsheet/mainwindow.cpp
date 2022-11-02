@@ -686,6 +686,9 @@ void MainWindow::fillSpreadsheetHeader(Spreadsheet *form, bool isInsertBlankRow)
     //form->setColumnCount(twolevelCnt+10);
     //form->insertRow(6);
 
+    //设置行头
+
+
     if(isInsertBlankRow) {
         //每个onelevel后边都增加一个空行
         country curCy = *(pjArea->begin(eDataType::ORI)->second);
@@ -824,11 +827,11 @@ void MainWindow::parse()
     mapAll[pjArea->m_preOneZYX->getCountryID()] = pjArea->m_preOneZYX;//重要性之比前驱值
     mapAll[pjArea->m_oneZYX->getCountryID()] = pjArea->m_oneZYX;//重要性之比
     mapAll[pjArea->m_onePower->getCountryID()] = pjArea->m_onePower;//指标权重
-    mapAll[pjArea->m_bzcTwoResult->getCountryID()] = pjArea->m_bzcTwoResult;//准则层标准差
+    /*mapAll[pjArea->m_bzcTwoResult->getCountryID()] = pjArea->m_bzcTwoResult;//准则层标准差
     mapAll[pjArea->m_preTwoZYX->getCountryID()] = pjArea->m_preTwoZYX;//准则层重要性之比前驱
     mapAll[pjArea->m_twoZYX->getCountryID()] = pjArea->m_twoZYX;//准则层重要性之比
     mapAll[pjArea->m_twoPower->getCountryID()] = pjArea->m_twoPower;//准则层权重
-    mapAll[pjArea->m_allPower->getCountryID()] = pjArea->m_allPower;//指标的全局权重
+    */mapAll[pjArea->m_allPower->getCountryID()] = pjArea->m_allPower;//指标的全局权重
     //mapAll[pjArea->m_other->getCountryID()] = pjArea->m_other;//全局其他信息
 
     //再挨个输出这些值
@@ -1048,13 +1051,14 @@ void MainWindow::sort()
 }
 void MainWindow::about()
 {
-    QMessageBox::about(this, tr("About Spreadsheet"),
-            tr("<h2>Spreadsheet 1.1</h2>"
-               "<p>Copyright &copy; 2008 Software Inc."
-               "<p>Spreadsheet is a small application that "
-               "demonstrates QAction, QMainWindow, QMenuBar, "
-               "QStatusBar, QTableWidget, QToolBar, and many other "
-               "Qt classes."));
+    QMessageBox::about(this, tr("关于延长石油区块经济评价模块说明"),
+            tr("<h2>延长石油区块经济评价模块V1.0</h2>"
+               "<p>Copyright &copy; 2022 Software Inc."
+               "<p>此模块是一个简单的石油经济区块评价桌面应用, "
+               "用户输入相应地区(国家)的七大一级指标(包括共40个二级指标)"
+               "的原始评价数据后,点击Parse(或对应的工具按钮)"
+               "即可获得固定算法的分析结果和相应的图示,使得区块经济评价变的简单且可见."
+               "<p>         "));
 }
 
 void MainWindow::openRecentFile()
@@ -1282,7 +1286,7 @@ void MainWindow::createMenus()
 
     helpMenu = menuBar()->addMenu(tr("&Help"));
     helpMenu->addAction(aboutAction);
-    helpMenu->addAction(aboutQtAction);
+    //helpMenu->addAction(aboutQtAction);
 }
 
 void MainWindow::createContextMenu()
