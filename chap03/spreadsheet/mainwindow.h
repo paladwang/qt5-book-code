@@ -59,6 +59,7 @@ private slots:
     void spreadsheetModified();
     void shiftFile(QTreeWidgetItem* item, int column);
     bool setIsLoadDefaultData(bool isLoadDefaultData);
+    void sheetChanged();
 
 private:
     void createActions();
@@ -81,6 +82,7 @@ private:
     void fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIter end, int sRow, int sColumn, bool isInsertBlankRow=false);
     void fillSpreadsheetHeader(Spreadsheet* form, bool isInsertBlankRow=false);
     void createTree();
+    void setTreeDisable(bool bIsDisabled);
 
     void drawOriData(); //画原始结果图
     void drawResult(); //画结果图
@@ -134,12 +136,12 @@ private:
     QSplitter *mainSplitter;
     QSplitter *rightSplitter;
     QTreeWidget *foldersTreeWidget;
-    QTreeWidget *messagesTreeWidget;
     QTextEdit* textEdit;
     QChartView* chartView;
     QChartView* charViewResult;
     pjarea*  pjArea;
     bool m_bIsLoadDefaultData;
+    bool m_bIsNewSheet; //数据是最新的吗?
 };
 
 #endif

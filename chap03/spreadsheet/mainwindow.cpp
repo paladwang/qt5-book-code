@@ -36,6 +36,7 @@ MainWindow::MainWindow()
 
     setWindowIcon(QIcon(":/images/ycsy.svg"));
     setCurrentFile(""); //当前文件列表为空
+    this->m_bIsNewSheet = true;
 }
 
 void MainWindow::createInfo()
@@ -43,6 +44,10 @@ void MainWindow::createInfo()
     spreadsheet = new Spreadsheet;
     //setCentralWidget(spreadsheet);
     spreadsheet->setHidden(false); //不展示
+
+    //数据变化导致分析失效
+    //connect(spreadsheet,SIGNAL(cellChanged(int, int)),this,SLOT(sheetChanged(int,int)));
+    //connect(spreadsheet,SIGNAL(itemChanged(QTableWidgetItem *)),this,SLOT(sheetChanged()));
 
     /*
     //设置原始数据表表头
@@ -123,6 +128,38 @@ void MainWindow::createInfo()
     //pjArea->debugParse();
 }
 
+void MainWindow::sheetChanged() { //int row,int column) {
+    //QMessageBox::warning(this, tr("数据已经被修改"), tr("curItem:(%1,%2):%3").arg(row).arg(column));
+    if (!(this->m_bIsNewSheet)) {
+        this->m_bIsNewSheet = true;
+        this->setTreeDisable(true);
+    }
+}
+
+void MainWindow::setTreeDisable(bool bIsDisabled) {
+
+    //遍历treeWidget
+    QTreeWidgetItemIterator it(this->foldersTreeWidget);
+    while (*it) {
+        if (bIsDisabled) {
+            if ((*it)->text(0).toStdString()!=string("原始评价数据") || (*it)->text(0).toStdString()!=string("评价数据及结果")) {
+                (*it)->setDisabled(true); //除原始评价数据节点外其他节点皆变灰
+            } else {
+                (*it)->setDisabled(false);
+            }
+        } else {
+            (*it)->setDisabled(false);
+        }
+
+        ++it;
+    }
+
+    //先把所有的widget隐藏起来
+    for(int i=1;i<rightSplitter->count();++i) {
+        rightSplitter->widget(i)->hide();
+    }
+}
+
 bool MainWindow::setIsLoadDefaultData(bool isLoadDefaultData)
 {
     m_bIsLoadDefaultData = isLoadDefaultData;
@@ -157,6 +194,10 @@ void MainWindow::addFolder(const QIcon &icon, const QString &name)
 
 void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
 {
+    if (this->m_bIsNewSheet) {
+        return; //新文件没做parse不能做任何切换
+    }
+
     QTreeWidgetItem *parent=item->parent();//获得父节点
     if(NULL==parent)
         return;
@@ -175,6 +216,24 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
     QWidget *a = splitter->widget(0);
     a.hide();*/
 
+    int index = -1;
+    if(text.toStdString()==string("原始评价数据")) {
+        index = 0;
+    } else  if(text.toStdString()==string("归一化数据")) {
+        index = 1;
+    } else  if(text.toStdString()==string("分析过程数据")) {
+        index = 2;
+    } else  if(text.toStdString()==string("一级指标比")) {
+        index = 3;
+    }else  if(text.toStdString()==string("最终结果比")) {
+        index = 4;
+    }
+
+    if(index>(rightSplitter->count()-1) || index==-1) {
+        //没有对应的widget
+        return;
+    }
+
     //把之前的选中去掉,然后设置最新的选中
     //遍历treeWidget
     QTreeWidgetItemIterator it(this->foldersTreeWidget);
@@ -189,25 +248,8 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
         rightSplitter->widget(i)->hide();
     }
 
-    int index = -1;
-    if(text.toStdString()==string("原始评价数据")) {
-        index = 0;
-    } else  if(text.toStdString()==string("归一化数据")) {
-        index = 1;
-    } else  if(text.toStdString()==string("分析过程数据")) {
-        index = 2;
-    } else  if(text.toStdString()==string("重要性之比")) {
-        index = 3;
-    }else  if(text.toStdString()==string("最终结果")) {
-        index = 4;
-    }
 
-    if(index>(rightSplitter->count()-1) || index==-1) {
-        //没有对应的widget
-        return;
-    } else {
-        rightSplitter->widget(index)->setVisible(true);
-    }
+    rightSplitter->widget(index)->setVisible(true);
 
     //debug
     if(index==3) {
@@ -519,35 +561,41 @@ void MainWindow::createTree() {
     item2->setText(0, "评价过程数据");
     item2->setIcon(0, folderIcon);
     //item2->setFlags(Qt::ItemIsSelectable); //这个和下边的setDisabled效果一样
-    item2->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+    //item2->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+    item2->setFlags(item2->flags() & (~Qt::ItemIsEnabled));
 
     QTreeWidgetItem *item2_1 = new QTreeWidgetItem(item2);
     item2_1->setText(0, "归一化数据");
     item2_1->setIcon(0, fileIcon);
     item2_1->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+    item2_1->setFlags(item2_1->flags() & (~Qt::ItemIsEnabled));
     item2->addChild(item2_1);
 
     QTreeWidgetItem *item2_2 = new QTreeWidgetItem(item2);
     item2_2->setText(0, "分析过程数据");
     item2_2->setIcon(0, fileIcon);
     item2_2->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+    item2_2->setFlags(item2_2->flags() & (~Qt::ItemIsEnabled));
     item2->addChild(item2_2);
 
     QTreeWidgetItem *item3 = new QTreeWidgetItem(root);
     item3->setText(0, "评价结果图示");
     item3->setIcon(0, folderIcon);
     item3->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+    item3->setFlags(item3->flags() & (~Qt::ItemIsEnabled));
 
     QTreeWidgetItem *item3_1 = new QTreeWidgetItem(item3);
-    item3_1->setText(0, "重要性之比");
+    item3_1->setText(0, "一级指标比");
     item3_1->setIcon(0, fileIcon);
     item3_1->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+    item3_1->setFlags(item3_1->flags() & (~Qt::ItemIsEnabled));
     item3->addChild(item3_1);
 
     QTreeWidgetItem *item3_2 = new QTreeWidgetItem(item3);
-    item3_2->setText(0, "最终结果");
+    item3_2->setText(0, "最终结果比");
     item3_2->setIcon(0, fileIcon);
     item3_2->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
+    item3_2->setFlags(item3_2->flags() & (~Qt::ItemIsEnabled));
     item3->addChild(item3_2);
 
     if (!foldersTreeWidget->currentItem())
@@ -788,6 +836,10 @@ void MainWindow::parse()
     this->fillSpreadsheetHeader(spreadsheetResult);
     this->fillSpreadsheet(spreadsheetResult,mapAll.begin(),mapAll.end(),1,4,false);
     this->fillSpreadsheet(spreadsheetResult,mapResult.begin(),mapResult.end(),1,4+mapAll.size(),true);
+
+    //把相应的树型菜单都置亮
+    this->setTreeDisable(false);
+    this->m_bIsNewSheet = false;
 }
 
 void MainWindow::initSpSheetByDefaultData()
@@ -1027,6 +1079,8 @@ void MainWindow::spreadsheetModified()
 {
     setWindowModified(true);
     updateStatusBar();
+
+    setTreeDisable(true);
 }
 
 void MainWindow::createActions()
