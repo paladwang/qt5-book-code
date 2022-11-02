@@ -217,15 +217,15 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
     a.hide();*/
 
     int index = -1;
-    if(text.toStdString()==string("原始评价数据")) {
+    if(text.toStdString()==string("初始数据录入")) {
         index = 0;
-    } else  if(text.toStdString()==string("归一化数据")) {
+    } else  if(text.toStdString()==string("初始数据归一化")) {
         index = 1;
-    } else  if(text.toStdString()==string("分析过程数据")) {
+    } else  if(text.toStdString()==string("主要参数计算")) {
         index = 2;
-    } else  if(text.toStdString()==string("一级指标比")) {
+    } else  if(text.toStdString()==string("计算结果")) {
         index = 3;
-    }else  if(text.toStdString()==string("最终结果比")) {
+    }else  if(text.toStdString()==string("结果对比")) {
         index = 4;
     }
 
@@ -540,60 +540,68 @@ void MainWindow::createTree() {
     QTreeWidgetItem *root;
     if (foldersTreeWidget->topLevelItemCount() == 0) {
         root = new QTreeWidgetItem(foldersTreeWidget);
-        root->setText(0, tr("评价数据及结果"));
+        root->setText(0, tr("油气投资环境评价"));
         foldersTreeWidget->setItemExpanded(root, true);
     } else {
         root = foldersTreeWidget->topLevelItem(0);
     }
 
-    QIcon folderIcon(style()->standardPixmap(QStyle::SP_DirClosedIcon));
-    QIcon fileIcon(style()->standardPixmap(QStyle::SP_FileIcon)); //设置图标风格
+    QIcon folderIcon(":/images/folder.png");
+    QIcon fileIcon(":/images/file.png"); //设置图标风格
 
     //(0,0),原始评价数据
     QTreeWidgetItem *item1 = new QTreeWidgetItem(root);
-    item1->setText(0, "原始评价数据"); //todo: 这个值改了后必须得改shifeFile那里
-    item1->setIcon(0, fileIcon);
+    item1->setText(0, "评价数据"); //todo: 这个值改了后必须得改shifeFile那里
+    item1->setIcon(0, folderIcon);
     item1->setDisabled(false); //设置这个item不可用(展示上是灰的,不能点击)
-    item1->setSelected(true);
+    //item1->setSelected(true);
     //connect(newItem, SIGNAL((itemClicked)), this, SLOT(newFile()));
+    QTreeWidgetItem *item1_1 = new QTreeWidgetItem(item1);
+    item1_1->setText(0, "初始数据录入");
+    item1_1->setIcon(0, fileIcon);
+    item1_1->setDisabled(false); //设置这个item不可用(展示上是灰的,不能点击)
+    //item1_1->setFlags(item1_1->flags() & (~Qt::ItemIsEnabled));
+    item1->addChild(item1_1);
+    item1_1->setSelected(true);
+
 
     QTreeWidgetItem *item2 = new QTreeWidgetItem(root);
-    item2->setText(0, "评价过程数据");
+    item2->setText(0, "评价过程");
     item2->setIcon(0, folderIcon);
     //item2->setFlags(Qt::ItemIsSelectable); //这个和下边的setDisabled效果一样
     //item2->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
     item2->setFlags(item2->flags() & (~Qt::ItemIsEnabled));
 
     QTreeWidgetItem *item2_1 = new QTreeWidgetItem(item2);
-    item2_1->setText(0, "归一化数据");
+    item2_1->setText(0, "初始数据归一化");
     item2_1->setIcon(0, fileIcon);
     item2_1->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
     item2_1->setFlags(item2_1->flags() & (~Qt::ItemIsEnabled));
     item2->addChild(item2_1);
 
     QTreeWidgetItem *item2_2 = new QTreeWidgetItem(item2);
-    item2_2->setText(0, "分析过程数据");
+    item2_2->setText(0, "主要参数计算");
     item2_2->setIcon(0, fileIcon);
     item2_2->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
     item2_2->setFlags(item2_2->flags() & (~Qt::ItemIsEnabled));
     item2->addChild(item2_2);
 
     QTreeWidgetItem *item3 = new QTreeWidgetItem(root);
-    item3->setText(0, "评价结果图示");
+    item3->setText(0, "评价结果");
     item3->setIcon(0, folderIcon);
     item3->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
     item3->setFlags(item3->flags() & (~Qt::ItemIsEnabled));
 
     QTreeWidgetItem *item3_1 = new QTreeWidgetItem(item3);
-    item3_1->setText(0, "一级指标比");
-    item3_1->setIcon(0, fileIcon);
+    item3_1->setText(0, "计算结果");
+    item3_1->setIcon(0, QIcon(":/images/fx128.png"));
     item3_1->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
     item3_1->setFlags(item3_1->flags() & (~Qt::ItemIsEnabled));
     item3->addChild(item3_1);
 
     QTreeWidgetItem *item3_2 = new QTreeWidgetItem(item3);
-    item3_2->setText(0, "最终结果比");
-    item3_2->setIcon(0, fileIcon);
+    item3_2->setText(0, "结果对比");
+    item3_2->setIcon(0, QIcon(":/images/zzt.png"));
     item3_2->setDisabled(true); //设置这个item不可用(展示上是灰的,不能点击)
     item3_2->setFlags(item3_2->flags() & (~Qt::ItemIsEnabled));
     item3->addChild(item3_2);
@@ -1054,10 +1062,10 @@ void MainWindow::about()
     QMessageBox::about(this, tr("关于延长石油区块经济评价模块说明"),
             tr("<h2>延长石油区块经济评价模块V1.0</h2>"
                "<p>Copyright &copy; 2022 Software Inc."
-               "<p>此模块是一个简单的石油经济区块评价桌面应用, "
-               "用户输入相应地区(国家)的七大一级指标(包括共40个二级指标)"
-               "的原始评价数据后,点击Parse(或对应的工具按钮)"
-               "即可获得固定算法的分析结果和相应的图示,使得区块经济评价变的简单且可见."
+               "<p>此软件采用标准差修正G1法确定指标权重，既能反映专家意见又能体现指标的数据信息。"
+               "用户输入相应地区（国家)的初始评价数据后，点击Parse(或对应的快捷工具按钮)，"
+               "即可获得评价结果，实现了海外油气投资环境由定性描述向定量评价的转变，"
+               "使定量评价更加简单、高效、灵活。"
                "<p>         "));
 }
 
@@ -1090,19 +1098,19 @@ void MainWindow::spreadsheetModified()
 void MainWindow::createActions()
 {
     newAction = new QAction(tr("&New"), this);
-    newAction->setIcon(QIcon(":/images/new.png"));
+    newAction->setIcon(QIcon(":/images/new128.png"));
     newAction->setShortcut(QKeySequence::New);
     newAction->setStatusTip(tr("Create a new spreadsheet file"));
     connect(newAction, SIGNAL(triggered()), this, SLOT(newFile()));
 
     openAction = new QAction(tr("&Open..."), this);
-    openAction->setIcon(QIcon(":/images/open.png"));
+    openAction->setIcon(QIcon(":/images/open128.png"));
     openAction->setShortcut(QKeySequence::Open);
     openAction->setStatusTip(tr("Open an existing spreadsheet file"));
     connect(openAction, SIGNAL(triggered()), this, SLOT(open()));
 
     saveAction = new QAction(tr("&Save"), this);
-    saveAction->setIcon(QIcon(":/images/save.png"));
+    saveAction->setIcon(QIcon(":/images/save128.png"));
     saveAction->setShortcut(QKeySequence::Save);
     saveAction->setStatusTip(tr("Save the spreadsheet to disk"));
     connect(saveAction, SIGNAL(triggered()), this, SLOT(save()));

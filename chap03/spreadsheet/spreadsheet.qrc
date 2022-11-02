@@ -11,6 +11,12 @@
         <file>images/gotocell.png</file>
         <file>images/run96.png</file>
         <file>images/ycsy.svg</file>
-        <file>images/analytics96.png</file>
+        <file>images/fx128.png</file>
+        <file>images/zzt.png</file>
+        <file>images/file.png</file>
+        <file>images/folder.png</file>
+        <file>images/new128.png</file>
+        <file>images/open128.png</file>
+        <file>images/save128.png</file>
     </qresource>
 </RCC>
