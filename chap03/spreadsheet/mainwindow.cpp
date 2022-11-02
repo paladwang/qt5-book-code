@@ -215,8 +215,8 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
         rightSplitter->widget(index)->setVisible(true);
     }
     if(index==5) {
-        drawResult();
-        rightSplitter->widget(index)->setVisible(true);
+        //drawResult();
+        //rightSplitter->widget(index)->setVisible(true);
     }
 
     /*
@@ -310,6 +310,93 @@ void MainWindow::drawOriData() {
 }
 
 void MainWindow::drawResult() {
+
+    //老的图形还在,delete,该chart相关的对象都会被Qt自动delete
+    //if (charViewResult->chart()!=NULL) {
+        //delete charViewResult->chart();
+    //}
+
+#if 1
+    //数据
+    QBarSet *set0 = new QBarSet("SET0");
+    *set0<<0<<10<<8<<12<<7<<19<<14;
+
+
+    //分组
+    QBarSeries *series = new QBarSeries();
+    series->append(set0);
+
+    //图表
+    QChart *chart=new QChart;
+    chart->addSeries(series);
+ /*
+    //横、纵坐标轴线
+    QValueAxis *axisX=new QValueAxis;
+    QValueAxis *axisY=new QValueAxis;
+    axisX->setRange(0,10);                //X轴的范围
+    axisX->setTickCount(11);              //X轴分成多少格
+    axisY->setRange(0,21);                //Y轴的范围
+    axisY->setTickCount(11);              //Y分成多少格
+
+    //将图标放入chartview
+    chart->createDefaultAxes();
+    chart->setAxisX(axisX,series);
+    chart->setAxisY(axisY,series);
+    chartview->setChart(chart);*/
+    this->charViewResult->setChart(chart);
+
+    /*
+    //将表格放入布局中
+    QVBoxLayout *boxlayout=new QVBoxLayout;
+    boxlayout->addWidget(chartview);
+    this->setLayout(boxlayout);*/
+#endif
+
+#if 0
+
+    //![1]
+        QBarSet *set0 = new QBarSet("BarSet");
+        *set0 <<0.424745616 << 0.514203585 << 0.427164768 << 0.509299788 << 0.288547997;
+
+    //![1]
+
+    //![2]
+        QBarSeries *series = new QBarSeries();
+        series->append(set0);
+    //![2]
+
+    //![3]
+        QChart *chart = new QChart();
+        chart->addSeries(series);
+        chart->setTitle("最终结果图");
+        chart->setAnimationOptions(QChart::SeriesAnimations);
+    //![3]
+
+    //![4]
+        QStringList categories;
+        categories << "尼日利亚" << "安哥拉" << "刚果布" << "加蓬" << "喀麦隆";
+        QBarCategoryAxis *axis = new QBarCategoryAxis();
+        axis->append(categories);
+        chart->createDefaultAxes();//创建默认的左侧的坐标轴（根据 QBarSet 设置的值）
+        chart->setAxisX(axis, series);//设置坐标轴
+    //![4]
+
+    //![5]
+        chart->legend()->setVisible(true); //设置图例为显示状态
+        chart->legend()->setAlignment(Qt::AlignBottom);//设置图例的显示位置在底部
+    //![5]
+
+    //![6]
+        //QChartView *chartView = new QChartView(chart);
+        this->charViewResult->setChart(chart);
+        this->charViewResult->setRenderHint(QPainter::Antialiasing);
+    //![6]
+    //!
+#endif
+}
+
+#if 0
+void MainWindow::drawResult() {
     //老的图形还在,delete,该chart相关的对象都会被Qt自动delete
     if (charViewResult->chart()!=NULL) {
         delete charViewResult->chart();
@@ -366,14 +453,16 @@ void MainWindow::drawResult() {
 
          //return chart;
 }
+#endif
 
 void MainWindow::drawChartView(QChartView* curChartView,string& title,vector<string>& cateGor, map<string,vector<double>> charItem)
 {
+    /*  很奇怪,有这个容易core
     //老的图形还在,delete,该chart相关的对象都会被Qt自动delete
     if (chartView->chart()!=NULL) {
         delete chartView->chart();
-    }
-
+    } */
+#if 1
     QBarSeries *series = new QBarSeries();
     map<string,vector<double>>::const_iterator it;
     for(it=charItem.begin();it!=charItem.end();++it) {
@@ -406,8 +495,9 @@ void MainWindow::drawChartView(QChartView* curChartView,string& title,vector<str
     //QChartView *chartView = new QChartView(chart);
     curChartView->setChart(chart);
     curChartView->setRenderHint(QPainter::Antialiasing);
+#endif
 
-    /*
+#if 0
     //![1]
         QBarSet *set0 = new QBarSet("Jane");
         QBarSet *set1 = new QBarSet("John");
@@ -457,7 +547,7 @@ void MainWindow::drawChartView(QChartView* curChartView,string& title,vector<str
         chartView->setChart(chart);
         chartView->setRenderHint(QPainter::Antialiasing);
     //![6]
-    */
+#endif
     //https://blog.csdn.net/weixin_42837024/article/details/82257021
 }
 
