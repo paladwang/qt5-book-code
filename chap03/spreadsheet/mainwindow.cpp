@@ -34,7 +34,7 @@ MainWindow::MainWindow()
 
     findDialog = 0; //空指针
 
-    setWindowIcon(QIcon(":/images/icon.png"));
+    setWindowIcon(QIcon(":/images/ycsy.svg"));
     setCurrentFile(""); //当前文件列表为空
 }
 
@@ -1141,6 +1141,8 @@ void MainWindow::createActions()
 
     //////////////////////////////////////////////////////////////
     parseAction = new QAction(tr("&Parse..."), this);
+    parseAction->setIcon(QIcon(":/images/run96.png"));
+    parseAction->setShortcut(tr("Ctrl+R"));
     parseAction->setStatusTip(tr("Parse the current origal data"));
     connect(parseAction, SIGNAL(triggered()), this, SLOT(parse()));
     //////////////////////////////////////////////////////////////
