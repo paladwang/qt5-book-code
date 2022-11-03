@@ -392,6 +392,14 @@ void Spreadsheet::setForeground(int row, int column, int rowSpanCount, int colum
     }
 }
 
+
+void Spreadsheet::setRHeader() {
+    ;
+}
+
+
+
+
 bool SpreadsheetCompare::operator()(const QStringList &row1,
                                     const QStringList &row2) const
 {

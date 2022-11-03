@@ -33,6 +33,8 @@ typedef map<int,country*>::const_iterator countryIter;
 typedef QPair<QPointF, QString> Data;
 typedef QList<Data> DataList;
 typedef QList<DataList> DataTable;
+//注意:表格的行列数,要和表格的定义一样
+enum eTableProperties{ MagicNumber = 0x7F51C883, RowCount = 45/*999表格行数*/, ColumnCount = 26 };
 
 class MainWindow : public QMainWindow
 {
@@ -78,9 +80,10 @@ private:
     QString strippedName(const QString &fullFileName);
     void addFolder(const QIcon &icon, const QString &name);
     void drawChartView(QChartView* curChartView,string& title,vector<string>& cateGor, map<string,vector<double>> charItem);
+    void initSpSheetByDefaultData_backup();
     void initSpSheetByDefaultData();
     void fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIter end, int sRow, int sColumn, bool isInsertBlankRow=false);
-    void fillSpreadsheetHeader(Spreadsheet* form, bool isInsertBlankRow=false);
+    void fillSpreadsheetHeader(Spreadsheet* form, int startRow, bool isInsertBlankRow=false);
     void createTree();
     void setTreeDisable(bool bIsDisabled);
 

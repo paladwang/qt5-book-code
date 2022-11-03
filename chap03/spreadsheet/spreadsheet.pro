@@ -21,6 +21,7 @@ HEADERS += cell.h \
            mainwindow.h \
            onelevel.h \
            onelevel.h \
+           secnorm.h \
            sortdialog.h \
            spreadsheet.h \
            twolevel.h \

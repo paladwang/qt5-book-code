@@ -612,119 +612,74 @@ void MainWindow::createTree() {
     connect(this->foldersTreeWidget,SIGNAL(itemClicked(QTreeWidgetItem*,int)),this,SLOT(shiftFile(QTreeWidgetItem* ,int )));
 }
 
-void MainWindow::fillSpreadsheetHeader(Spreadsheet *form, bool isInsertBlankRow)
+void MainWindow::fillSpreadsheetHeader(Spreadsheet *form, int startRow, bool isInsertBlankRow)
 {
     if (pjArea->begin(eDataType::ORI)==pjArea->end(eDataType::ORI)) {
         return; //万一pjArea还没初始化
     }
 
-    //设置原始数据表表头
-    QStringList rHeader;
-    QStringList cHeader;
-    int columnData = 4; //数据列从4开始(第0为一级指标名,第1列为二级指标名,第3列为二级指标备注,第4列为正负向说明)
-    bool bIsFirstRow = true;
-    rHeader<<""; //列头有2行
-
     //黑体加粗
     QFont fontHei = QFont("SimHei",12);
     fontHei.setBold(true);
 
+    int sRow = startRow; //起始行
     int twolevelCnt = 0;
 
-    map<int,country*>::const_iterator it;
-    for(it=pjArea->begin(eDataType::ORI);it!=pjArea->end(eDataType::ORI);++it) {
-        country& curCy = *(it->second);
-        rHeader<<curCy.getName().c_str();
-        map<int,onelevel*>::const_iterator itOne;
+    //取原始数据的第一个国家就行
+    country& curCy = *(pjArea->begin(eDataType::ORI)->second);
+    map<int,onelevel*>::const_iterator itOne;
+    for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
+        onelevel& oneLevel = *(itOne->second);
 
-        int rowData=1; // 数据行从1开始(第0行作为自设行头)
-        for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
-            onelevel& oneLevel = *(itOne->second);
-            //QString cHeaderTwo = oneLevel.getName().c_str();
-            //form->setFormula(rowData, columnData, cHeaderTwo);
+        //一级指标名
+        form->setFormula(sRow+1,0,oneLevel.getName().c_str());
+        form->setSpan(sRow+1,0,oneLevel.getTwoLevelNum(),1);
+        form->setForeground(sRow+1,0,oneLevel.getTwoLevelNum(),1,redBrush);
 
-            //自设行列头
-            form->setFormula(0,columnData,curCy.getName().c_str());
-            //form->item(0,columnData)->setTextAlignment(Qt::AlignRight); //Qt::AlignHCenter); //居中展示
-            form->setFont(0,columnData,1,1,fontHei);
+        map<int,twolevel*>::const_iterator itTwo;
+        for(itTwo=oneLevel.begin();itTwo!=oneLevel.end();++itTwo) {
+            twolevel& twoLevel = *(itTwo->second);
 
-            form->setFormula(rowData,0,itOne->second->getName().c_str());
-            form->setSpan(rowData,0,oneLevel.getTwoLevelNum(),1);
-            form->setForeground(rowData,0,oneLevel.getTwoLevelNum(),1,redBrush);
+            form->setFormula(sRow+1,1,twoLevel.getName().c_str());
+            form->setFlags(sRow+1,1,1,1,Qt::ItemIsEditable);
+            //二级指标备注和正负向说明
+            form->setFormula(sRow+1,2,note::getNote(oneLevel.getLevelID(),twoLevel.getLevelID()).c_str());
+            form->setFormula(sRow+1,3,twoLevel.isPositive()?"正向指标":"负向指标");
 
-            map<int,twolevel*>::const_iterator itTwo;
-            for(itTwo=oneLevel.begin();itTwo!=oneLevel.end();++itTwo) {
-                twolevel& twoLevel = *(itTwo->second);
-
-                //自设二级列头
-                if (bIsFirstRow) {
-                    //cHeader<<twoLevel.getName().c_str();
-                    form->setFormula(rowData,1,twoLevel.getName().c_str());
-                    form->setFlags(rowData,1,1,1,Qt::ItemIsEditable);
-                    //二级指标备注和正负向说明
-                    form->setFormula(rowData,2,note::getNote(oneLevel.getLevelID(),twoLevel.getLevelID()).c_str());
-                    form->setFormula(rowData,3,twoLevel.isPositive()?"正向指标":"负向指标");
-                }
-                /*
-                QString tmpQStr = QString::number(twoLevel.getValue());
-                form->setFormula(rowData, columnData, tmpQStr);
-                //隔行换色
-                {
-                    if(rowData%2==0){
-                        form->setColor(rowData,columnData,1,1,gray);
-                    } else {
-                        form->setColor(rowData,columnData,1,1,ligthgray);
-                    }
-                }*/
-                //qDebug()<<rowData<<columnData<<tmpQStr<<endl;
-                rowData++;
-                twolevelCnt++;
-            }
-
-            //每一个onelevel完后再空一行
-            //form->insertRow(rowData++);
+            sRow++;
+            twolevelCnt++;
         }
-        bIsFirstRow = false;
-        columnData++;
     }
-    //form->setFlags(0,0,1,2,Qt::ItemIsEditable);
-    form->setSpan(0,0,1,2); //把行头和列头之间的空白合并
+
+    form->setFormula(startRow,0,"一级指标");
+    form->setFormula(startRow,1,"二级指标");
+    form->setFormula(startRow,2,"二级指标说明");
+    form->setFormula(startRow,3,"指标正负向");
+    form->setSpan(0,0,startRow,4); //把行头和列头之间的空白合并
     form->setFont(1,0,twolevelCnt,1,fontHei);
     form->setFlags(1,0,twolevelCnt,1,Qt::ItemIsEditable);
-    //form->setColumnCount(twolevelCnt+10);
-    //form->insertRow(6);
-
-    //设置行头
-
 
     if(isInsertBlankRow) {
         //每个onelevel后边都增加一个空行
         country curCy = *(pjArea->begin(eDataType::ORI)->second);
         map<int,onelevel*>::const_iterator itOne;
-        int spanRow = 1;
+        int spanRow = sRow;
         for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
             onelevel& oneLevel = *(itOne->second);
             spanRow += oneLevel.getTwoLevelNum();
             form->insertRow(spanRow);
-            form->setRowHeight(spanRow,25);
-            form->setColor(spanRow,0,1,2+pjArea->getCountryNum(),black);
-            form->setSpan(spanRow,0,1,2+pjArea->getCountryNum());
+            form->setRowHeight(spanRow,10);
+            form->setColor(spanRow,0,spanRow,eTableProperties::ColumnCount,black);
+            form->setSpan(spanRow,0,1,eTableProperties::ColumnCount);
             spanRow++;
         }
     }
-
-    //form->setHorizontalHeaderLabels(rHeader); //设置行表头
-    //form->setVerticalHeaderLabels(cHeader); //设置列表头
-    //因为表头不能合并,所以隐藏表头并用单元格合并
-    //form->verticalHeader()->setHidden(true);
-    //form->horizontalHeader()->setHidden(true);
-    //form->setSpan(1,1,1,2);
 }
 
 void MainWindow::fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIter end, int sRow, int sColumn, bool isInsertBlankRow) {
-    int columnData = sColumn; //从给定列开始
-    bool bIsFirstRow = true;
 
+    //从给定列开始
+    int column = sColumn;
 
     //黑体加粗
     QFont fontHei = QFont("SimHei",12);
@@ -735,79 +690,52 @@ void MainWindow::fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIte
     countryIter it;
     for(it=begin;it!=end;++it) {
         country& curCy = *(it->second);
-        map<int,onelevel*>::const_iterator itOne;
 
-        int rowData=sRow; //数据行从给定行开始(第0行作为自设行头)
+        //自设列头(列名(国家))
+        form->setFormula(sRow,column,curCy.getName().c_str());
+        //form->item(0,columnData)->setTextAlignment(Qt::AlignRight); //Qt::AlignHCenter); //居中展示
+        form->setFont(sRow,column,1,1,fontHei);
+
+        map<int,onelevel*>::const_iterator itOne;
+        int row=sRow+1; //数据行从给定行开始
         for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
             onelevel& oneLevel = *(itOne->second);
-            //QString cHeaderTwo = oneLevel.getName().c_str();
-            //form->setFormula(rowData, columnData, cHeaderTwo);
-
-            //自设行列头
-            form->setFormula(0,columnData,curCy.getName().c_str());
-            //form->item(0,columnData)->setTextAlignment(Qt::AlignRight); //Qt::AlignHCenter); //居中展示
-            form->setFont(0,columnData,1,1,fontHei);
-
-            form->setFormula(rowData,0,itOne->second->getName().c_str());
-            form->setSpan(rowData,0,oneLevel.getTwoLevelNum(),1);
-            form->setForeground(rowData,0,oneLevel.getTwoLevelNum(),1,redBrush);
-
             map<int,twolevel*>::const_iterator itTwo;
             for(itTwo=oneLevel.begin();itTwo!=oneLevel.end();++itTwo) {
                 twolevel& twoLevel = *(itTwo->second);
-
-                //自设二级列头
-                /*
-                if (bIsFirstRow) {
-                    //cHeader<<twoLevel.getName().c_str();
-                    form->setFormula(rowData,1,twoLevel.getName().c_str());
-                    form->setFlags(rowData,1,1,1,Qt::ItemIsEditable);
-                    //二级指标备注和正负向说明
-                    form->setFormula(rowData,2,note::getNote(oneLevel.getLevelID(),twoLevel.getLevelID()).c_str());
-                    form->setFormula(rowData,3,twoLevel.isPositive()?"正向指标":"负向指标");
-                }*/
                 QString tmpQStr = QString::number(twoLevel.getValue());
-                form->setFormula(rowData, columnData, tmpQStr);
+                form->setFormula(row, column, tmpQStr);
                 //隔行换色
                 {
-                    if(rowData%2==0){
-                        form->setColor(rowData,columnData,1,1,gray);
+                    if(row%2==0){
+                        form->setColor(row,column,1,1,gray);
                     } else {
-                        form->setColor(rowData,columnData,1,1,ligthgray);
+                        form->setColor(row,column,1,1,ligthgray);
                     }
                 }
                 //qDebug()<<rowData<<columnData<<tmpQStr<<endl;
-                rowData++;
+                row++;
                 twolevelCnt++;
             }
 
             //每一个onelevel完后再空一行
             //form->insertRow(rowData++);
         }
-        bIsFirstRow = false;
-        columnData++;
+        column++;
     }
-    /*
-    //form->setFlags(0,0,1,2,Qt::ItemIsEditable);
-    form->setSpan(0,0,1,2); //把行头和列头之间的空白合并
-    form->setFont(1,0,twolevelCnt,1,fontHei);
-    form->setFlags(1,0,twolevelCnt,1,Qt::ItemIsEditable);
-    //form->setColumnCount(twolevelCnt+10);
-    //form->insertRow(6);
-    */
 
     if(isInsertBlankRow) {
         //每个onelevel后边都增加一个空行
         country curCy = *(pjArea->begin(eDataType::ORI)->second);
         map<int,onelevel*>::const_iterator itOne;
-        int spanRow = 1;
+        int spanRow = sRow+1;
         for(itOne=curCy.begin();itOne!=curCy.end();++itOne) {
             onelevel& oneLevel = *(itOne->second);
             spanRow += oneLevel.getTwoLevelNum();
             form->insertRow(spanRow);
-            form->setRowHeight(spanRow,25);
-            form->setColor(spanRow,0,1,2+pjArea->getCountryNum(),black);
-            form->setSpan(spanRow,0,1,2+pjArea->getCountryNum());
+            form->setRowHeight(spanRow,10);
+            form->setColor(spanRow,0,1,eTableProperties::ColumnCount,black);
+            form->setSpan(spanRow,0,1,eTableProperties::ColumnCount);
             spanRow++;
         }
     }
@@ -825,7 +753,7 @@ void MainWindow::parse()
     return;*/
 
     //parse过程就是把数据填入相应的sheet
-    this->fillSpreadsheetHeader(spreadsheetGYH);
+    this->fillSpreadsheetHeader(spreadsheetGYH,1);
     this->fillSpreadsheet(spreadsheetGYH,pjArea->m_mapCountry.begin(),pjArea->m_mapCountry.end(),1,4);
     this->fillSpreadsheet(spreadsheetGYH,pjArea->m_mapCountryGYH.begin(),pjArea->m_mapCountryGYH.end(),1,4+pjArea->m_mapCountry.size(),true);
 
@@ -844,7 +772,7 @@ void MainWindow::parse()
 
     //再挨个输出这些值
     map<int,country*> mapResult = pjArea->m_mapCountryResult;
-    this->fillSpreadsheetHeader(spreadsheetResult);
+    this->fillSpreadsheetHeader(spreadsheetResult,1);
     this->fillSpreadsheet(spreadsheetResult,mapAll.begin(),mapAll.end(),1,4,false);
     this->fillSpreadsheet(spreadsheetResult,mapResult.begin(),mapResult.end(),1,4+mapAll.size(),true);
 
@@ -854,6 +782,26 @@ void MainWindow::parse()
 }
 
 void MainWindow::initSpSheetByDefaultData()
+{
+    newFile();
+    pjArea->debugOriData(); //set orig data
+
+    //黑体加粗
+    QFont fontHei = QFont("SimHei",12);
+    fontHei.setBold(true);
+
+    //表头
+    this->fillSpreadsheetHeader(spreadsheet,1,true);
+    //数据
+    this->fillSpreadsheet(spreadsheet,pjArea->begin(eDataType::ORI),pjArea->end(eDataType::ORI),1,4,true);
+    int countryNum = pjArea->getCountryNum();
+    spreadsheet->setFormula(0,4,"原始评价数据");
+    spreadsheet->setFont(0,4,1,1,fontHei);
+    spreadsheet->setFlags(0,4,1,1,Qt::ItemIsEditable);
+    spreadsheet->setSpan(0,4,1,countryNum); //合并单元格
+}
+
+void MainWindow::initSpSheetByDefaultData_backup()
 {
     newFile();
     pjArea->debugOriData(); //set orig data
@@ -955,6 +903,7 @@ void MainWindow::initSpSheetByDefaultData()
     //spreadsheet->setSpan(1,1,1,2);
 }
 
+
 void MainWindow::closeEvent(QCloseEvent *event)
 {
     if (okToContinue()) {
@@ -970,6 +919,7 @@ void MainWindow::newFile()
     if (okToContinue()) {
         spreadsheet->clear();
         setCurrentFile("");
+        this->fillSpreadsheetHeader(spreadsheet,1,true);
     }
 }
 
