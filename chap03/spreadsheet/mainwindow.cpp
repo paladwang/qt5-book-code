@@ -289,7 +289,7 @@ void MainWindow::drawOriData() {
     cateGor.push_back("加蓬");
     cateGor.push_back("喀麦隆");
 
-    map<string,vector<double>> charItem;
+    vector<charItem> vectChartItem;
     {
         vector<double> item;
         item.push_back(0.028465734);
@@ -297,7 +297,7 @@ void MainWindow::drawOriData() {
         item.push_back(0.069571996);
         item.push_back(0.152207);
         item.push_back(0.033204081);
-        charItem["政治环境"]=item;
+        vectChartItem.push_back(make_pair("政治环境",item));
     }
     {
         vector<double> item;
@@ -306,7 +306,7 @@ void MainWindow::drawOriData() {
         item.push_back(0.027951646);
         item.push_back(0.103346763);
         item.push_back(0.021676106);
-        charItem["油气管理体制与法律法规"]=item;
+        vectChartItem.push_back(make_pair("油气管理体制与法律法规",item));
     }
     {
         vector<double> item;
@@ -315,7 +315,7 @@ void MainWindow::drawOriData() {
         item.push_back(0.112307847);
         item.push_back(0.034121831);
         item.push_back(0.021855541);
-        charItem["对外合作开放"]=item;
+        vectChartItem.push_back(make_pair("对外合作开放",item));
     }
     {
         vector<double> item;
@@ -324,7 +324,7 @@ void MainWindow::drawOriData() {
         item.push_back(0.070646722);
         item.push_back(0.076190981);
         item.push_back(0.051689743);
-        charItem["运营制度"]=item;
+        vectChartItem.push_back(make_pair("运营制度",item));
     }
     {
         vector<double> item;
@@ -333,7 +333,7 @@ void MainWindow::drawOriData() {
         item.push_back(0.05265403);
         item.push_back(0.084676212);
         item.push_back(0.101133308);
-        charItem["基础设施和自然环境"]=item;
+        vectChartItem.push_back(make_pair("基础设施和自然环境",item));
     }
     {
         vector<double> item;
@@ -342,7 +342,7 @@ void MainWindow::drawOriData() {
         item.push_back(0.101171758);
         item.push_back(0.072808704);
         item.push_back(0.076911151);
-        charItem["经济环境"]=item;
+        vectChartItem.push_back(make_pair("经济环境",item));
     }
     {
         vector<double> item;
@@ -351,7 +351,7 @@ void MainWindow::drawOriData() {
         item.push_back(0.013112571);
         item.push_back(0.006200099);
         item.push_back(0.002623373);
-        charItem["油气资源潜力"]=item;
+        vectChartItem.push_back(make_pair("油气资源潜力",item));
     }
     //最终结果
     {
@@ -361,10 +361,10 @@ void MainWindow::drawOriData() {
         item.push_back(0.427164768);
         item.push_back(0.509299788);
         item.push_back(0.288547997);
-        charItem["最终得分"]=item;
+        vectChartItem.push_back(make_pair("总分",item));
     }
 
-    drawChartView(chartView,title,cateGor,charItem);
+    drawChartView(chartView,title,cateGor,vectChartItem);
 }
 
 void MainWindow::drawResult() {
@@ -376,7 +376,7 @@ void MainWindow::drawResult() {
     cateGor.push_back("加蓬");
     cateGor.push_back("喀麦隆");
 
-    map<string,vector<double>> charItem;
+    vector<charItem> vectChartItem;
     {
         vector<double> item;
         item.push_back(0.424745616);
@@ -384,10 +384,10 @@ void MainWindow::drawResult() {
         item.push_back(0.427164768);
         item.push_back(0.509299788);
         item.push_back(0.288547997);
-        charItem["最终得分"]=item;
+        vectChartItem.push_back(make_pair("最终得分",item));
     }
 
-    drawChartView(charViewResult,title,cateGor,charItem);
+    drawChartView(charViewResult,title,cateGor,vectChartItem);
 }
 
 #if 0
@@ -450,7 +450,7 @@ void MainWindow::drawResult() {
 }
 #endif
 
-void MainWindow::drawChartView(QChartView* curChartView,string& title,vector<string>& cateGor, map<string,vector<double>> charItem)
+void MainWindow::drawChartView(QChartView* curChartView,string& title,vector<string>& cateGor, vector<charItem>& vectChartItem)
 {
     /*  很奇怪,有这个容易core
     //老的图形还在,delete,该chart相关的对象都会被Qt自动delete
@@ -459,10 +459,10 @@ void MainWindow::drawChartView(QChartView* curChartView,string& title,vector<str
     } */
 #if 1
     QBarSeries *series = new QBarSeries();
-    map<string,vector<double>>::const_iterator it;
-    for(it=charItem.begin();it!=charItem.end();++it) {
-        const vector<double>& item = it->second;
-        QBarSet *set = new QBarSet(it->first.c_str());
+    for(int i=0;i<vectChartItem.size();++i) {
+        charItem& curChartItem = vectChartItem[i];
+        const vector<double>& item = curChartItem.second;
+        QBarSet *set = new QBarSet(curChartItem.first.c_str());
         for(int i=0;i<item.size();++i) {
             *set << item[i];
         }
@@ -797,12 +797,19 @@ void MainWindow::parse()
     this->fillSpreadsheetHeader(spreadsheetEnd,0);
     this->fillSpreadsheet(spreadsheetEnd,mapResult.begin(),mapResult.end(),0,4,true);
     //要把汇总值也加进去
-    spreadsheetEnd->setFormula(54,3,"汇总");
-    spreadsheetEnd->setFormula(54,4,QString::number(0.424745616));
-    spreadsheetEnd->setFormula(54,5,QString::number(0.514203585));
-    spreadsheetEnd->setFormula(54,6,QString::number(0.427164768));
-    spreadsheetEnd->setFormula(54,7,QString::number(0.509299788));
-    spreadsheetEnd->setFormula(54,8,QString::number(0.288547997));
+    //spreadsheetEnd->setSpan(47,0,1,4);
+    spreadsheetEnd->setFormula(47,3,"汇总:");
+    //spreadsheetEnd->item(47,0)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    spreadsheetEnd->setFormula(47,4,QString::number(0.424745616));
+    spreadsheetEnd->setFormula(47,5,QString::number(0.514203585));
+    spreadsheetEnd->setFormula(47,6,QString::number(0.427164768));
+    spreadsheetEnd->setFormula(47,7,QString::number(0.509299788));
+    spreadsheetEnd->setFormula(47,8,QString::number(0.288547997));
+
+
+    QFont fontHei = QFont("SimHei",12);
+    fontHei.setBold(true);
+    spreadsheetEnd->setFont(47,0,1,12,fontHei);
 
     //把相应的树型菜单都置亮
     this->setTreeDisable(false);
