@@ -685,7 +685,7 @@ void MainWindow::fillSpreadsheetHeader(Spreadsheet *form, int startRow, bool isI
             spanRow += oneLevel.getTwoLevelNum();
             form->insertRow(spanRow);
             form->setRowHeight(spanRow,10);
-            form->setColor(spanRow,0,spanRow,eTableProperties::ColumnCount,black);
+            form->setColor(spanRow,0,1,eTableProperties::ColumnCount,black);
             form->setSpan(spanRow,0,1,eTableProperties::ColumnCount);
             spanRow++;
         }
@@ -770,10 +770,18 @@ void MainWindow::parse()
                            | QMessageBox::Cancel);
     return;*/
 
+    QFont fontHei = QFont("SimHei",12);
+    fontHei.setBold(true);
+
     //parse过程就是把数据填入相应的sheet
     this->fillSpreadsheetHeader(spreadsheetGYH,1);
     this->fillSpreadsheet(spreadsheetGYH,pjArea->m_mapCountry.begin(),pjArea->m_mapCountry.end(),1,4);
     this->fillSpreadsheet(spreadsheetGYH,pjArea->m_mapCountryGYH.begin(),pjArea->m_mapCountryGYH.end(),1,4+pjArea->m_mapCountry.size(),true);
+    spreadsheetGYH->setFormula(0,4,"原始评价值");
+    spreadsheetGYH->setFormula(0,9,"归一化结果");
+    spreadsheetGYH->setSpan(0,4,1,5);
+    spreadsheetGYH->setSpan(0,9,1,5);
+    spreadsheetGYH->setFont(0,4,1,10,fontHei);
 
     //把后边的map组织下
     map<int,country*> mapAll;
@@ -790,26 +798,25 @@ void MainWindow::parse()
 
     //再挨个输出这些值
     map<int,country*> mapResult = pjArea->m_mapCountryResult;
-    this->fillSpreadsheetHeader(spreadsheetResult,1);
-    this->fillSpreadsheet(spreadsheetResult,mapAll.begin(),mapAll.end(),1,4,false);
+    this->fillSpreadsheetHeader(spreadsheetResult,0);
+    this->fillSpreadsheet(spreadsheetResult,mapAll.begin(),mapAll.end(),0,4,true);
 
     //最终结果
-    this->fillSpreadsheetHeader(spreadsheetEnd,0);
-    this->fillSpreadsheet(spreadsheetEnd,mapResult.begin(),mapResult.end(),0,4,true);
+    this->fillSpreadsheetHeader(spreadsheetEnd,1);
+    this->fillSpreadsheet(spreadsheetEnd,mapResult.begin(),mapResult.end(),1,4,true);
+    spreadsheetEnd->setFormula(0,4,"最终评价结果");
+    spreadsheetEnd->setSpan(0,4,1,5);
+    spreadsheetEnd->setFont(0,4,1,5,fontHei);
     //要把汇总值也加进去
-    //spreadsheetEnd->setSpan(47,0,1,4);
-    spreadsheetEnd->setFormula(47,3,"汇总:");
-    //spreadsheetEnd->item(47,0)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
-    spreadsheetEnd->setFormula(47,4,QString::number(0.424745616));
-    spreadsheetEnd->setFormula(47,5,QString::number(0.514203585));
-    spreadsheetEnd->setFormula(47,6,QString::number(0.427164768));
-    spreadsheetEnd->setFormula(47,7,QString::number(0.509299788));
-    spreadsheetEnd->setFormula(47,8,QString::number(0.288547997));
-
-
-    QFont fontHei = QFont("SimHei",12);
-    fontHei.setBold(true);
-    spreadsheetEnd->setFont(47,0,1,12,fontHei);
+    //spreadsheetEnd->setSpan(48,0,1,4);
+    spreadsheetEnd->setFormula(48,3,"汇总:");
+    //spreadsheetEnd->item(48,0)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
+    spreadsheetEnd->setFormula(48,4,QString::number(0.424745616));
+    spreadsheetEnd->setFormula(48,5,QString::number(0.514203585));
+    spreadsheetEnd->setFormula(48,6,QString::number(0.427164768));
+    spreadsheetEnd->setFormula(48,7,QString::number(0.509299788));
+    spreadsheetEnd->setFormula(48,8,QString::number(0.288547997));
+    spreadsheetEnd->setFont(48,0,1,12,fontHei);
 
     //把相应的树型菜单都置亮
     this->setTreeDisable(false);
@@ -828,9 +835,9 @@ void MainWindow::initSpSheetByDefaultData()
     //表头
     this->fillSpreadsheetHeader(spreadsheet,1);
     //数据
-    this->fillSpreadsheet(spreadsheet,pjArea->begin(eDataType::ORI),pjArea->end(eDataType::ORI),1,4); //,true);
+    this->fillSpreadsheet(spreadsheet,pjArea->begin(eDataType::ORI),pjArea->end(eDataType::ORI),1,4,true);
     int countryNum = pjArea->getCountryNum();
-    spreadsheet->setFormula(0,6,"原始评价数据"); //是第6列而不是第4列是为了居中
+    spreadsheet->setFormula(0,4,"原始评价数据"); //是第6列而不是第4列是为了居中
     //spreadsheet->item(0,6)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
     spreadsheet->setFont(0,4,1,1,fontHei);
     spreadsheet->setFlags(0,4,1,1,Qt::ItemIsEditable);
@@ -955,7 +962,7 @@ void MainWindow::newFile()
     if (okToContinue()) {
         spreadsheet->clear();
         setCurrentFile("");
-        this->fillSpreadsheetHeader(spreadsheet,1,true);
+        this->fillSpreadsheetHeader(spreadsheet,0,true);
     }
 }
 
