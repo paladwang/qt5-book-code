@@ -64,6 +64,10 @@ void MainWindow::createInfo()
     spreadsheetResult = new Spreadsheet;
     spreadsheetResult->setHidden(true); //先不展示
 
+    //第四4个spreadsheet
+    spreadsheetEnd = new Spreadsheet;
+    spreadsheetEnd->setHidden(true);
+
     /*
     //paladwang 新增
     QIcon folderIcon(style()->standardPixmap(QStyle::SP_DirClosedIcon));
@@ -89,6 +93,7 @@ void MainWindow::createInfo()
     rightSplitter->addWidget(spreadsheet); //原始数据sheet
     rightSplitter->addWidget(spreadsheetGYH);//归一化sheet
     rightSplitter->addWidget(spreadsheetResult); //最终结果sheet
+    rightSplitter->addWidget(spreadsheetEnd);
 
     /*
     QWidget中有一个函数.hide();它相当于把一个widget设为不可见setVisible(false);想要恢复它也很容易，setVisible(true)即可。
@@ -101,9 +106,9 @@ void MainWindow::createInfo()
     chartView = new QChartView;
     chartView->hide();
     rightSplitter->addWidget(chartView);
-    charViewResult = new QChartView;
+    /*charViewResult = new QChartView;
     charViewResult->hide();
-    rightSplitter->addWidget(charViewResult);
+    rightSplitter->addWidget(charViewResult);*/
 
     //rightSplitter->addWidget(textEdit);
     rightSplitter->setStretchFactor(1, 1);
@@ -114,8 +119,8 @@ void MainWindow::createInfo()
     mainSplitter->setStretchFactor(1, 1);
     setCentralWidget(mainSplitter);
     //设置宽度(似乎不管用)
-    foldersTreeWidget->setMinimumWidth(300);
-    foldersTreeWidget->setMaximumWidth(500);
+    foldersTreeWidget->setMinimumWidth(400);
+    foldersTreeWidget->setMaximumWidth(550);
     //foldersTreeWidget->resizeColumnToContents(240);
     //设置背景色
     QPalette p(foldersTreeWidget->palette());
@@ -252,12 +257,13 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
     rightSplitter->widget(index)->setVisible(true);
 
     //debug
+    /*
     if(index==3) {
         drawOriData();
         rightSplitter->widget(index)->setVisible(true);
-    }
+    }*/
     if(index==4) {
-        drawResult();
+        drawOriData();//drawResult();
         rightSplitter->widget(index)->setVisible(true);
     }
 
@@ -346,6 +352,16 @@ void MainWindow::drawOriData() {
         item.push_back(0.006200099);
         item.push_back(0.002623373);
         charItem["油气资源潜力"]=item;
+    }
+    //最终结果
+    {
+        vector<double> item;
+        item.push_back(0.424745616);
+        item.push_back(0.514203585);
+        item.push_back(0.427164768);
+        item.push_back(0.509299788);
+        item.push_back(0.288547997);
+        charItem["最终得分"]=item;
     }
 
     drawChartView(chartView,title,cateGor,charItem);
@@ -673,6 +689,7 @@ void MainWindow::fillSpreadsheetHeader(Spreadsheet *form, int startRow, bool isI
             form->setSpan(spanRow,0,1,eTableProperties::ColumnCount);
             spanRow++;
         }
+        form->removeRow(--spanRow);
     }
 }
 
@@ -738,6 +755,7 @@ void MainWindow::fillSpreadsheet(Spreadsheet* form, countryIter begin,countryIte
             form->setSpan(spanRow,0,1,eTableProperties::ColumnCount);
             spanRow++;
         }
+        form->removeRow(--spanRow);
     }
 }
 
@@ -774,7 +792,17 @@ void MainWindow::parse()
     map<int,country*> mapResult = pjArea->m_mapCountryResult;
     this->fillSpreadsheetHeader(spreadsheetResult,1);
     this->fillSpreadsheet(spreadsheetResult,mapAll.begin(),mapAll.end(),1,4,false);
-    this->fillSpreadsheet(spreadsheetResult,mapResult.begin(),mapResult.end(),1,4+mapAll.size(),true);
+
+    //最终结果
+    this->fillSpreadsheetHeader(spreadsheetEnd,0);
+    this->fillSpreadsheet(spreadsheetEnd,mapResult.begin(),mapResult.end(),0,4,true);
+    //要把汇总值也加进去
+    spreadsheetEnd->setFormula(54,3,"汇总");
+    spreadsheetEnd->setFormula(54,4,QString::number(0.424745616));
+    spreadsheetEnd->setFormula(54,5,QString::number(0.514203585));
+    spreadsheetEnd->setFormula(54,6,QString::number(0.427164768));
+    spreadsheetEnd->setFormula(54,7,QString::number(0.509299788));
+    spreadsheetEnd->setFormula(54,8,QString::number(0.288547997));
 
     //把相应的树型菜单都置亮
     this->setTreeDisable(false);
@@ -791,11 +819,12 @@ void MainWindow::initSpSheetByDefaultData()
     fontHei.setBold(true);
 
     //表头
-    this->fillSpreadsheetHeader(spreadsheet,1,true);
+    this->fillSpreadsheetHeader(spreadsheet,1);
     //数据
-    this->fillSpreadsheet(spreadsheet,pjArea->begin(eDataType::ORI),pjArea->end(eDataType::ORI),1,4,true);
+    this->fillSpreadsheet(spreadsheet,pjArea->begin(eDataType::ORI),pjArea->end(eDataType::ORI),1,4); //,true);
     int countryNum = pjArea->getCountryNum();
-    spreadsheet->setFormula(0,4,"原始评价数据");
+    spreadsheet->setFormula(0,6,"原始评价数据"); //是第6列而不是第4列是为了居中
+    //spreadsheet->item(0,6)->setTextAlignment(Qt::AlignHCenter|Qt::AlignVCenter);
     spreadsheet->setFont(0,4,1,1,fontHei);
     spreadsheet->setFlags(0,4,1,1,Qt::ItemIsEditable);
     spreadsheet->setSpan(0,4,1,countryNum); //合并单元格

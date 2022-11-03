@@ -93,7 +93,8 @@ private:
 
     Spreadsheet *spreadsheet; //原始表
     Spreadsheet *spreadsheetGYH; //原始信息带归一化的表
-    Spreadsheet *spreadsheetResult; //带除了归一化外所有数据的表
+    Spreadsheet *spreadsheetResult; //带除了归一化和最终结果外所有数据的表
+    Spreadsheet *spreadsheetEnd; //只带最终结果
     FindDialog *findDialog;
     QLabel *locationLabel;
     QLabel *formulaLabel;
