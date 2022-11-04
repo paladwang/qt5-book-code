@@ -119,8 +119,8 @@ void MainWindow::createInfo()
     mainSplitter->setStretchFactor(1, 1);
     setCentralWidget(mainSplitter);
     //设置宽度(似乎不管用)
-    foldersTreeWidget->setMinimumWidth(400);
-    foldersTreeWidget->setMaximumWidth(550);
+    foldersTreeWidget->setMinimumWidth(350);
+    foldersTreeWidget->setMaximumWidth(450);
     //foldersTreeWidget->resizeColumnToContents(240);
     //设置背景色
     QPalette p(foldersTreeWidget->palette());
@@ -146,14 +146,19 @@ void MainWindow::setTreeDisable(bool bIsDisabled) {
     //遍历treeWidget
     QTreeWidgetItemIterator it(this->foldersTreeWidget);
     while (*it) {
+        string text = (*it)->text(0).toStdString();
+
         if (bIsDisabled) {
-            if ((*it)->text(0).toStdString()!=string("原始评价数据") || (*it)->text(0).toStdString()!=string("评价数据及结果")) {
+            if ((*it)->text(0)!=tr("初始数据录入") && (*it)->text(0)!=tr("评价数据") && (*it)->text(0)!=tr("油气投资环境评价")) {
+                 //QMessageBox::warning(this, tr("设置TreeWidget展示情况"), tr("curItem:(不展示:%1):%2").arg(text.c_str()));
                 (*it)->setDisabled(true); //除原始评价数据节点外其他节点皆变灰
             } else {
                 (*it)->setDisabled(false);
+                //QMessageBox::warning(this, tr("设置TreeWidget展示情况"), tr("curItem:(展示,%1):%2").arg(text.c_str()));
             }
         } else {
             (*it)->setDisabled(false);
+            //QMessageBox::warning(this, tr("设置TreeWidget展示情况"), tr("curItem:(展示,%1):%2").arg(text.c_str()));
         }
 
         ++it;
@@ -163,6 +168,8 @@ void MainWindow::setTreeDisable(bool bIsDisabled) {
     for(int i=1;i<rightSplitter->count();++i) {
         rightSplitter->widget(i)->hide();
     }
+    foldersTreeWidget->itemAt(0,0)->setSelected(true); //把"初始数据录入"选中
+    rightSplitter->widget(0)->setVisible(true);
 }
 
 bool MainWindow::setIsLoadDefaultData(bool isLoadDefaultData)
@@ -224,6 +231,7 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
     int index = -1;
     if(text.toStdString()==string("初始数据录入")) {
         index = 0;
+        //QMessageBox::warning(this, tr("切换数据"), tr("curItem:(%1,%2):%3").arg(row).arg(column).arg(text));
     } else  if(text.toStdString()==string("初始数据归一化")) {
         index = 1;
     } else  if(text.toStdString()==string("主要参数计算")) {
@@ -241,11 +249,11 @@ void MainWindow::shiftFile(QTreeWidgetItem *item, int column)
 
     //把之前的选中去掉,然后设置最新的选中
     //遍历treeWidget
-    QTreeWidgetItemIterator it(this->foldersTreeWidget);
+    /*QTreeWidgetItemIterator it(this->foldersTreeWidget);
     while (*it) {
         (*it)->setSelected(false); //设置为未选中
         ++it;
-    }
+    }*/
     item->setSelected(true); //当前节点设置为选中
 
     //先把所有的widget隐藏起来
@@ -963,6 +971,8 @@ void MainWindow::newFile()
         spreadsheet->clear();
         setCurrentFile("");
         this->fillSpreadsheetHeader(spreadsheet,0,true);
+        this->setTreeDisable(true);
+        this->m_bIsNewSheet = true;
     }
 }
 
