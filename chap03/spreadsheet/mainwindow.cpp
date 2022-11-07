@@ -1062,8 +1062,8 @@ void MainWindow::sort()
 }
 void MainWindow::about()
 {
-    QMessageBox::about(this, tr("关于延长石油区块经济评价模块说明"),
-            tr("<h2>延长石油区块经济评价模块V1.0</h2>"
+    QMessageBox::about(this, tr("关于延长石油集团海外油气投资环境评价软件说明"),
+            tr("<h2>延长石油集团海外油气投资环境评价软件V1.0</h2>"
                "<p>Copyright &copy; 2022 Software Inc."
                "<p>此软件采用标准差修正G1法确定指标权重，既能反映专家意见又能体现指标的数据信息。"
                "用户输入相应地区（国家)的初始评价数据后，点击Parse(或对应的快捷工具按钮)，"
