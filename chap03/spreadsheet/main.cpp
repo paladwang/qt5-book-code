@@ -7,6 +7,9 @@
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
+    MainWindow mainWin;
+    //mainWin.show();
+    mainWin.setHidden(true);
 
     ///////////////////////////////////
     //登录
@@ -15,11 +18,14 @@ int main(int argc, char *argv[])
     {
         return 0;
     }
+
+    mainWin.setHidden(false);
+    mainWin.show();
     delete dlg;
     ///////////////////////////////////
 
-    MainWindow mainWin;
+
     //Widget mainWin;
-    mainWin.show();
+    //mainWin.show();
     return app.exec();
 }

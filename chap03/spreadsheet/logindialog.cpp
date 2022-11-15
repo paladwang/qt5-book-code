@@ -47,6 +47,7 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
     //pwdEditLine->move(240, 150);
     pwdEditLine->setGeometry(300,190,600,80);
     pwdEditLine->setPlaceholderText(tr("请输入密码"));
+    pwdEditLine->setEchoMode(QLineEdit::Password);
     pwdEditLine->setFont(fontNormal);
     pwdEditLine->setStyleSheet("border:2px solid white;background-color:rgb(255,255,255,70%);border-width:1;border-radius:5px;border-style:outset");
 
