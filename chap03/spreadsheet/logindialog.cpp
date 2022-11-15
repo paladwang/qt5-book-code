@@ -12,51 +12,45 @@
 
 LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
 {
+
     //黑体加粗
     QFont fontHei = QFont("SimHei",16);
     fontHei.setBold(true);
     QFont fontNormal = QFont("Arial",16);
 
     userLabel = new QLabel(this);
-    userLabel->move(70, 80);
+    //userLabel->move(70, 80);
+    userLabel->setGeometry(70,80,240,80);
     userLabel->setText(tr("用户名:"));
     userLabel->setFont(fontHei);
 
-    /*
-QLable *nameLabel = new QLabel( this );
-QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-sizePolicy.setHorizontalStretch(0);
-sizePolicy.setVerticalStretch(0);
-sizePolicy.setHeightForWidth(nameLabel->sizePolicy().hasHeightForWidth());
-nameLabel->setSizePolicy(sizePolicy);
-nameLabel->setWordWrap(true);
-     */
-
     userEditLine = new QLineEdit(this);
+    userEditLine->setGeometry(300,80,600,80);
     //userEditLine->move(240, 80);
-    userEditLine->setGeometry(240,80,16,20);
     userEditLine->setPlaceholderText(tr("请输入用户名"));
-    userEditLine->setMaxLength(300);
     userEditLine->setFont(fontNormal);
     userEditLine->setFocus();
 
     pwdLabel = new QLabel(this);
-    pwdLabel->move(70, 150);
-    pwdLabel->setText(tr("密码:"));
-    pwdLabel->setFont(fontHei);
+    //pwdLabel->move(70, 150);
+    pwdLabel->setGeometry(70,190,240,80);
+    pwdLabel->setText(tr("密  码:"));
     pwdLabel->setFont(fontHei);
 
     pwdEditLine = new QLineEdit(this);
-    pwdEditLine->move(240, 150);
+    //pwdEditLine->move(240, 150);
+    pwdEditLine->setGeometry(300,190,600,80);
     pwdEditLine->setPlaceholderText(tr("请输入密码"));
     pwdEditLine->setFont(fontNormal);
 
     loginBtn = new QPushButton(this);
-    loginBtn->move(50, 200);
+    //loginBtn->move(50, 200);
+    loginBtn->setGeometry(300,340,200,80);
     loginBtn->setText(tr("登录"));
 
     exitBtn = new QPushButton(this);
-    exitBtn->move(210, 200);
+    //exitBtn->move(210, 200);
+    exitBtn->setGeometry(700,340,200,80);
     exitBtn->setText(tr("退出"));
 
     //信号与槽关联
