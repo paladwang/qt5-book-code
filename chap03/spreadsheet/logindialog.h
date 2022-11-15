@@ -6,6 +6,7 @@
 class QLabel;
 class QLineEdit;
 class QPushButton;
+class QSplashScreen;
 
 
 class LoginDialog : public QDialog
@@ -15,6 +16,13 @@ public:
     explicit LoginDialog(QWidget *parent = 0);
     ~LoginDialog();
 
+//槽函数
+private slots:
+    void login();
+
+protected:
+    void paintEvent(QPaintEvent *event);
+    void focusInEvent(QFocusEvent * event);
 
 private:
     QLabel *userLabel;
@@ -25,6 +33,8 @@ private:
 
     QPushButton *loginBtn;
     QPushButton *exitBtn;
+
+    QSplashScreen * splash; //启动画面
 };
 
 #endif // LOGINDIALOG_H
