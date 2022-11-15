@@ -8,6 +8,7 @@
 #include <QSplashScreen>
 #include <QGuiApplication>
 #include <QScreen>
+#include <QCryptographicHash>
 
 LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
 {
@@ -81,11 +82,26 @@ void LoginDialog::paintEvent(QPaintEvent *event)
     painter.fillRect(rect(), QColor(50, 50, 50, 0));
 }
 
+bool LoginDialog::checkPwd(QString& userin_pwd)
+{
+    const QString pwdout("506D512A0047279A4495859ACAF61462");
+    QString signSrc("user=hwzx&key=35C89E416BF8D95F7B6F65252A49A174&pwdin=");
+    signSrc += userin_pwd;
+
+    QByteArray bb = QCryptographicHash::hash(signSrc.toLocal8Bit(), QCryptographicHash::Md5);
+    if (pwdout!=bb.toHex().toUpper().data())
+    {
+        return false;
+    }
+    return true;
+}
+
 void LoginDialog::login()
 {
+    QString pwdin = pwdEditLine->text().trimmed();
+
     //判断用户名和密码是否正确
-    if (userEditLine->text().trimmed() == tr("tom") &&
-            pwdEditLine->text() == tr("123456"))
+    if (userEditLine->text().trimmed() == tr("hwzx") && checkPwd(pwdin))
     {
         accept();
     }

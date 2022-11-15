@@ -23,6 +23,7 @@ private slots:
 protected:
     void paintEvent(QPaintEvent *event);
     void focusInEvent(QFocusEvent * event);
+    bool checkPwd(QString& userin_pwd);
 
 private:
     QLabel *userLabel;
