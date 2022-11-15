@@ -18,6 +18,7 @@ HEADERS += cell.h \
            country.h \
            finddialog.h \
            gotocelldialog.h \
+           logindialog.h \
            mainwindow.h \
            onelevel.h \
            onelevel.h \
@@ -32,6 +33,7 @@ FORMS += gotocelldialog.ui sortdialog.ui
 SOURCES += cell.cpp \
            finddialog.cpp \
            gotocelldialog.cpp \
+           logindialog.cpp \
            main.cpp \
            mainwindow.cpp \
            sortdialog.cpp \

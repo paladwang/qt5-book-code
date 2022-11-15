@@ -18,5 +18,6 @@
         <file>images/new128.png</file>
         <file>images/open128.png</file>
         <file>images/save128.png</file>
+        <file>images/win10.jpg</file>
     </qresource>
 </RCC>
