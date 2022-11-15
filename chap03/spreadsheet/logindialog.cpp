@@ -17,41 +17,53 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
     QFont fontHei = QFont("SimHei",16);
     fontHei.setBold(true);
     QFont fontNormal = QFont("Arial",16);
+    QFont fontButton = QFont("Arial",14);
 
     userLabel = new QLabel(this);
     //userLabel->move(70, 80);
     userLabel->setGeometry(70,80,240,80);
     userLabel->setText(tr("用户名:"));
     userLabel->setFont(fontHei);
+    userLabel->setStyleSheet("color:white;");
 
     userEditLine = new QLineEdit(this);
     userEditLine->setGeometry(300,80,600,80);
     //userEditLine->move(240, 80);
     userEditLine->setPlaceholderText(tr("请输入用户名"));
+    //userEditLine->setStyleSheet("border:1px solid white;background:transparent;border-width:1;border-radius:5px;border-style:outset");
+    //userEditLine->setAttribute(Qt::WA_TranslucentBackground, true);
     userEditLine->setFont(fontNormal);
     userEditLine->setFocus();
+    userEditLine->setStyleSheet("border:2px solid white;background-color:rgb(255,255,255,70%);border-width:1;border-radius:5px;border-style:outset");
 
     pwdLabel = new QLabel(this);
     //pwdLabel->move(70, 150);
     pwdLabel->setGeometry(70,190,240,80);
     pwdLabel->setText(tr("密  码:"));
     pwdLabel->setFont(fontHei);
+    pwdLabel->setStyleSheet("color:white;");
 
     pwdEditLine = new QLineEdit(this);
     //pwdEditLine->move(240, 150);
     pwdEditLine->setGeometry(300,190,600,80);
     pwdEditLine->setPlaceholderText(tr("请输入密码"));
     pwdEditLine->setFont(fontNormal);
+    pwdEditLine->setStyleSheet("border:2px solid white;background-color:rgb(255,255,255,70%);border-width:1;border-radius:5px;border-style:outset");
 
     loginBtn = new QPushButton(this);
     //loginBtn->move(50, 200);
     loginBtn->setGeometry(300,340,200,80);
-    loginBtn->setText(tr("登录"));
+    loginBtn->setText(tr("登 录"));
+    loginBtn->setFont(fontButton);
+    loginBtn->setStyleSheet("color:white;background-color:rgb(85,170,255);border-radius:10px;border:3px groove gray;border-style:outset");
 
     exitBtn = new QPushButton(this);
     //exitBtn->move(210, 200);
     exitBtn->setGeometry(700,340,200,80);
-    exitBtn->setText(tr("退出"));
+    exitBtn->setText(tr("取 消"));
+    exitBtn->setFont(fontButton);
+    exitBtn->setStyleSheet("color:white;background-color:rgb(85,170,255);border-radius:10px;border:3px groove gray;border-style:outset");
+
 
     //信号与槽关联
     connect(loginBtn, &QPushButton::clicked, this, &LoginDialog::login);
