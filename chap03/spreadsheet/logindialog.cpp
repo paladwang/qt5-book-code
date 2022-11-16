@@ -10,6 +10,8 @@
 #include <QScreen>
 #include <QCryptographicHash>
 #include <QGridLayout>
+#include <QStyle>
+#include <QStyleFactory>
 
 LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
 {
@@ -191,7 +193,13 @@ void LoginDialog::login()
     }
     else
     {
-        QMessageBox::warning(this, tr("警告"), tr("用户名或者密码错误"), QMessageBox::Yes);
+        QMessageBox::warning(this, tr("警告"), tr("用户名或密码错误"), QMessageBox::Yes);
+        /*
+        QMessageBox messageBox(QMessageBox::NoIcon,
+                                   tr("警告"), tr("用户名或密码错误"),
+                                   QMessageBox::Yes, NULL);
+        messageBox.setStyle(QStyleFactory::create("windows"));
+        messageBox.exec();*/
     }
 
     userEditLine->clear();
