@@ -76,7 +76,7 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
     //设置启动背景
     //设置启动动画代替背景色
     this->splash = new QSplashScreen;
-    QPixmap pixmap(":/images/win10.jpg");
+    QPixmap pixmap(":/images/win10.png");
     QRect deskRect = QGuiApplication::screens().at(0)->availableGeometry();//默认启动程序在屏幕居中显示
     QPixmap m_pixmap = pixmap.scaled(deskRect.width() , deskRect.height() );
     splash->setPixmap(m_pixmap);
