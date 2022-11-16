@@ -19,13 +19,14 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
     fontHei.setBold(true);
     QFont fontNormal = QFont("Arial",16);
     QFont fontButton = QFont("Arial",14);
+    QFont fontLocation = QFont("Arial",6);
 
     userLabel = new QLabel(this);
     //userLabel->move(70, 80);
     //userLabel->setGeometry(70,80,240,80);
     userLabel->setText(tr("用户名:"));
     userLabel->setFont(fontHei);
-    userLabel->setStyleSheet("color:white;");
+    userLabel->setStyleSheet("color:rgb(47,49,139);");
 
     userEditLine = new QLineEdit(this);
     //userEditLine->setGeometry(300,80,600,80);
@@ -42,7 +43,7 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
     //pwdLabel->setGeometry(70,190,240,80);
     pwdLabel->setText(tr("密  码:"));
     pwdLabel->setFont(fontHei);
-    pwdLabel->setStyleSheet("color:white;");
+    pwdLabel->setStyleSheet("color:rgb(47,49,139);");
 
     pwdEditLine = new QLineEdit(this);
     //pwdEditLine->move(240, 150);
@@ -77,25 +78,37 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
     setLayout(mainLayout);*/
 
     QLabel* emptyLabel = new QLabel(this);
-    emptyLabel->setText(tr("        ")); //占位
-    emptyLabel->setFont(fontHei);
+    emptyLabel->setText(tr("")); //占位
+    emptyLabel->setFont(fontLocation);
     //emptyLabel->setStyleSheet("color:white;");
+
+    QLabel* emptyLabel1 = new QLabel(this);
+    emptyLabel1->setText(tr("       ")); //占位
+    emptyLabel1->setFont(fontHei);
+
     QLabel* emptyLabel2 = new QLabel(this);
-    emptyLabel2->setText(tr("   ")); //占位
+    emptyLabel2->setText(tr("    ")); //占位
     emptyLabel2->setFont(fontHei);
 
+    QHBoxLayout* upOneLayout = new QHBoxLayout;
+    upOneLayout->addWidget(userLabel);
+    upOneLayout->addWidget(userEditLine);
+    upOneLayout->setSpacing(8);
+
+    QHBoxLayout* upTwoLayout = new QHBoxLayout;
+    upTwoLayout->addWidget(pwdLabel);
+    upTwoLayout->addWidget(pwdEditLine);
+    upTwoLayout->setSpacing(8);
 
     QGridLayout* upLayout = new QGridLayout;
-    upLayout->addWidget(userLabel,0,0);
-    upLayout->addWidget(userEditLine,0,1);
-    upLayout->addWidget(pwdLabel,1,0);
-    upLayout->addWidget(pwdEditLine,1,1);
+    upLayout->addLayout(upOneLayout,0,0);
+    upLayout->addLayout(upTwoLayout,1,0);
     upLayout->setSpacing(20);
     //upLayout->addChildWidget();
     upLayout->addWidget(emptyLabel,2,0);
 
     QHBoxLayout* downLayout = new QHBoxLayout;
-    downLayout->addWidget(emptyLabel);
+    downLayout->addWidget(emptyLabel1);
     downLayout->addWidget(loginBtn);
     downLayout->addWidget(emptyLabel2);
     downLayout->addWidget(exitBtn);
