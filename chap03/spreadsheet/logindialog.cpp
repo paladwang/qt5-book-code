@@ -9,6 +9,7 @@
 #include <QGuiApplication>
 #include <QScreen>
 #include <QCryptographicHash>
+#include <QGridLayout>
 
 LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
 {
@@ -21,13 +22,13 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
 
     userLabel = new QLabel(this);
     //userLabel->move(70, 80);
-    userLabel->setGeometry(70,80,240,80);
+    //userLabel->setGeometry(70,80,240,80);
     userLabel->setText(tr("用户名:"));
     userLabel->setFont(fontHei);
     userLabel->setStyleSheet("color:white;");
 
     userEditLine = new QLineEdit(this);
-    userEditLine->setGeometry(300,80,600,80);
+    //userEditLine->setGeometry(300,80,600,80);
     //userEditLine->move(240, 80);
     userEditLine->setPlaceholderText(tr("请输入用户名"));
     //userEditLine->setStyleSheet("border:1px solid white;background:transparent;border-width:1;border-radius:5px;border-style:outset");
@@ -38,14 +39,14 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
 
     pwdLabel = new QLabel(this);
     //pwdLabel->move(70, 150);
-    pwdLabel->setGeometry(70,190,240,80);
+    //pwdLabel->setGeometry(70,190,240,80);
     pwdLabel->setText(tr("密  码:"));
     pwdLabel->setFont(fontHei);
     pwdLabel->setStyleSheet("color:white;");
 
     pwdEditLine = new QLineEdit(this);
     //pwdEditLine->move(240, 150);
-    pwdEditLine->setGeometry(300,190,600,80);
+    //pwdEditLine->setGeometry(300,190,600,80);
     pwdEditLine->setPlaceholderText(tr("请输入密码"));
     pwdEditLine->setEchoMode(QLineEdit::Password);
     pwdEditLine->setFont(fontNormal);
@@ -53,18 +54,55 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
 
     loginBtn = new QPushButton(this);
     //loginBtn->move(50, 200);
-    loginBtn->setGeometry(300,340,200,80);
+    //loginBtn->setGeometry(300,340,200,80);
     loginBtn->setText(tr("登 录"));
     loginBtn->setFont(fontButton);
     loginBtn->setStyleSheet("color:white;background-color:rgb(85,170,255);border-radius:10px;border:3px groove gray;border-style:outset");
 
     exitBtn = new QPushButton(this);
     //exitBtn->move(210, 200);
-    exitBtn->setGeometry(700,340,200,80);
+    //exitBtn->setGeometry(700,340,200,80);
     exitBtn->setText(tr("取 消"));
     exitBtn->setFont(fontButton);
     exitBtn->setStyleSheet("color:white;background-color:rgb(85,170,255);border-radius:10px;border:3px groove gray;border-style:outset");
 
+    QGridLayout* mainLayout = new QGridLayout;
+    /*mainLayout->addWidget(userLabel,0,0);
+    mainLayout->addWidget(userEditLine,0,1);
+    mainLayout->addWidget(pwdLabel,1,0);
+    mainLayout->addWidget(pwdEditLine,1,1);
+    mainLayout->setSpacing(100);
+    mainLayout->addWidget(loginBtn,2,0);
+    mainLayout->addWidget(exitBtn,2,1);
+    setLayout(mainLayout);*/
+
+    QLabel* emptyLabel = new QLabel(this);
+    emptyLabel->setText(tr("        ")); //占位
+    emptyLabel->setFont(fontHei);
+    //emptyLabel->setStyleSheet("color:white;");
+    QLabel* emptyLabel2 = new QLabel(this);
+    emptyLabel2->setText(tr("   ")); //占位
+    emptyLabel2->setFont(fontHei);
+
+
+    QGridLayout* upLayout = new QGridLayout;
+    upLayout->addWidget(userLabel,0,0);
+    upLayout->addWidget(userEditLine,0,1);
+    upLayout->addWidget(pwdLabel,1,0);
+    upLayout->addWidget(pwdEditLine,1,1);
+    upLayout->setSpacing(20);
+    //upLayout->addChildWidget();
+    upLayout->addWidget(emptyLabel,2,0);
+
+    QHBoxLayout* downLayout = new QHBoxLayout;
+    downLayout->addWidget(emptyLabel);
+    downLayout->addWidget(loginBtn);
+    downLayout->addWidget(emptyLabel2);
+    downLayout->addWidget(exitBtn);
+
+    mainLayout->addLayout(upLayout,0,0);
+    mainLayout->addLayout(downLayout,1,0);
+    setLayout(mainLayout);
 
     //信号与槽关联
     connect(loginBtn, &QPushButton::clicked, this, &LoginDialog::login);
