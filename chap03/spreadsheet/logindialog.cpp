@@ -113,12 +113,8 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
     downLayout->addWidget(emptyLabel2);
     downLayout->addWidget(exitBtn);
 
-    QRect rect;
-    rect.setX(500);
-    rect.setY(300);
     mainLayout->addLayout(upLayout,0,0);
     mainLayout->addLayout(downLayout,1,0);
-    mainLayout->setGeometry(rect);
     setLayout(mainLayout);
 
     //信号与槽关联
@@ -135,6 +131,9 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
     QRect deskRect = QGuiApplication::screens().at(0)->availableGeometry();//默认启动程序在屏幕居中显示
     QPixmap m_pixmap = pixmap.scaled(deskRect.width() , deskRect.height() );
     splash->setPixmap(m_pixmap);
+    splash->setWindowFlag(Qt::FramelessWindowHint);
+    splash->setAttribute(Qt::WA_TranslucentBackground, true);
+    splash->showFullScreen();
     splash->show();
 
     /*
