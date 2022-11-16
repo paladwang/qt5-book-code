@@ -83,7 +83,7 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
     //emptyLabel->setStyleSheet("color:white;");
 
     QLabel* emptyLabel1 = new QLabel(this);
-    emptyLabel1->setText(tr("       ")); //占位
+    emptyLabel1->setText(tr("      ")); //占位
     emptyLabel1->setFont(fontHei);
 
     QLabel* emptyLabel2 = new QLabel(this);
@@ -113,8 +113,12 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
     downLayout->addWidget(emptyLabel2);
     downLayout->addWidget(exitBtn);
 
+    QRect rect;
+    rect.setX(500);
+    rect.setY(300);
     mainLayout->addLayout(upLayout,0,0);
     mainLayout->addLayout(downLayout,1,0);
+    mainLayout->setGeometry(rect);
     setLayout(mainLayout);
 
     //信号与槽关联
