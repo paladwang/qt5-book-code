@@ -85,7 +85,7 @@ LoginDialog::LoginDialog(QWidget *parent):QDialog(parent)
     //emptyLabel->setStyleSheet("color:white;");
 
     QLabel* emptyLabel1 = new QLabel(this);
-    emptyLabel1->setText(tr("      ")); //占位
+    emptyLabel1->setText(tr("       ")); //占位
     emptyLabel1->setFont(fontHei);
 
     QLabel* emptyLabel2 = new QLabel(this);
